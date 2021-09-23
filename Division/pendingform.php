@@ -125,7 +125,7 @@
   <a href="division.php">Home</a>
 
   <a href="gpb.php">Create GPB</a>
-  <a href="pendingform.php">Submitted GPB</a>
+  <a href="pendingform.php">Submitted GPBs</a>
 
   <a href="gadar.php">GAD AR</a>
 
