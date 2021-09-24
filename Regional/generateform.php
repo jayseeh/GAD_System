@@ -187,10 +187,15 @@
           <td style="line-height: 1px; font-family: Bookman Old Style; font-size: 11px;">Agency: Department of Education - Region 1</td>
           <td style="line-height: 1px; font-family: Bookman Old Style; font-size: 11px; text-align: right;">Department (Central Office): Department of Education</td>
         </tr>
+        <?php
+          if($form_type=='GPB'){
+        ?>
         <tr>
           <td style="line-height: 1px; font-family: Bookman Old Style; font-size: 11px;" id="viewtotal"></td>
-          <td></td>
         </tr>
+        <?php
+          }
+        ?>
       </table>
       <table class="table table-bordered"  id="table_gad" CELLSPACING='0'>
         <tr>
@@ -217,7 +222,9 @@
 
           		if(mysqli_num_rows($query)>0){
           			while($row=mysqli_fetch_assoc($query)){
-          			$total_budget = $total_budget + $row['col7'];
+                if($form_type=='GPB'){
+          			   $total_budget = $total_budget + $row['col7'];
+                }
           	?>
 		          <tr>
                 <!-- class="html2pdf__page-break" -->
@@ -253,7 +260,9 @@
 
               if(mysqli_num_rows($query)>0){
                 while($row=mysqli_fetch_assoc($query)){
-                  $total_budget = $total_budget + $row['col7'];
+                  if($form_type=='GPB'){
+                   $total_budget = $total_budget + $row['col7'];
+                  }
                 
             ?>
               <tr>
