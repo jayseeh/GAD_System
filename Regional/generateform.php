@@ -192,6 +192,7 @@
         ?>
         <tr>
           <td style="line-height: 1px; font-family: Bookman Old Style; font-size: 11px;" id="viewtotal"></td>
+          <td></td>
         </tr>
         <?php
           }
