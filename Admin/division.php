@@ -43,7 +43,7 @@ if(empty($_SESSION['ulvl'])){
   left: 0;
   background-color:#0000b3; /* Blue */
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 30px;
+  padding-top: 35px;
 }
 
 /* The navigation menu links */
@@ -90,7 +90,7 @@ if(empty($_SESSION['ulvl'])){
 
 /* Add an active class to the active dropdown button */
 .active {
-  background-color: #0000e6;
+  background-color: #1a1aff;
   color: white;
 }
 
@@ -145,11 +145,21 @@ background-color: #e6b800;
           <img src="imgdiv/01.png" style="max-width:100px;" alt="">
         </div><br><br>
 
-  <a href="admin.php">Home</a>
 
-  <a data-toggle="modal" href="#add">Add Division</a>
+<a href="user.php">User Management</a>
 
-  <a href="user.php">User Management</a>
+  <a href="division.php"  class="active">Division Management</a>
+
+  <button class="dropdown-btn dropdown-toggle">Database
+    
+  </button>
+  <div class="dropdown-container">
+    <a class="dropdown-item" href="backup.php">Backup</a>
+    <a class="dropdown-item" href="restore.php">Restore</a>
+  </div>
+
+  <a data-toggle="modal" href="#logout">Logout</a>
+  <a href="#">Help</a>
 
 </div>
 
@@ -173,13 +183,19 @@ background-color: #e6b800;
 
 <div class="container-fluid">
 
-	 <h2>DIVISION</h2>
+   <h2>DIVISION</h2>
+   <div class="d-flex justify-content-start"> 
+  <a href="admin.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+</div>
          <section><br>
          <div class="card" style="width: 70rem;">
          <div class="card-body">
               <legend>List of Divisions</legend>
               <div class="d-flex justify-content-end"> 
                 <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
+              </div>
+              <div class="d-flex justify-content-start"> 
+                <a data-toggle="modal" href="#add" class="btn btn-success rounded-pill">Add Division</a>
               </div>
               <br>
 
@@ -206,7 +222,7 @@ background-color: #e6b800;
               echo "<td style='padding: 10px;' id='tdivision'>".$row['division']."</td>";
               ?>
 
-              <td><button class="btn btn-primary edit_user"  value="<?php echo $row['id']; ?>">
+              <td><button class="btn btn-primary rounded-pill edit_user"  value="<?php echo $row['id']; ?>">
                   <i class="bi bi-pencil-square">Edit</i>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -319,7 +335,7 @@ for (i = 0; i < dropdown.length; i++) {
       console.log($division);
         $.ajax({
           type: "POST",
-          url: "updatediv.php",
+          url: "",
           data: {
             id: $uid,
             division: $division,
@@ -400,7 +416,7 @@ for (i = 0; i < dropdown.length; i++) {
 <h4>Are you sure you want to save this Division?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md btncreate">
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md btncreate">
 </center>
 </div>
          

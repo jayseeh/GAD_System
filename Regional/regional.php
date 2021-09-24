@@ -36,7 +36,7 @@ require('../connect.php');
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
 
-    <style type="text/css">
+<style type="text/css">
   
 /* The sidebar menu */
 .sidenav {
@@ -46,14 +46,14 @@ require('../connect.php');
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color:  #3366ff; /* Black */
+  background-color:#0000b3; /* Blue */
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 20px;
+  padding-top: 35px;
 }
 
 /* The navigation menu links */
 .sidenav a {
-  padding: 6px 8px 6px 16px;
+  padding: 6px 8px 6px 30px;
   text-decoration: none;
   font-size: 18px;
   color: white;
@@ -62,13 +62,13 @@ require('../connect.php');
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .dropdown-btn:hover {
-  color: black;
+  color: yellow;
 }
 
 /* Style page content */
 .main {
   margin-left: 200px; /* Same as the width of the sidebar */
-  padding: 0px 10px;
+  padding: 0px 0px;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
@@ -78,7 +78,7 @@ require('../connect.php');
 }
 
 .dropdown-btn {
-  padding: 6px 8px 6px 16px;
+  padding: 6px 8px 6px 30px;
   text-decoration: none;
   font-size: 18px;
   color: white;
@@ -95,16 +95,28 @@ require('../connect.php');
 
 /* Add an active class to the active dropdown button */
 .active {
-  background-color: #999999;
+  background-color: #1a1aff;
   color: white;
 }
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
   display: none;
-  background-color: #262626;
+  background-color:black;
   padding-left: 8px;
 }
+
+ /* Modify the background color */
+ .navbar-custom {
+background-color: #e6b800;
+width: 1150px;
+
+}
+
+.navbar {
+  color: black;
+}
+
 
 </style>
 
@@ -135,13 +147,12 @@ require('../connect.php');
 
     <div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="sidenav border-right">
+        <div class="sidenav">
           <div class="d-flex justify-content-center">
           <img src="imgreg/01.png" style="max-width:100px;" alt="">
         </div><br><br>
 
   <a data-toggle="modal" href="#edit">Profile</a>
-  
 
   <a data-toggle="modal" href="#password">Change password</a>
 
@@ -161,12 +172,10 @@ require('../connect.php');
 
 
         <!-- Content -->
-        <div class="main col py-3">
+        <div class="main">
 
-      <div class="container-fluid">
-        
-                 
-                 <nav class="navbar  navbar-expand-lg navbar-light bg-light border-bottom">
+                
+                 <nav class="navbar navbar-custom navbar-expand-lg border-bottom">
                     <div class="container">          
                <ul class="navbar">
                  <li class="nav-item">
@@ -177,108 +186,18 @@ require('../connect.php');
                </ul>     
                    </div>
                 </nav>
-      </div>
-    
+
 
 <div class="container-fluid">
 
   <h2>HOME</h2>
-         
  
-
+ 
    </div>
    </div>
 </div>
  </div>
 
-
-    <!-- Navigation 
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top" role="navigation" >
-      <div class="container-fluid">
- 
-       <div class="col-lg-20 order-lg-20">
-            <div class="p-15">
-              <img src="imgreg/01.png" style="max-width:100px;" alt="">
-               <ul class="navbar-brand ml-auto">
-                 <li class="nav-item">
-              <h3>Department of Education</h3><h5>Regional Office I</h5>
-                </li>
-               </ul>
-            </div>
-          </div>
-        
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <div class="container-sm">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-               <a class="btn btn-primary" style="background-color: #4d4d4d; border: #4d4d4d;" href="#help" type="button">              
-               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-question-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                  <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
-                </svg>
-                 <i class="bi bi-question-circle">Help</i>
-               </a>
-            </li>
-          </ul>
-        </div>
-          <div class="container-sm">
-          <ul class="navbar-nav ml-auto">
-             <li class="nav-item">
-               <a class="btn btn-primary" href="divisionmanagement.php" style="background-color: #4d4d4d; border: #4d4d4d;" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-                     <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
-                   </svg>
-                <i class="bi bi-person-lines-fill">Division Management</i>
-               </a>                  
-            </li>
-          </ul>
-        </div>
-        <div class="container-sm">
-          <ul class="navbar-nav ml-auto">
-             <li class="nav-item">
-               <a class="btn btn-primary" href="report.php" style="background-color: #4d4d4d; border: #4d4d4d; color: white;"type="button">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
-                   <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
-                   <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
-                 </svg>
-                 <i class="bi bi-file-earmark-text">Reports</i>
-               </a>                  
-            </li>
-          </ul>
-        </div>
-          <div class="container-sm">
-          <ul class="navbar-nav ml-auto">
-             <li class="nav-item">
-               <a class="btn btn-primary" href="templates.php" style="background-color: #4d4d4d; border: #4d4d4d;" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" class="bi bi-upload" viewBox="0 0 16 16">
-                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-              </svg>
-              <i class="bi bi-upload">Templates</i>
-               </a>                  
-            </li>
-          </ul>
-        </div>
-         <div class="container-sm">
-          <ul class="navbar-nav ml-auto">
-             <li class="nav-item">
-               <a class="btn btn-primary" href="../logout.php" style="background-color: #4d4d4d; border: #4d4d4d; color: white;"type="button">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
-                  <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
-                </svg>
-                <i class="bi bi-box-arrow-left">Logout</i>
-               </a>                  
-            </li>
-          </ul>
-        </div>
-          
-        </div>
-
-
-      </div>
-    </nav><br><br><br><br><br>-->
 
 
         <!-- update user info -->
@@ -576,6 +495,8 @@ console.log($passW);
     </div>
     </form>
 
+    <br><br><br><br><br><br><br><br><br><br><br><br><br>
+
     <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">
@@ -587,26 +508,7 @@ console.log($passW);
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript">
-      function menuInit() {
-        var dropdown = document.getElementById("dropdown-item");
-        var submenu = document.getElementById("submenu");
 
-        dropdown.onmouseover = popOutMenu;
-        dropdown.onmouseout = hideDropdown;
-
-        submenu.onmouseover = popOutMenu;
-        submenu.onmouseout = hideDropdown;
-      }
-
-      function popOutMenu () {
-        submenu.className = "show-submenu";
-      }
-
-      function hideDropdown () {
-        submenu.className = "hide-submenu";
-    }
-    </script>
   
 
 

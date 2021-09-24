@@ -69,9 +69,24 @@ if (isset($_POST['login'])){
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
+<style type="text/css">
+  
+.form-rounded {
+border-radius: 1rem;
+}
+
+body{
+  background-color:#0000e6
+}
+header{
+background-color:white;
+}
+
+</style>
+
   </head>
 
-  <body style="background-color:#0000e6">
+  <body>
 
 
     <!-- Navigation -->
@@ -119,19 +134,18 @@ if (isset($_POST['login'])){
     <fieldset>
 
 <center>
-    <div class="card" style="width: 30rem;">
+    <div class="card border border-warning" style="width: 28rem;">
      <div class="card-body">
       <div class="container-fluid">
         <img src="img/01.png" style="max-width:100px;" alt="">
               <h3>Department of Education</h3><h5>Regional Office I</h5>
       </div>
-    <legend><b>Login Form</b></legend>
-        <label>Username: &nbsp;</label><input id="username" name="username" type="text"><br><br>
-        <label>Password: &nbsp;</label><input id="password" name="password" type="password"><br><br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
-        <input name="login" type="submit" value=" Login " class="btn btn-warning"> 
+        <input class="form-control form-rounded border border-info" id="username" name="username" type="text" placeholder="Username"><br>
+        <input class="form-control form-rounded border border-info"id="password" name="password" type="password" placeholder="Password"><br>
+        <!--Buttons-->
+        <input name="login" type="submit" value=" Login " class="btn btn-warning rounded-pill"> 
         &nbsp;
-        <input name="clear" type="reset" value=" Clear" class="btn btn-warning">
+        <input name="clear" type="reset" value=" Clear" class="btn btn-warning rounded-pill">
      </div>
     </div>
 </center>
@@ -140,7 +154,7 @@ if (isset($_POST['login'])){
   </div>
 <br><br><br><br><br><br><br><br>
 
-<header style="background-color:white;">
+<header>
      <section>
       <div class="container">
         <div class="row align-items-center">

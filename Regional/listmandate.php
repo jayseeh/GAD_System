@@ -129,17 +129,18 @@ width: 1150px;
         <div class="sidenav">
           <div class="d-flex justify-content-center">
           <img src="imgreg/01.png" style="max-width:100px;" alt="">
+
         </div><br><br>
 
- <a data-toggle="modal" href="#editprof">Profile</a>
+  <a data-toggle="modal" href="#editprof">Profile</a>
 
   <a data-toggle="modal" href="#changepassword">Change password</a>
 
   <a href="divisionmanagement.php">Division User Management</a>
 
-  <a href="mandates.php">DepEd Mandates</a>
+  <a href="mandates.php" class="active">DepEd Mandates</a>
 
-  <a href="reggpb.php" class="active">GPB</a>
+  <a href="reggpb.php">GPB</a>
 
   <a href="reggadar.php">GAD AR</a>
 
@@ -148,9 +149,13 @@ width: 1150px;
   <a href="#">Help</a>
 </div>
 
+
+
+
         <!-- Content -->
         <div class="main">
-                
+
+               
                  <nav class="navbar navbar-custom navbar-expand-lg border-bottom">
                     <div class="container">          
                <ul class="navbar">
@@ -161,118 +166,117 @@ width: 1150px;
                 </li>
                </ul>     
                    </div>
-                </nav>    
+                </nav>
+    
 
 <div class="container-fluid">
 
-  <h2>GAD Plan and Budget</h2>
-   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
-  <br><br>
-<div class="d-flex justify-content-center">
-    <fieldset>
+  <h2>Mandates</h2>
+  <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+<br><br>
 
-      
 
-  <div class="row">
-    <div class="container-fluid">
+
+
 
 <div class="card text-center" style="width: 70rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link" href="reggpb.php">Pending Forms</a>
+        <a class="nav-link"  href="mandates.php">Upload Mandates</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Approved GPB</a>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link" href="generateform.php?id=GPB">Generate Report</a>
+        <a class="nav-link active" aria-current="true">Mandate List</a>
       </li>
     </ul>
   </div>
   <div class="card-body">
+    <div class="d-flex justify-content-end"> 
+  <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
+</div>
+<br>
+<!--Display mandate-->
+  <div class="d-flex justify-content-center">
+
+    <div class="card border-primary mb-3" style="width: 70rem;">  
+  <div class="card-body">
+     <tr>
+
+                  <?php
+                   include("../connect.php");
+                   
+
+                   $sql="SELECT * FROM mandate";
+                   $result=mysqli_query($conn, $sql);
+                       ?>                  
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;"><h4>DepEd Order No.</h4></th>
+
+                                        <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;"><h4>DepEd Order Content</h4></th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody id="usertable">
+
+                                <?php
+
+                                if(mysqli_num_rows($result)>0){
+                                while($row=mysqli_fetch_assoc($result)){
+                                   ?>
+                                <tr>                                   
+                                    <td><?php echo $row['depedno'];?></td>
+
+                                    <td><?php echo $row['depedcontent'];?></td>
+                                    
+                                    
+                                      
+                                </tr>
+                                <?php } ?>
+                                 <?php } ?>
+                                </tbody>
+                            </table>
+                        
+           </tr>
 
 
-<h2>APPROVED FORMS</h2>
-         <section><br><br><br>
-              <legend>APPROVED FORMS</legend>
-              <div class="d-flex justify-content-end"> 
-                <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
-              </div>
-              <br>
-
-      <?php
-        include("../connect.php");
-
-        $sql="SELECT * FROM gad_form INNER JOIN caps ON gad_form.approver_id=caps.id WHERE form_status='APPROVED' and form_number LIKE '%GPB%' ORDER BY date_submitted";
-        $result=mysqli_query($conn, $sql);
-
-        echo "<table id='list' class='table table-hover'>";
-        
-          echo "<tr>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Form Number</th>";           
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Form Status</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Requestor Name</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Division</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Date Submitted</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Approver</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Date Approved</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; text-align: center;'>ACTION</th>";
-          echo "</tr>";
-          echo "<tbody id='usertable'>";
-
-        if(mysqli_num_rows($result)>0){
-          while($row=mysqli_fetch_assoc($result)){
-            $req_user = $row['requestor_id'];
-            $sql_req_name = mysqli_query($conn,"SELECT * FROM caps WHERE id ='$req_user'");
-            $fetch_req_user = mysqli_fetch_assoc($sql_req_name);
-            echo "<tr>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['form_number']."</td>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['form_status']."</td>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$fetch_req_user['firstname']." ".$fetch_req_user['lastname']."</td>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$fetch_req_user['location']."</td>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$row['date_submitted']."</td>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['firstname']." ".$row['lastname']."</td>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['date_approved']."</td>";
-              ?>
-            <td style='padding: 10px;border-bottom: 1px solid black;'><a class="btn btn-primary edit_status"  href="viewapprovedform.php?id=<?php echo $row['form_number'] ?>">
-                <i class="bi bi-pencil-square">VIEW
-                  <?php 
-                   /* if ($row['status']=='ACTIVE'){
-                      echo "Deactivate";      
-                    }else {
-                      echo "Reactivate";
-                    }*/
-                  ?>
-                
-                </i>
-                </a>
-              
-            </td>
-              <?php
-            echo "</tr>";
-          }
-        }
-        echo "</tbody>";
-        echo "</table";
-      ?>   
-    </section>
-
+    
+           </div>
+         </div>
+       </div>
   </div>
 </div>
-  
-   </div>
-   </div>
- </fieldset>
-</div>    
-</div>
-</div>
-  </div> 
-   </div>
 
-   
 
-   <!-- Update profile and password -->
+
+
+
+
+
+
+
+   </div><!--Container-->
+   </div>
+</div>
+ </div>
+
+
+<!--Search-->
+<script>
+$(document).ready(function(){
+  $("#search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#usertable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>  
+
+
+     
+<!-- Update profile and password -->
 
 
    <!-- update user info -->
@@ -542,6 +546,7 @@ console.log($passW);
  </div>
 </div>
 </form>
+
 
      
 <!-- Logout Modal -->

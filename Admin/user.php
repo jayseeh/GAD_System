@@ -43,7 +43,7 @@ if(empty($_SESSION['ulvl'])){
   left: 0;
   background-color:#0000b3; /* Blue */
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 30px;
+  padding-top: 35px;
 }
 
 /* The navigation menu links */
@@ -90,7 +90,7 @@ if(empty($_SESSION['ulvl'])){
 
 /* Add an active class to the active dropdown button */
 .active {
-  background-color: #0000e6;
+  background-color: #1a1aff;
   color: white;
 }
 
@@ -147,11 +147,20 @@ background-color: #e6b800;
           <img src="img/01.png" style="max-width:100px;" alt="">
         </div><br><br>
 
-  <a href="admin.php">Home</a>
-
-  <a data-toggle="modal" href="#add">Add User</a>
+  <a href="user.php" class="active">User Management</a>
 
   <a href="division.php">Division Management</a>
+
+  <button class="dropdown-btn dropdown-toggle">Database
+    
+  </button>
+  <div class="dropdown-container">
+    <a class="dropdown-item" href="backup.php">Backup</a>
+    <a class="dropdown-item" href="restore.php">Restore</a>
+  </div>
+
+  <a data-toggle="modal" href="#logout">Logout</a>
+  <a href="#">Help</a>
 
 </div>
 
@@ -177,11 +186,19 @@ background-color: #e6b800;
 <div class="container-fluid">
 
 <h2>USER</h2>
-         <section><br><br><br>
+<div class="d-flex justify-content-start"> 
+  <a href="admin.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+</div> 
+         <section><br>
+         <div class="card" style="width: 70rem;">
+         <div class="card-body">
               <legend>List of Users</legend>
               <div class="d-flex justify-content-end"> 
                 <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
               </div>
+              <div class="d-flex justify-content-start"> 
+                <a data-toggle="modal" href="#add" class="btn btn-success rounded-pill">Add User</a>
+              </div>             
               <br>
 
       <?php
@@ -221,7 +238,7 @@ background-color: #e6b800;
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tlocation'>".$row['location']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tstatus'>".$row['status']."</td>";?>
 
-              <td><button class="btn btn-primary edit_user"  value="<?php echo $row['id']; ?>">
+              <td><button class="btn btn-primary rounded-pill edit_user"  value="<?php echo $row['id']; ?>">
                   <i class="bi bi-pencil-square">Edit</i>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -249,7 +266,9 @@ background-color: #e6b800;
         }
         echo "</tbody>";
         echo "</table";
-      ?>   
+      ?>
+      </div>
+      </div>   
     </section>
   
    </div>
@@ -497,9 +516,8 @@ for (i = 0; i < dropdown.length; i++) {
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-3">Status:</label>
             <div class="col-sm-9">
-              <input type="text" name="status" class="form-control" id="addstatus" value="ACTIVE" readonly>
+              <input type="hidden" name="status" class="form-control" id="addstatus" value="ACTIVE" readonly>
             </div>
         </div>
       </div>
@@ -531,8 +549,7 @@ for (i = 0; i < dropdown.length; i++) {
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
 <input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md btncreate">
 </center>
-</div>
-         
+</div>        
        </div>
       </div>
     </div>
@@ -583,15 +600,19 @@ for (i = 0; i < dropdown.length; i++) {
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label col-sm-3">Userlevel:</label>
             <div class="col-sm-9">
-            	<label>Userlevel:</label>
-                <input type="text" class="form-control" type="text" name="userlevel" id="userlevel" value="<?php echo $row['userlevel']; ?>" readonly>              
+              <select class="form-control" name="userlevel" id="userlevel">
+                <option value="Regional GAD Coordinator">Regional GAD Coordinator</option>
+                <option value="Division GAD Coordinator">Division GAD Coordinator</option>
+              </select>
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label col-sm-3">Location:</label>
             <div class="col-sm-9">
-            	<label>Location:</label>
-                <input type="text" class="form-control" type="text" name="location" id="location" value="<?php echo $row['location']; ?>" readonly>              
+              <select class="form-control" name="location" id="location" >   
+              </select>
             </div>
         </div>
 
@@ -603,6 +624,27 @@ for (i = 0; i < dropdown.length; i++) {
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
          <a data-toggle="modal" href="#update" data-dismiss="modal" class="btn btn-primary">Update</a>      
     </div>         
+       </div>
+      </div>
+    </div>
+        <!-- Update Verification Modal -->
+ 
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+      <h3 class = "text-danger modal-title"></h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to update this user?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md update_user">
+</center>
+</div>
+         
        </div>
       </div>
     </div>    
@@ -636,29 +678,7 @@ for (i = 0; i < dropdown.length; i++) {
     </div>         
        </div>
       </div>
-    </div> 
-
-    <!-- Update Verification Modal -->
- 
-<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class = "modal-header">
-      <h3 class = "text-danger modal-title"></h3>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
-    </div>
-    <div class="modal-body">
-    <center>  
-<h4>Are you sure you want to update this user?</h4><br>
-
-<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md update_user">
-</center>
-</div>
-         
-       </div>
-      </div>
-    </div>   
+    </div>    
 </form>
 <!-- END MODAL FOR DEACTIVATE ACCOUNT Modal -->
 
@@ -679,7 +699,7 @@ for (i = 0; i < dropdown.length; i++) {
 <h4>Are you sure you want to logout?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="yes" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md ">
+<input type="submit" name="yes" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md ">
 </center>
 </div>
          
@@ -693,36 +713,68 @@ for (i = 0; i < dropdown.length; i++) {
 
 
 
-<!--On Change-->
+<!--On Change add-->
 <script>
-	$(document).ready(function(){
-		$('#adduserlevel').change(function(){
-			var	lvlselected = $('#adduserlevel').val();
-			
+  $(document).ready(function(){
+    $('#adduserlevel').change(function(){
+      var lvlselected = $('#adduserlevel').val();
+      
 
-			if (lvlselected == "Regional GAD Coordinator") {
-				$('#addlocation').html('<option>Region 1</option>');
-			}else if(lvlselected == "Division GAD Coordinator"){
-				
-				$.ajax({
-		          type: "POST",
-		          url: "locationoption.php",
-		          data: {
-		            lvlselected: lvlselected
-		          },
-		          success: function(data){
-		            $('#addlocation').html(data);
-		          }
-		        });
-				
-				
-			}else{
-				$('#addlocation').html('<option></option>');
-			}
-		})
+      if (lvlselected == "Regional GAD Coordinator") {
+        $('#addlocation').html('<option>Region 1</option>');
+      }else if(lvlselected == "Division GAD Coordinator"){
+        
+        $.ajax({
+              type: "POST",
+              url: "locationoption.php",
+              data: {
+                lvlselected: lvlselected
+              },
+              success: function(data){
+                $('#addlocation').html(data);
+              }
+            });
+        
+        
+      }else{
+        $('#addlocation').html('<option>loc</option>');
+      }
+    })
 
-	});
+  });
 </script>
+
+<!--On Change edit-->
+<script>
+  $(document).ready(function(){
+    $('#userlevel').change(function(){
+      var lvlselected = $('#userlevel').val();
+      
+
+      if (lvlselected == "Regional GAD Coordinator") {
+        $('#location').html('<option>Region 1</option>');
+      }else if(lvlselected == "Division GAD Coordinator"){
+        
+        $.ajax({
+              type: "POST",
+              url: "locationoption.php",
+              data: {
+                lvlselected: lvlselected
+              },
+              success: function(data){
+                $('#location').html(data);
+              }
+            });
+        
+        
+      }else{
+        $('#location').html('<option></option>');
+      }
+    })
+
+  });
+</script>
+
 
 
 

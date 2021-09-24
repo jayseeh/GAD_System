@@ -43,7 +43,7 @@ if(empty($_SESSION['ulvl'])){
   left: 0;
   background-color:#0000b3; /* Blue */
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 30px;
+  padding-top: 35px;
 }
 
 /* The navigation menu links */
@@ -90,7 +90,7 @@ if(empty($_SESSION['ulvl'])){
 
 /* Add an active class to the active dropdown button */
 .active {
-  background-color: #0000e6;
+  background-color: #1a1aff;
   color: white;
 }
 

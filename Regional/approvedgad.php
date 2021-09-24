@@ -144,8 +144,6 @@
 <div class="d-flex justify-content-center">
     <fieldset>
 
-      
-
   <div class="row">
     <div class="container-fluid">
 
@@ -216,20 +214,13 @@
   
    </div>
    </div>
+ </fieldset>
+</div>    
 </div>
-    
-</div>
-  <!--row-->
-</div>
-
-  
-  </fieldset>
+</div> 
   </div> 
+   </div>
 
-   </div>
-   </div>
-</div>
- </div>
 
 
    
