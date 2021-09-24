@@ -125,7 +125,7 @@
   <a href="division.php">Home</a>
 
   <a href="gpb.php">Create GPB</a>
-  <a href="pendingform.php">Submitted GPBs</a>
+  <a href="pendingform.php">Submitted GPB</a>
 
   <a href="gadar.php">GAD AR</a>
 
@@ -177,7 +177,7 @@
               if($row['form_status']!='PENDING'){
       
               ?>
-    	          <td style='padding: 10px;border-bottom: 1px solid black;'><a class="btn btn-primary edit_status"  href="viewform.php?id=<?php echo $row['form_number'] ?>">
+    	          <td style='padding: 10px;border-bottom: 1px solid black;'><a class="btn btn-primary edit_status"  href="viewapprovedform.php?id=<?php echo $row['form_number'] ?>">
                   <i class="bi bi-pencil-square">VIEW</i>
     	            </a>
     	           <?php

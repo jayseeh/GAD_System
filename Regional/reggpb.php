@@ -109,7 +109,7 @@
 
   <a href="approvedform.php">Approved GPB</a>
 
-  <a href="generateform.php">Generate List</a>
+  <a href="generateform.php?id=GPB">Generate List GPB</a>
 
   <a data-toggle="modal" href="#logout">Logout</a>
   <a href="#">Help</a>
@@ -160,7 +160,7 @@
       <?php
         include("../connect.php");
 
-        $sql="SELECT * FROM gad_form INNER JOIN caps ON gad_form.requestor_id=caps.id WHERE form_status='PENDING' ORDER BY date_submitted";
+        $sql="SELECT * FROM gad_form INNER JOIN caps ON gad_form.requestor_id=caps.id WHERE form_status='PENDING' and form_number LIKE '%GPB%' ORDER BY date_submitted";
         $result=mysqli_query($conn, $sql);
 
         echo "<table id='list' class='table table-hover'>";

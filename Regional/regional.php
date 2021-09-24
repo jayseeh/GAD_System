@@ -141,6 +141,7 @@ require('../connect.php');
         </div><br><br>
 
   <a data-toggle="modal" href="#edit">Profile</a>
+  
 
   <a data-toggle="modal" href="#password">Change password</a>
 
@@ -586,7 +587,26 @@ console.log($passW);
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+      function menuInit() {
+        var dropdown = document.getElementById("dropdown-item");
+        var submenu = document.getElementById("submenu");
 
+        dropdown.onmouseover = popOutMenu;
+        dropdown.onmouseout = hideDropdown;
+
+        submenu.onmouseover = popOutMenu;
+        submenu.onmouseout = hideDropdown;
+      }
+
+      function popOutMenu () {
+        submenu.className = "show-submenu";
+      }
+
+      function hideDropdown () {
+        submenu.className = "hide-submenu";
+    }
+    </script>
   
 
 

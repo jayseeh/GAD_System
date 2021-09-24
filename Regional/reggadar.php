@@ -107,9 +107,9 @@
 
   <a href="regional.php">Home</a>
 
-  <a href="#">Approved GPB</a>
+  <a href="approvedgad.php">Approved GAD AR</a>
 
-  <a href="#">Generate List</a>
+  <a href="generateform.php?id=GAD">Generate List GAD AR</a>
 
   <a data-toggle="modal" href="#logout">Logout</a>
   <a href="#">Help</a>
@@ -140,8 +140,84 @@
 
 <div class="container-fluid">
 
-  <h2>GAD Accomplishment Report</h2>
+  <h2>GAD Plan and Budget</h2>
+<div class="d-flex justify-content-center">
+    <fieldset>
 
+      
+
+  <div class="row">
+    <div class="container-fluid">
+
+<h2>PENDING FORMS</h2>
+         <section><br><br><br>
+              <legend>PENDING FORMS SUBMITTED</legend>
+              <div class="d-flex justify-content-end"> 
+                <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
+              </div>
+              <br>
+
+      <?php
+        include("../connect.php");
+
+        $sql="SELECT * FROM gad_form INNER JOIN caps ON gad_form.requestor_id=caps.id WHERE form_status='PENDING' and form_number LIKE '%GAD%' ORDER BY date_submitted";
+        $result=mysqli_query($conn, $sql);
+
+        echo "<table id='list' class='table table-hover'>";
+        
+          echo "<tr>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Form Number</th>";           
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Form Status</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Submitted By</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Date Submitted</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Division</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; text-align: center;'>ACTION</th>";
+          echo "</tr>";
+          echo "<tbody id='usertable'>";
+
+        if(mysqli_num_rows($result)>0){
+          while($row=mysqli_fetch_assoc($result)){
+            echo "<tr>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['form_number']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['form_status']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['firstname']." ".$row['lastname']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$row['date_submitted']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$row['location']."</td>";
+              ?>
+            <td style='padding: 10px;border-bottom: 1px solid black;'><a class="btn btn-primary edit_status"  href="viewform.php?id=<?php echo $row['form_number'] ?>">
+                <i class="bi bi-pencil-square">VIEW
+                  <?php 
+                   /* if ($row['status']=='ACTIVE'){
+                      echo "Deactivate";      
+                    }else {
+                      echo "Reactivate";
+                    }*/
+                  ?>
+                
+                </i>
+                </a>
+              
+            </td>
+              <?php
+            echo "</tr>";
+          }
+        }
+        echo "</tbody>";
+        echo "</table";
+      ?>   
+    </section>
+  
+   </div>
+   </div>
+</div>
+    
+</div>
+  <!--row-->
+</div>
+
+  
+  </fieldset>
+  </div> 
 
    </div>
    </div>

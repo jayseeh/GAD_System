@@ -10,6 +10,7 @@
   date_default_timezone_set("Asia/Singapore");
   $date = date('Y-m-d H-i-s');
   $total_budget=0;
+  $form_type = $_GET['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -134,11 +135,6 @@
         </div><br><br>
 
   <a href="regional.php">Home</a>
-
-  <a href="approvedform.php">Approved GPB</a>
-
-  <a href="generateform.php">Generate List</a>
-
   <a data-toggle="modal" href="#logout">Logout</a>
   <a href="#">Help</a>
 </div>
@@ -179,13 +175,13 @@
   <div class="row">
   <div class="col">
     <div class="card border-primary mb-3" >
-  <h4 class="card-header">All Approved GPB</h4 >
+  <h2 class="card-header"><center>All Approved <?php echo $form_type; ?> </center></h2 >
   <div class="card-body">
     <button onclick="generatePDF()">Export as PDF</button>
     <div class="col-sm-12" id="invoice">  
       <img src="imgreg/deped.png" style="width: 100px; height: 100px; display: block; margin-left: auto; margin-right: auto;">
       <center><p style="font-family: Old English Text MT;"><b><text style="font-size: 12px;">Republic of the Philippines</text><br><text style="font-size: 18px;">Department of Education</text></b><br><text style="font-size: 11px; font-family: Times New Roman;">Region I</text></p>
-      <p style="font-family: Bookman Old Style;"><b>ANNUAL GENDER AND DEVELOPMENT (GAD) PLAN AND BUDGET</b></p></center>
+      <p style="font-family: Bookman Old Style;"><b><?php echo ($form_type == 'GPB') ? 'ANNUAL GENDER AND DEVELOPMENT (GAD) PLAN AND BUDGET' : 'ANNUAL GENDER AND DEVELOPMENT (GAD) ACCOMPLISHMENT REPORT'; ?></b></p></center>
       <table class="table" style="font-family: Bookman Old Style;">
         <tr>
           <td style="line-height: 1px; font-family: Bookman Old Style; font-size: 11px;">Agency: Department of Education - Region 1</td>
@@ -203,16 +199,21 @@
             <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">GAD Result Statement/GAD Objective</th>
             <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Relevant Organization MFO/PAP</th>
             <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">GAD Activity</th>
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Output Performance Indicator/ Target</th>
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">GAD Budget</th>
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Source of Budget</th>
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Responsible Unit/ Office</th>   
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Output Performance Indicator/ Target' : 'Performance Indicator'; ?></th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'GAD Budget' : 'Actual Result (Outputs/Outcomes)'; ?></th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Source of Budget' : 'Total Agency Approved Budget'; ?></th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Responsible Unit/ Office' : 'Actual Cost/ Expenditure'; ?></th>   
+            <?php
+              if($form_type=='GAD'){
+                echo "<th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class='fonts-fam'>Variance/ Remarks</th>";
+              }
+            ?>
           </tr>
           <tr>
             <td colspan="9" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>CLIENT-FOCUSED</b></td>
           </tr>
           <?php
-          		$query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED' AND gad_table_entry_value.category_focused='CLIENT' ORDER BY gad_form.form_number");
+          		$query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED' AND gad_table_entry_value.category_focused='CLIENT' AND gad_form.form_number LIKE '%".$form_type."%' ORDER BY gad_form.form_number");
 
           		if(mysqli_num_rows($query)>0){
           			while($row=mysqli_fetch_assoc($query)){
@@ -229,17 +230,26 @@
 		            <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col7']; ?></td>
 		            <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col8']; ?></td>
 		            <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col9']; ?></td>
+                <?php
+                if($form_type=='GAD'){
+                  ?>
+                  <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col10']; ?></td>
+                  <?php
+                }
+                ?>
 		          </tr>
           	<?php 
 		          	}
-				}
+				      }else{
+                echo "<tr><td colspan='10' style='font-size: 10px' class='fonts-fam'>None</td></tr>";
+              }
           	?>
 
           <tr>
             <td colspan="9" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>ORGANIZATION-FOCUSED</b></td>
           </tr>
           <?php
-              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED' AND gad_table_entry_value.category_focused='ORGANIZATION' ORDER BY gad_form.form_number");
+              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED' AND gad_table_entry_value.category_focused='ORGANIZATION' AND gad_form.form_number LIKE '%".$form_type."%' ORDER BY gad_form.form_number");
 
               if(mysqli_num_rows($query)>0){
                 while($row=mysqli_fetch_assoc($query)){
@@ -257,6 +267,13 @@
                 <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col7']; ?></td>
                 <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col8']; ?></td>
                 <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col9']; ?></td>
+                <?php
+                if($form_type=='GAD'){
+                  ?>
+                  <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col10']; ?></td>
+                  <?php
+                }
+                ?>
               </tr>
               <input type="hidden" name="total_budget" id="total_budget" value="<?php echo $total_budget; ?>">
             <?php 

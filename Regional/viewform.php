@@ -4,6 +4,8 @@
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
   $form_number = $_GET['id'];
+  $str = explode("-", $form_number);
+  $form_type=$str[0];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
   $query_form = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN caps ON gad_form.requestor_id=caps.id WHERE gad_form.form_number='$form_number'");
   $fetch_form = mysqli_fetch_assoc($query_form);
@@ -146,7 +148,7 @@
 
 <div class="container-fluid">
 
-  <h2>Division Home</h2>
+  <h2>Regional</h2>
          
 
   <div class="d-flex justify-content-center">
@@ -184,10 +186,15 @@
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Result Statement/GAD Objective</th>
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Relevant Organization MFO/PAP</th>
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Activity</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Output Performance Indicator/ Target</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Budget</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Source of Budget</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Responsible Unit/ Office</th>  
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Output Performance Indicator/ Target' : 'Performance Indicator'; ?></th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'GAD Budget' : 'Actual Result (Outputs/Outcomes)'; ?></th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Source of Budget' : 'Total Agency Approved Budget'; ?></th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Responsible Unit/ Office' : 'Actual Cost/ Expenditure'; ?></th>  
+            <?php
+              if($form_type=='GAD'){
+                echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Variance/ Remarks</th>";
+              }
+            ?>
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Category FOCUSED</th>   
           </tr>
           <?php
@@ -208,6 +215,13 @@
 		            <td><?php echo $row['col7']; ?></td>
 		            <td><?php echo $row['col8']; ?></td>
 		            <td><?php echo $row['col9']; ?></td>
+                <?php
+                if($form_type=='GAD'){
+                  ?>
+                  <td><?php echo $row['col10']; ?></td>
+                  <?php
+                }
+                ?>
                 <td><?php echo $row['category_focused']; ?></td>
 		          </tr>
           	<?php 

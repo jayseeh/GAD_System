@@ -113,8 +113,7 @@
 
   <a href="regional.php">Home</a>
 
-  <a href="approvedform.php">Approved Forms</a>
-  
+  <a href="approvedform.php">Approved GPB</a>
 
   <a href="generateform.php">Generate List</a>
 
