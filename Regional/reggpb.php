@@ -154,7 +154,7 @@
               <legend>PENDING FORMS SUBMITTED</legend>
               <div class="d-flex justify-content-end"> 
                 <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
-              </div>
+              </div> 
               <br>
 
       <?php
