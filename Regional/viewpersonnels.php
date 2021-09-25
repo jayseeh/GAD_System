@@ -1,23 +1,17 @@
-<?php 
-  session_start();
-  include "../connect.php";
-  $user = $_SESSION['uid'];
-  $loc = $_SESSION['loc'];
-  $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
-  date_default_timezone_set("Asia/Singapore");
-  $date = date('Y-m-d H-i-s');
+<?php session_start(); 
 
-  if(empty($_SESSION['ulvl'])){
+if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
-
-require('../connect.php');
+  require('../connect.php');
  $un = $_SESSION['uid'];
 
   $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
   $sqlprofile = mysqli_query($conn, $queryprofile);
   $rowprofile = mysqli_fetch_array($sqlprofile);
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,35 +28,13 @@ require('../connect.php');
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--AJAX-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
-    <script>
-    $(document).ready(function(){
-      var number;
-      var d = new Date();
-      var n = d.getTime();
-      //console.log(n);
-      $("#form_id").val("GAD-"+n);
-      var number = parseInt($("#count_num").val())+1;
-      console.log(number);
 
-      //ADD ROWS FUNCTION
-      $("#add_rows").click(function(){
-        $("#numberOfRows").val(number);
-        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center; width: 50px;'></td><td><textarea rows='4' cols='10' name='val1-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val2-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val3-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val4-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val5-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val6-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val7-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val8-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val9-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val10"+number+"'></textarea></td><td><select name='cat-"+number+"'><option value='CLIENT'>Client-Focused</option><option value='ORGANIZATION'>Organization-Focused</option></select></td></tr>";
-        console.log(table);
-        $("#table_gad").html(table);
-
-        number = number +1;
-      });
-    });
-    </script>
-    
 
 <style type="text/css">
   
@@ -152,22 +124,24 @@ width: 1150px;
 
   <body>
 
-     <div class="container-fluid">
+    <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="sidenav">
           <div class="d-flex justify-content-center">
-          <img src="imgdiv/01.png" style="max-width:100px;" alt="">
+          <img src="imgreg/01.png" style="max-width:100px;" alt="">
         </div><br><br>
 
-  <a data-toggle="modal" href="#edit">Profile</a>
+  <a data-toggle="modal" href="#editprof">Profile</a>
 
-  <a data-toggle="modal" href="#password">Change password</a>
+  <a data-toggle="modal" href="#changepassword">Change password</a>
+
+  <a href="divisionmanagement.php">Division User Management</a>
 
   <a href="mandates.php">DepEd Mandates</a>
 
-  <a href="gpb.php">GPB</a>
+  <a href="reggpb.php" >GPB</a>
 
-  <a href="gadar.php" class="active">GAD AR</a>
+  <a href="reggadar.php" class="active">GAD AR</a>
 
   <a data-toggle="modal" href="#logout">Logout</a>
 
@@ -177,7 +151,8 @@ width: 1150px;
 
         <!-- Content -->
         <div class="main">
-                
+       
+                 
                  <nav class="navbar navbar-custom navbar-expand-lg border-bottom">
                     <div class="container">          
                <ul class="navbar">
@@ -188,113 +163,54 @@ width: 1150px;
                 </li>
                </ul>     
                    </div>
-                </nav>   
+                </nav>
+    
 
 <div class="container-fluid">
 
-  <h2>GAD Accomplishment Report</h2>
-  <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
- <a href="personnels.php" class="btn btn-success rounded-pill">Add Attendees</a>       
-<br><br>
-  <div class="d-flex justify-content-center">
-   <fieldset>
+  <h2>GAD Plan and Budget</h2>
+   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+    <a href="reggadar.php" class="btn btn-success rounded-pill">View Reports</a>  
+  <br><br>
+<div class="d-flex justify-content-center">
+    <fieldset>
 
   <div class="row">
     <div class="container-fluid">
 
 <div class="card text-center" style="width: 70rem;">
   <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Submit GAD AR</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="gadpendingform.php">Submitted GAD AR</a>
-      </li>
-    </ul>
+   
   </div>
   <div class="card-body">
 
-<form action="submitform.php" method="POST">
-   <div class="mb-3">
-    <label  class="col-sm-2 col-form-label">Form Number:</label>
-    <div class="col-sm-5">
-      <input type="text" name="form_id" id="form_id" readonly class="form-select form-control form-control-lg">
-    </div>
-    <label  class="col-sm-2 col-form-label">Division:</label><br>
-    <div class="col-sm-5">
-      <input type="text" name="division" id="division" readonly class="form-select form-control form-control-lg"  value="<?php echo $loc; ?>">
-    </div>
-    <div class="col-sm-2">  
-      <br>
-      <hr>
-      <p>Please fill up below table.</p>
-      <table class="table table-bordered col-sm-2"  id="table_gad">
-        <tr>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th> 
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Mandate/ Gender Issue /Agency Mandate</th>          
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Cause of the Gender Issue</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Result Statement/GAD Objective</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Relevant Organization MFO/PAP</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Activity</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Performance Indicator</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Actual Result (Outputs/Outcomes)</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Total Agency Approved Budget</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Actual Cost/ Expenditure</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Variance/ Remarks</th>   
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Category</th>   
-          </tr>
-          <tr>
-            <td><input type="text" id="count_num"  name="number_rows" readonly value="1" style="text-align: center; size: 1px; width: 50px;"></td>
-            <td><textarea rows="4" cols="10" name="val1-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val2-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val3-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val4-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val5-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val6-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val7-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val8-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val9-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val10-1" placeholder="Add text here"></textarea></td>
-            <td>
-              <select name="cat-1">
-                <option value="CLIENT">Client-Focused</option>
-                <option value="ORGANIZATION">Organization-Focused</option>
-              </select>
-            </td>
-          </tr>
-      </table>
-    </div>
-    <br>
-    <input type="hidden" name="form_type" value="GAD">
-    <input type="hidden" name="date_sub" value="<?php echo $date; ?>">
-    <input type="hidden" name="numberOfRows" value="1" id="numberOfRows">
-    <input type="button" name="add_rows" value="Add Row" id="add_rows">
-    <input type="Submit" name="submit" value="Submit">
 
-</div>
- </form>
+
+
   </div>
-   </div> 
-    </div>
-     </div>
-      </fieldset>
-       </div> 
-        </div>
-         </div>
-          </div>
-           </div>
+</div>
+  
+   </div>
+   </div>
+    </fieldset>
+</div>    
+</div>
+</div> 
+  </div> 
+   </div>
+
+   
+
+<!-- Update profile and password -->
 
 
-<!-- Update profile and password --> 
-
-<!-- update user info -->
+   <!-- update user info -->
   <script type = "text/javascript">
   $(document).ready(function(){
 
 
     //Update
-    $(document).on('click', '.update_user', function(){
+    $(document).on('click', '.update_profile', function(){
       $uid=$("#uuid").val();
       $username=$('#username').val();      
       $lastname=$('#lastname').val();
@@ -330,9 +246,11 @@ width: 1150px;
   
 </script>
 
+
+
  <!-- Edit Modal --> 
 <form class="" action="updateinfo.php" method="POST">
-<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="editprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -398,7 +316,7 @@ width: 1150px;
 <h4>Are you sure you want to save this update?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_profile">
 </center>
 </div>
          
@@ -470,7 +388,7 @@ function myFunction2() {
   <script type = "text/javascript">
   $(document).ready(function(){
 
-$(document).on('click', '.btnSubmit', function(){
+$(document).on('click', '.update_pword', function(){
 $uid = $('#uid').val();
 $passW = $('#confirm_pword').val();
 console.log($uid);
@@ -506,7 +424,7 @@ console.log($passW);
 
 <!-- Change Password Modal --> 
 <form class="" action="updatepword.php" method="POST">
-<div class="modal fade" id="password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
+<div class="modal fade" id="changepassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
@@ -546,14 +464,14 @@ console.log($passW);
 <div class="modal-footer">
         <input type="hidden" name="id" id="uuid" value="<?php echo $rowprofile['id'];?>">
         <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> |
-        <input type="button" class="btn btn-primary btnSubmit" id="btnupdate" value="Update">
+        <input type="button" class="btn btn-primary update_pword" id="btnupdate" value="Update">
 </div>
 
   </div>
  </div>
 </div>
 </form>
-   
+
      
 <!-- Logout Modal -->
  <form class="" action="../logout.php" method="POST">
@@ -576,11 +494,14 @@ console.log($passW);
 </center>
 </div>
          
+       </div>
+      </div>
     </div>
-  </div>
-</div>
-</form>
+    </form>
 
+
+    
+<br><br><br><br><br><br><br><br><br><br><br>
   <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">
@@ -596,5 +517,4 @@ console.log($passW);
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

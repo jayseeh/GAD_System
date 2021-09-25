@@ -170,6 +170,7 @@ width: 1150px;
 
   <h2>GAD Plan and Budget</h2>
    <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+    <a href="viewpersonnels.php" class="btn btn-success rounded-pill">Trained Personnels</a>  
   <br><br>
 <div class="d-flex justify-content-center">
     <fieldset>

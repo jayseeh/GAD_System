@@ -1,15 +1,12 @@
-<?php 
-  session_start();
-  include "../connect.php";
+<?php session_start(); 
+
+include "../connect.php";
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
-  date_default_timezone_set("Asia/Singapore");
-  $date = date('Y-m-d H-i-s');
 
-  if(empty($_SESSION['ulvl'])){
+if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
-
 
 require('../connect.php');
  $un = $_SESSION['uid'];
@@ -17,7 +14,11 @@ require('../connect.php');
   $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
   $sqlprofile = mysqli_query($conn, $queryprofile);
   $rowprofile = mysqli_fetch_array($sqlprofile);
+  
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,28 +42,6 @@ require('../connect.php');
 
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
-    <script>
-    $(document).ready(function(){
-      var number;
-      var d = new Date();
-      var n = d.getTime();
-      //console.log(n);
-      $("#form_id").val("GAD-"+n);
-      var number = parseInt($("#count_num").val())+1;
-      console.log(number);
-
-      //ADD ROWS FUNCTION
-      $("#add_rows").click(function(){
-        $("#numberOfRows").val(number);
-        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center; width: 50px;'></td><td><textarea rows='4' cols='10' name='val1-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val2-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val3-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val4-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val5-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val6-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val7-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val8-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val9-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val10"+number+"'></textarea></td><td><select name='cat-"+number+"'><option value='CLIENT'>Client-Focused</option><option value='ORGANIZATION'>Organization-Focused</option></select></td></tr>";
-        console.log(table);
-        $("#table_gad").html(table);
-
-        number = number +1;
-      });
-    });
-    </script>
-    
 
 <style type="text/css">
   
@@ -152,14 +131,34 @@ width: 1150px;
 
   <body>
 
-     <div class="container-fluid">
+<?php
+    include("../connect.php");
+    if(isset($_GET['id'])){
+      $id=$_GET['id'];
+
+
+      $sql="SELECT * FROM caps WHERE id='$id'";
+      $result=mysqli_query($conn, $sql);
+
+      if(mysqli_num_rows($result)>0){
+        while($row=mysqli_fetch_assoc($result)){
+
+
+
+    } 
+  }
+}
+  
+  ?>
+
+  <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="sidenav">
           <div class="d-flex justify-content-center">
           <img src="imgdiv/01.png" style="max-width:100px;" alt="">
         </div><br><br>
 
-  <a data-toggle="modal" href="#edit">Profile</a>
+   <a data-toggle="modal" href="#edit">Profile</a>
 
   <a data-toggle="modal" href="#password">Change password</a>
 
@@ -175,6 +174,17 @@ width: 1150px;
 </div>
 
 
+
+
+    
+
+
+
+
+
+
+
+
         <!-- Content -->
         <div class="main">
                 
@@ -188,107 +198,123 @@ width: 1150px;
                 </li>
                </ul>     
                    </div>
-                </nav>   
+                </nav>    
 
 <div class="container-fluid">
 
-  <h2>GAD Accomplishment Report</h2>
-  <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
- <a href="personnels.php" class="btn btn-success rounded-pill">Add Attendees</a>       
-<br><br>
-  <div class="d-flex justify-content-center">
-   <fieldset>
-
+  <h2>Trained personnels</h2>
+ <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+ <a href="gadar.php" class="btn btn-success rounded-pill">Submit GAD AR</a>  
+ <br><br>   
+ 
+    <fieldset>
   <div class="row">
     <div class="container-fluid">
 
-<div class="card text-center" style="width: 70rem;">
+    <div class="row">
+  <div class="col">
+ <div class="card" style="width: 70rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Submit GAD AR</a>
+        <a class="nav-link" href="personnels.php">Add Attendees</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="gadpendingform.php">Submitted GAD AR</a>
+        <a class="nav-link active" aria-current="true">Add Multiple Attendees</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="download.php">Download Template</a>
       </li>
     </ul>
   </div>
   <div class="card-body">
 
-<form action="submitform.php" method="POST">
+  <div class="d-flex justify-content-center">
+    <form action="uploadpersonnel.php" method="post" enctype="multipart/form-data">
+    <fieldset>
+
+      
+
+  <div class="row">
+  <div class="col">
+    <div class="card border-primary mb-3" style=" width: 70rem;">
+  <h4 class="card-header">Upload your file here for mulitple personnels</h4 >
+  <div class="card-body">
+    
    <div class="mb-3">
-    <label  class="col-sm-2 col-form-label">Form Number:</label>
-    <div class="col-sm-5">
-      <input type="text" name="form_id" id="form_id" readonly class="form-select form-control form-control-lg">
-    </div>
-    <label  class="col-sm-2 col-form-label">Division:</label><br>
+
+<label  class="col-sm-2 col-form-label">Division:</label><br>
     <div class="col-sm-5">
       <input type="text" name="division" id="division" readonly class="form-select form-control form-control-lg"  value="<?php echo $loc; ?>">
     </div>
-    <div class="col-sm-2">  
-      <br>
-      <hr>
-      <p>Please fill up below table.</p>
-      <table class="table table-bordered col-sm-2"  id="table_gad">
-        <tr>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th> 
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Mandate/ Gender Issue /Agency Mandate</th>          
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Cause of the Gender Issue</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Result Statement/GAD Objective</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Relevant Organization MFO/PAP</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Activity</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Performance Indicator</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Actual Result (Outputs/Outcomes)</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Total Agency Approved Budget</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Actual Cost/ Expenditure</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Variance/ Remarks</th>   
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Category</th>   
-          </tr>
-          <tr>
-            <td><input type="text" id="count_num"  name="number_rows" readonly value="1" style="text-align: center; size: 1px; width: 50px;"></td>
-            <td><textarea rows="4" cols="10" name="val1-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val2-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val3-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val4-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val5-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val6-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val7-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val8-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val9-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val10-1" placeholder="Add text here"></textarea></td>
-            <td>
-              <select name="cat-1">
-                <option value="CLIENT">Client-Focused</option>
-                <option value="ORGANIZATION">Organization-Focused</option>
-              </select>
-            </td>
-          </tr>
-      </table>
-    </div>
-    <br>
-    <input type="hidden" name="form_type" value="GAD">
-    <input type="hidden" name="date_sub" value="<?php echo $date; ?>">
-    <input type="hidden" name="numberOfRows" value="1" id="numberOfRows">
-    <input type="button" name="add_rows" value="Add Row" id="add_rows">
-    <input type="Submit" name="submit" value="Submit">
 
-</div>
- </form>
+  <label for="file" class="form-label">Upoad report here</label>
+  <input class="form-control" type="file" id="file" name="file[]" multiple><br>
+  
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button type="submit" name="submit" class="btn btn-primary rounded-pill">Upload</button>
   </div>
-   </div> 
+</div>
+
+
+
+  </div>
+</div>
+</div>
+  <!--row-->
+</div>
+
+  
+  </fieldset>
+  </form>
+
+  </div>
+</div>
+ </div>
+  </div>  
+   </div>
     </div>
-     </div>
-      </fieldset>
-       </div> 
-        </div>
-         </div>
-          </div>
-           </div>
+     </fieldset>
+
+  </div> 
+
+ 
 
 
+   </div>
+   </div>
+</div>
+ </div>
+<br><br><br><br><br><br>
+
+
+<script>
+    $(document).ready(function(){
+      var number;
+      var d = new Date();
+      var n = d.getTime();
+      //console.log(n);
+      $("#form_id").val("GAD-"+n);
+      var number = parseInt($("#count_num").val())+1;
+      console.log(number);
+
+      //ADD ROWS FUNCTION
+      $("#add_rows").click(function(){
+        $("#numberOfRows").val(number);
+        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center;' size='5'></td><td><input  type='text' name='personnel_name-"+number+"'size='40'></td><td><select name='position-"+number+"'style='height: 30px; width: 220px;'></select></td><td><select  name='gender-"+number+"'style='height: 30px; width: 80px;'></select></td></tr>";
+        console.log(table);
+        $("#table_gad").html(table);
+
+        number = number +1;
+      });
+    });
+    </script>
+
+
+    
 <!-- Update profile and password --> 
 
-<!-- update user info -->
+    <!-- update user info -->
   <script type = "text/javascript">
   $(document).ready(function(){
 
@@ -329,6 +355,7 @@ width: 1150px;
   
   
 </script>
+
 
  <!-- Edit Modal --> 
 <form class="" action="updateinfo.php" method="POST">
@@ -406,7 +433,6 @@ width: 1150px;
       </div>
     </div>
 </form>
-
 
 
 
@@ -553,8 +579,7 @@ console.log($passW);
  </div>
 </div>
 </form>
-   
-     
+
 <!-- Logout Modal -->
  <form class="" action="../logout.php" method="POST">
 <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -576,15 +601,17 @@ console.log($passW);
 </center>
 </div>
          
+       </div>
+      </div>
     </div>
-  </div>
-</div>
-</form>
+    </form>
+  
+<br><br><br><br><br><br><br>
 
   <!-- Footer -->
     <footer class="py-5 bg-black">
-      <div class="container">
-        <p class="m-0 text-center text-white small">GAD</p>
+      <div class="container-fluid">
+        <p class=" text-center text-white large">GAD</p>
       </div>
       <!-- /.container -->
     </footer>
@@ -596,5 +623,4 @@ console.log($passW);
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
