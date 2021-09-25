@@ -9,6 +9,8 @@
   $fetch_form = mysqli_fetch_assoc($query_form);
   date_default_timezone_set("Asia/Singapore");
   $date = date('Y-m-d H-i-s');
+  $str = explode("-", $form_number);
+  $form_type=$str[0];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,9 +68,9 @@
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color:  #3366ff; /* Black */
+  background-color:#0000b3; /* Blue */
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 20px;
+  padding-top: 35px;
 }
 
 /* The navigation menu links */
@@ -82,19 +84,59 @@
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .dropdown-btn:hover {
-  color: black;
+  color: yellow;
 }
 
 /* Style page content */
 .main {
   margin-left: 200px; /* Same as the width of the sidebar */
-  padding: 0px 10px;
+  padding: 0px 0px;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+.dropdown-btn {
+  padding: 6px 8px 6px 30px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: #1a1aff;
+  color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color:black;
+  padding-left: 8px;
+}
+
+ /* Modify the background color */
+ .navbar-custom {
+background-color: #e6b800;
+width: 1150px;
+
+}
+
+.navbar {
+  color: black;
 }
 
 
@@ -104,34 +146,34 @@
 
   <body>
 
-     <div class="container-fluid">
+    <div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="sidenav border-right">
+        <div class="sidenav">
           <div class="d-flex justify-content-center">
-          <img src="imgdiv/01.png" style="max-width:100px;" alt="">
+          <img src="imgreg/01.png" style="max-width:100px;" alt="">
         </div><br><br>
 
-  <a href="regional.php">Home</a>
+ <a data-toggle="modal" href="#editprof">Profile</a>
 
-  <a href="approvedform.php">Approved Forms</a>
-  
+  <a data-toggle="modal" href="#changepassword">Change password</a>
 
-  <a href="generateform.php">Generate List</a>
+  <a href="divisionmanagement.php">Division User Management</a>
+
+  <a href="mandates.php">DepEd Mandates</a>
+
+  <a href="reggpb.php" >GPB</a>
+
+  <a href="reggadar.php" class="active">GAD AR</a>
 
   <a data-toggle="modal" href="#logout">Logout</a>
+
   <a href="#">Help</a>
 </div>
 
-
-
-
         <!-- Content -->
-        <div class="main col py-3">
-
-      <div class="container-fluid">
-        
-                 
-                 <nav class="navbar  navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="main">
+                
+                 <nav class="navbar navbar-custom navbar-expand-lg border-bottom">
                     <div class="container">          
                <ul class="navbar">
                  <li class="nav-item">
@@ -141,9 +183,36 @@
                 </li>
                </ul>     
                    </div>
-                </nav>
-      </div>
-    
+                </nav>    
+
+<div class="container-fluid">
+
+  <h2>GAD Plan and Budget</h2>
+   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+  <br><br>
+<div class="d-flex justify-content-center">
+    <fieldset>
+
+      
+
+  <div class="row">
+    <div class="container-fluid">
+
+<div class="card text-center" >
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link" href="reggpb.php">Pending Forms</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true">Approved GAD</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="generateform.php?id=GAD">Generate Report</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">    
 
 <div class="container-fluid">
 
@@ -189,10 +258,15 @@
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Result Statement/GAD Objective</th>
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Relevant Organization MFO/PAP</th>
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Activity</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Output Performance Indicator/ Target</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Budget</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Source of Budget</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Responsible Unit/ Office</th>   
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Output Performance Indicator/ Target' : 'Performance Indicator'; ?></th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'GAD Budget' : 'Actual Result (Outputs/Outcomes)'; ?></th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Source of Budget' : 'Total Agency Approved Budget'; ?></th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Responsible Unit/ Office' : 'Actual Cost/ Expenditure'; ?></th>   
+            <?php
+              if($form_type=='GAD'){
+                echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Variance/ Remarks</th>";
+              }
+            ?>   
           </tr>
           <?php
           		$query = mysqli_query($conn,"SELECT * FROM gad_table_entry_value WHERE form_number = '$form_number' ORDER BY row_number");
@@ -212,6 +286,13 @@
 		            <td><?php echo $row['col7']; ?></td>
 		            <td><?php echo $row['col8']; ?></td>
 		            <td><?php echo $row['col9']; ?></td>
+                <?php
+                if($form_type=='GAD'){
+                  ?>
+                  <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col10']; ?></td>
+                  <?php
+                }
+                ?>
 		          </tr>
           	<?php 
 		          	}

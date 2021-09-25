@@ -180,7 +180,7 @@ width: 1150px;
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link" href="reggpb.php">Pending Forms</a>
+        <a class="nav-link" href="reggadar.php">Pending Forms</a>
       </li>
       <li class="nav-item">
         <a class="nav-link active" aria-current="true">Approved GAD</a>
