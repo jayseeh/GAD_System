@@ -162,6 +162,7 @@ width: 1150px;
   <a href="gpb.php">GPB</a>
 
   <a href="gadar.php">GAD AR</a>
+  <a href="attendees.php">Upload Attendees</a>
 
   <a data-toggle="modal" href="#logout">Logout</a>
 

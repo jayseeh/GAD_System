@@ -139,7 +139,7 @@ width: 1150px;
 
   <a href="mandates.php">DepEd Mandates</a>
 
-  <a href="reggpb.php">GPB</a>
+  <a href="reggpb.php" >GPB</a>
 
   <a href="reggadar.php" class="active">GAD AR</a>
 
@@ -151,7 +151,8 @@ width: 1150px;
 
         <!-- Content -->
         <div class="main">
-                
+       
+                 
                  <nav class="navbar navbar-custom navbar-expand-lg border-bottom">
                     <div class="container">          
                <ul class="navbar">
@@ -162,31 +163,110 @@ width: 1150px;
                 </li>
                </ul>     
                    </div>
-                </nav>   
+                </nav>
+    
 
 <div class="container-fluid">
 
-  <h2>GAD Accomplishment Report</h2>
+  <h2>GAD Plan and Budget</h2>
    <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
   <br><br>
 <div class="d-flex justify-content-center">
+    <fieldset>
 
-</div>
-    
-</div>
-  <!--row-->
-</div>
+  <div class="row">
+    <div class="container-fluid">
 
+<div class="card text-center" style="width: 70rem;">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true">Pending Forms</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="approvedgad.php">Approved GAD</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="generateform.php?id=GAD">Generate Report</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+
+
+<h2>PENDING FORMS</h2>
+         <section><br><br><br>
+              <legend>PENDING FORMS SUBMITTED</legend>
+              <div class="d-flex justify-content-end"> 
+                <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
+              </div> 
+              <br>
+
+      <?php
+        include("../connect.php");
+
+        $sql="SELECT * FROM gad_form INNER JOIN caps ON gad_form.requestor_id=caps.id WHERE form_status='PENDING' and form_number LIKE '%GAD%' ORDER BY date_submitted";
+        $result=mysqli_query($conn, $sql);
+
+        echo "<table id='list' class='table table-hover'>";
+        
+          echo "<tr>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Form Number</th>";           
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Form Status</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Submitted By</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Date Submitted</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Division</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; text-align: center;'>ACTION</th>";
+          echo "</tr>";
+          echo "<tbody id='usertable'>";
+
+        if(mysqli_num_rows($result)>0){
+          while($row=mysqli_fetch_assoc($result)){
+            echo "<tr>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['form_number']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['form_status']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['firstname']." ".$row['lastname']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$row['date_submitted']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$row['location']."</td>";
+              ?>
+            <td style='padding: 10px;border-bottom: 1px solid black;'><a class="btn btn-primary edit_status"  href="viewform.php?id=<?php echo $row['form_number'] ?>">
+                <i class="bi bi-pencil-square">VIEW
+                  <?php 
+                   /* if ($row['status']=='ACTIVE'){
+                      echo "Deactivate";      
+                    }else {
+                      echo "Reactivate";
+                    }*/
+                  ?>
+                
+                </i>
+                </a>
+              
+            </td>
+              <?php
+            echo "</tr>";
+          }
+        }
+        echo "</tbody>";
+        echo "</table";
+      ?>   
+    </section>
+
+  </div>
+</div>
   
-
+   </div>
+   </div>
+    </fieldset>
+</div>    
+</div>
+</div> 
   </div> 
-
    </div>
 
-
-
    
-   <!-- Update profile and password -->
+
+<!-- Update profile and password -->
 
 
    <!-- update user info -->

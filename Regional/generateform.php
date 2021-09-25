@@ -191,7 +191,7 @@ width: 1150px;
 
   <a href="mandates.php">DepEd Mandates</a>
 
-  <a href="reggpb.php" class="active">GPB</a>
+  <a href="reggpb.php">GPB</a>
 
   <a href="reggadar.php">GAD AR</a>
 
