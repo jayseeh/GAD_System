@@ -291,7 +291,7 @@ width: 1150px;
             ?>
           </tr>
           <tr>
-            <td colspan="9" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>CLIENT-FOCUSED</b></td>
+            <td colspan="10" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>CLIENT-FOCUSED</b></td>
           </tr>
           <?php
               $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED' AND gad_table_entry_value.category_focused='CLIENT' AND gad_form.form_number LIKE '%".$form_type."%' ORDER BY gad_form.form_number");
@@ -329,7 +329,7 @@ width: 1150px;
             ?>
 
           <tr>
-            <td colspan="9" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>ORGANIZATION-FOCUSED</b></td>
+            <td colspan="10" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>ORGANIZATION-FOCUSED</b></td>
           </tr>
           <?php
               $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED' AND gad_table_entry_value.category_focused='ORGANIZATION' AND gad_form.form_number LIKE '%".$form_type."%' ORDER BY gad_form.form_number");
@@ -363,7 +363,9 @@ width: 1150px;
               <input type="hidden" name="total_budget" id="total_budget" value="<?php echo $total_budget; ?>">
             <?php 
                 }
-        }
+            }else{
+                echo "<tr><td colspan='10' style='font-size: 10px' class='fonts-fam'>None</td></tr>";
+              }
             ?>
 
             

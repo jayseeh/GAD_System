@@ -191,7 +191,7 @@ width: 1150px;
 
 <div class="container-fluid">
 
-  <h2>HOME</h2>
+  <h2>Welcome <?php echo $_SESSION['full_name']; ?>. You are logged in as <?php echo $_SESSION['ulvl']; ?></h2>
  
  
    </div>

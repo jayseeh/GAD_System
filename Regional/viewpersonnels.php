@@ -10,6 +10,10 @@ if(empty($_SESSION['ulvl'])){
   $sqlprofile = mysqli_query($conn, $queryprofile);
   $rowprofile = mysqli_fetch_array($sqlprofile);
 
+//attendees functions 
+$query_at = mysqli_query($conn,"SELECT * FROM attendees ORDER BY id");
+$query_male = mysqli_query($conn,"SELECT * FROM attendees WHERE gender='Male'");
+$query_female = mysqli_query($conn,"SELECT * FROM attendees WHERE gender='Female'");
 ?>
 
 <!DOCTYPE html>
@@ -178,10 +182,20 @@ width: 1150px;
 
   <div class="row">
     <div class="container-fluid">
+    
 
-<div class="card text-center" style="width: 70rem;">
+
+<div class="card" style="width: 70rem;">
   <div class="card-header">
-   
+    <div class="mb-3">
+      <label  class="col-sm-4 col-form-label">Total Number of Attendees: <b><?php echo mysqli_num_rows($query_at); ?></b></label>
+    </div>
+    <div class="mb-3">
+      <label  class="col-sm-4 col-form-label">Total Number of Male: <b><?php echo mysqli_num_rows($query_male); ?></b></label>
+    </div>
+    <div class="mb-3">
+      <label  class="col-sm-4 col-form-label">Total Number of Female: <b><?php echo mysqli_num_rows($query_female); ?></b></label>
+    </div>
   </div>
   <div class="card-body">
 
