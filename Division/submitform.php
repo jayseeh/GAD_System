@@ -30,7 +30,11 @@ while ( $totalrows > 0) {
 	$count++;
 }
 if(mysqli_query($conn, "INSERT INTO gad_form (form_number,requestor_id,form_status,date_submitted) VALUES ('$form_id','$user','PENDING','$date_submitted')")){
-	echo "<script>alert('Successfully create a form'); window.location = 'gpb.php';</script>";
+	if($form_type=='GAD'){
+		echo "<script>alert('Successfully create a form'); window.location = 'gadar.php';</script>";
+	}else{
+		echo "<script>alert('Successfully create a form'); window.location = 'gpb.php';</script>";
+	}
 }else{
 	echo "Error updating records!" . mysqli_error($conn);
 }
