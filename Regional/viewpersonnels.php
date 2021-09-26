@@ -38,7 +38,27 @@ $query_female = mysqli_query($conn,"SELECT * FROM attendees WHERE gender='Female
 
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#position").change(function(){
+    //alert($(this).val());
+    console.log($(this).val());
+    var pos = $(this).val()
+    $.post("filterattendees.php",
+    {
+      position: $(this).val()   
+    },
+    function(data){
+      console.log(data);
+      $("#table_gad").html(data);
+      var count = $("#total_count").val();
+      $("#view_pos").html("Total Number of <b>"+pos+"</b>: <b>"+count+"</b>");
+      //alert("Data: " + data + "\nStatus: " + status);
+    });
+  });
+});
+</script>
 
 <style type="text/css">
   
@@ -196,9 +216,47 @@ width: 1150px;
     <div class="mb-3">
       <label  class="col-sm-4 col-form-label">Total Number of Female: <b><?php echo mysqli_num_rows($query_female); ?></b></label>
     </div>
+    <div class="mb-3">
+      <label  class="col-sm-4 col-form-label">Select Position to Filter</label>
+      <select  name="position-1" style="height: 30px; width: 220px;" id="position">
+         <option value=""></option>
+         <option value="Principal">Principal</option>
+         <option value="Master Teacher II">Master Teacher II</option>
+         <option value="Master Teacher I">Master Teacher I</option>
+         <option value="Department Head">Department Head</option>
+         <option value="Teacher III">Teacher III</option>
+         <option value="Teacher II">Teacher II</option>
+         <option value="Teacher I">Teacher I</option>
+         <option value="Administrative Assistant III">Administrative Assistant III</option>
+         <option value="Administrative Assistant II">Administrative Assistant II</option>
+         <option value="Administrative Assistant I">Administrative Assistant I</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label  class="col-sm-4 col-form-label" id="view_pos"></label>
+    </div>
   </div>
   <div class="card-body">
-
+    <table class="table table-bordered col-sm-2"  id="table_gad">
+        <tr>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Name</th> 
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Position</th>          
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender</th>   
+          </tr>
+          <?php
+            $count=1;
+            while($row = mysqli_fetch_assoc($query_at)){
+              echo "<tr>";
+              echo "<td style='height: 30px; width: 220px;'>".$count."</td>";
+              echo "<td>".$row['name']."</td>";
+              echo "<td>".$row['position']."</td>";
+              echo "<td>".$row['gender']."</td>";  
+              echo "</tr>";
+              $count++;
+            }
+          ?>
+      </table>
 
 
 
