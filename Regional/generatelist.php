@@ -10,6 +10,7 @@ if(empty($_SESSION['ulvl'])){
   $sqlprofile = mysqli_query($conn, $queryprofile);
   $rowprofile = mysqli_fetch_array($sqlprofile);
 
+$form_type = $_GET['id'];
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +29,7 @@ if(empty($_SESSION['ulvl'])){
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--AJAX-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
@@ -35,7 +37,17 @@ if(empty($_SESSION['ulvl'])){
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
+<script>
+      function generatePDF(){
+        const element = document.getElementById('invoice');
+        var opt = {
+          margin:       .5,
+          jsPDF:        {orientation: 'landscape' }
+        };
 
+        html2pdf().set(opt).from(element).save();
+      }
+    </script>
 <style type="text/css">
   
 /* The sidebar menu */
@@ -139,10 +151,13 @@ width: 1150px;
   <a href="divisionmanagement.php">Division User Management</a>
 
   <a href="mandates.php">DepEd Mandates</a>
-
-  <a href="reggpb.php" >GPB</a>
-
-  <a href="reggadar.php" class="active">GAD AR</a>
+  <?php
+    if($form_type=='GPB'){
+      echo '<a href="reggpb.php" class="active">GPB</a><a href="reggadar.php">GAD AR</a>';
+    }else{
+      echo '<a href="reggpb.php" >GPB</a><a href="reggadar.php" class="active">GAD AR</a>';
+    }
+  ?>  
 
   <a data-toggle="modal" href="#logout">Logout</a>
 
@@ -180,17 +195,12 @@ width: 1150px;
 <div class="card text-center" style="width: 70rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link" href="reggadar.php">Pending Forms</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Approved GAD</a>
-      </li>
+      <?php echo ($form_type == 'GPB') ? '<li class="nav-item"><a class="nav-link" href="reggpb.php">Pending Forms</a></li><li class="nav-item"><a class="nav-link" href="approvedform.php">Approved GPB</a></li>' : '<li class="nav-item"><a class="nav-link" href="reggadar.php">Pending Forms</a></li><li class="nav-item"><a class="nav-link" href="approvedgad.php">Approved GAD AR</a></li>'; ?>
        <li class="nav-item">
-        <a class="nav-link" href="generateform.php?id=GAD">Generate Report</a>
+        <?php echo ($form_type == 'GPB') ? '<a class="nav-link" href="generateform.php?id=GPB">Generate List</a>' : '<a class="nav-link " href="generateform.php?id=GAD">Generate Report</a>';?>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="generatelist.php?id=GAD">Generate List</a>
+        <a class="nav-link active" aria-current="true">Generate List</a>
       </li>
     </ul>
   </div>
@@ -198,30 +208,26 @@ width: 1150px;
 
 
 <h2>APPROVED FORMS</h2>
-         <section><br><br><br>
-              <legend>APPROVED FORMS</legend>
-              <div class="d-flex justify-content-end"> 
-                <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
-              </div>
-              <br>
-
+<button class="btn rounded-pill" style="background-color: #3366ff; color: white;" onclick="generatePDF()">Export as PDF</button><br>
+<br>
+<br>
+      <div class="col-sm-12" id="invoice">
+      <img src="imgreg/deped.png" style="width: 100px; height: 100px; display: block; margin-left: auto; margin-right: auto;">
+      <center><p style="font-family: Old English Text MT;"><b><text style="font-size: 12px;">Republic of the Philippines</text><br><text style="font-size: 18px;">Department of Education</text></b><br><text style="font-size: 11px; font-family: Times New Roman;">Region I</text></p></center>         
       <?php
         include("../connect.php");
 
-        $sql="SELECT * FROM gad_form INNER JOIN caps ON gad_form.approver_id=caps.id WHERE form_status='APPROVED' and form_number LIKE '%GAD%' ORDER BY date_submitted";
+        $sql="SELECT * FROM gad_form INNER JOIN caps ON gad_form.approver_id=caps.id WHERE form_status='APPROVED' and form_number LIKE '%".$form_type."%' ORDER BY date_submitted";
         $result=mysqli_query($conn, $sql);
 
         echo "<table id='list' class='table table-hover'>";
         
           echo "<tr>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Form Number</th>";           
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Form Status</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Requestor Name</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Division</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Date Submitted</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Approver</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Date Approved</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; text-align: center;'>ACTION</th>";
           echo "</tr>";
           echo "<tbody id='usertable'>";
 
@@ -231,28 +237,12 @@ width: 1150px;
             $sql_req_name = mysqli_query($conn,"SELECT * FROM caps WHERE id ='$req_user'");
             $fetch_req_user = mysqli_fetch_assoc($sql_req_name);
             echo "<tr>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['form_number']."</td>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['form_status']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$fetch_req_user['firstname']." ".$fetch_req_user['lastname']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$fetch_req_user['location']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$row['date_submitted']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['firstname']." ".$row['lastname']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['date_approved']."</td>";
               ?>
-            <td style='padding: 10px;border-bottom: 1px solid black;'><a class="btn btn-primary edit_status"  href="viewapprovedform.php?id=<?php echo $row['form_number'] ?>">
-                <i class="bi bi-pencil-square">VIEW
-                  <?php 
-                   /* if ($row['status']=='ACTIVE'){
-                      echo "Deactivate";      
-                    }else {
-                      echo "Reactivate";
-                    }*/
-                  ?>
-                
-                </i>
-                </a>
-              
-            </td>
               <?php
             echo "</tr>";
           }
@@ -261,7 +251,7 @@ width: 1150px;
         echo "</table";
       ?>   
     </section>
-
+  </div>
   </div>
 </div>
   

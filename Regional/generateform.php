@@ -239,12 +239,12 @@ width: 1150px;
     <ul class="nav nav-tabs card-header-tabs">
       
         <?php echo ($form_type == 'GPB') ? '<li class="nav-item"><a class="nav-link" href="reggpb.php">Pending Forms</a></li><li class="nav-item"><a class="nav-link" href="approvedform.php">Approved GPB</a></li>' : '<li class="nav-item"><a class="nav-link" href="reggadar.php">Pending Forms</a></li><li class="nav-item"><a class="nav-link" href="approvedgad.php">Approved GAD AR</a></li>'; ?>
-      
-      
-        
-      
        <li class="nav-item">
         <a class="nav-link active" aria-current="true">Generate Report</a>
+      </li>
+      <li class="nav-item">
+        <?php echo ($form_type == 'GPB') ? '<a class="nav-link" href="generatelist.php?id=GPB">Generate List</a>' : '<a class="nav-link " href="generatelist.php?id=GAD">Generate List</a>';?>
+        
       </li>
     </ul>
   </div>

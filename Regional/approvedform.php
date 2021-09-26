@@ -189,6 +189,9 @@ width: 1150px;
        <li class="nav-item">
         <a class="nav-link" href="generateform.php?id=GPB">Generate Report</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="generatelist.php?id=GPB">Generate List</a>
+      </li>
     </ul>
   </div>
   <div class="card-body">
