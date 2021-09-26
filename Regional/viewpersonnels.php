@@ -254,7 +254,7 @@ width: 1150px;
   <div class="card-body" id="invoice">
     <img src="imgreg/deped.png" style="width: 100px; height: 100px; display: block; margin-left: auto; margin-right: auto;">
     <center><p style="font-family: Old English Text MT;"><b><text style="font-size: 12px;">Republic of the Philippines</text><br><text style="font-size: 18px;">Department of Education</text></b><br><text style="font-size: 11px; font-family: Times New Roman;">Region I</text></p>
-    <table class="table table-bordered col-sm-2"  id="table_gad">
+    <table class="table table-bordered col-sm-6"  id="table_gad">
         <tr>
             <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Number</th>
             <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Name</th> 
