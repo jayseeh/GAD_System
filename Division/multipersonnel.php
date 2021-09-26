@@ -2,6 +2,8 @@
 
 include "../connect.php";
 include('PHPExcel/Classes/PHPExcel/IOFactory.php');
+date_default_timezone_set("Asia/Singapore");
+
 $html="";
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
@@ -23,11 +25,12 @@ require('../connect.php');
 
 
 if(isset($_POST['submit-files'])){
-  $html = "<p>Successfully added</p><table class='table table-bordered col-sm-2'  id='table_gad'><tr><th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th><th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Name</th> <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Position</th>          <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender</th></tr>";
-  $target_dir = "UploadedFile/";
+  $html = "<p>Successfully added</p><table class='table table-bordered col-sm-2'  id='table_gad'><tr><th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th><th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Name</th> <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Position</th><th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender</th></tr>";
+  $filen = date('YmdHis');
+  $target_dir = "UploadedFile/".$filen."-";
   $target_file = $target_dir . basename($_FILES["file-excel"]["name"]);
   //$uploadOk = 1;
-  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+  //$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
   move_uploaded_file($_FILES["file-excel"]["tmp_name"], $target_file);
   $obj = PHPExcel_IOFactory::load($target_file);
   
