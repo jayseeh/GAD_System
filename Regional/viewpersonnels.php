@@ -32,6 +32,7 @@ $query_female = mysqli_query($conn,"SELECT * FROM attendees WHERE gender='Female
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--AJAX-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
@@ -59,6 +60,17 @@ $(document).ready(function(){
   });
 });
 </script>
+<script>
+      function generatePDF(){
+        const element = document.getElementById('invoice');
+        var opt = {
+          margin:       .5,
+          jsPDF:        {orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save();
+      }
+    </script>
 
 <style type="text/css">
   
@@ -140,7 +152,9 @@ width: 1150px;
 .navbar {
   color: black;
 }
-
+.fonts-fam{
+  font-family: Bookman Old Style;
+}
 
 </style>
 
@@ -236,27 +250,35 @@ width: 1150px;
       <label  class="col-sm-4 col-form-label" id="view_pos"></label>
     </div>
   </div>
-  <div class="card-body">
+  <button class="btn rounded-pill" style="background-color: #3366ff; color: white;" onclick="generatePDF()">Export as PDF</button>
+  <div class="card-body" id="invoice">
+    <img src="imgreg/deped.png" style="width: 100px; height: 100px; display: block; margin-left: auto; margin-right: auto;">
+    <center><p style="font-family: Old English Text MT;"><b><text style="font-size: 12px;">Republic of the Philippines</text><br><text style="font-size: 18px;">Department of Education</text></b><br><text style="font-size: 11px; font-family: Times New Roman;">Region I</text></p>
     <table class="table table-bordered col-sm-2"  id="table_gad">
         <tr>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Name</th> 
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Position</th>          
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender</th>   
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Number</th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Name</th> 
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Position</th>          
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Gender</th>   
           </tr>
           <?php
             $count=1;
             while($row = mysqli_fetch_assoc($query_at)){
               echo "<tr>";
-              echo "<td style='height: 30px; width: 220px;'>".$count."</td>";
-              echo "<td>".$row['name']."</td>";
-              echo "<td>".$row['position']."</td>";
-              echo "<td>".$row['gender']."</td>";  
+              echo "<td style='font-size: 10px' class='fonts-fam'>".$count."</td>";
+              echo "<td style='font-size: 10px' class='fonts-fam'>".$row['name']."</td>";
+              echo "<td style='font-size: 10px' class='fonts-fam'>".$row['position']."</td>";
+              echo "<td style='font-size: 10px' class='fonts-fam'>".$row['gender']."</td>";  
               echo "</tr>";
               $count++;
             }
           ?>
-      </table>
+
+          <tr>
+            <td colspan="3" class="fonts-fam"><b>Total:</b></td>
+            <td class="fonts-fam"><b><?php echo mysqli_num_rows($query_at); ?></b></td>
+          </tr>
+      </table></center>
 
 
 

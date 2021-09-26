@@ -169,7 +169,9 @@ width: 1150px;
   color: black;
 }
 
-
+.fonts-fam{
+  font-family: Bookman Old Style;
+}
 </style>
 
   </head>
