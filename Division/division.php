@@ -1,4 +1,5 @@
-<?php session_start(); 
+<?php 
+session_start(); 
 
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
@@ -152,8 +153,9 @@ width: 1150px;
           <div class="d-flex justify-content-center">
           <img src="imgdiv/01.png" style="max-width:100px;" alt="">
         </div><br><br>
-
-  <a data-toggle="modal" href="#edit">Profile</a>
+  <a data-toggle="modal" href="#edit"><?php echo $_SESSION['full_name']; ?></a>
+  <a data-toggle="modal" href="#edit"><?php echo $_SESSION['ulvl']; ?></a><br><br>
+  <a data-toggle="modal" href="#edit">Profile </a>
 
   <a data-toggle="modal" href="#password">Change password</a>
 
@@ -189,7 +191,7 @@ width: 1150px;
 
 <div class="container-fluid">
 
-  <h2>Division Home</h2>
+  <h2>Welcome <?php echo $_SESSION['full_name']; ?>. You are logged in as <?php echo $_SESSION['ulvl']; ?></h2>
          
   
 

@@ -108,7 +108,8 @@
           <div class="d-flex justify-content-center">
           <img src="imgdiv/01.png" style="max-width:100px;" alt="">
         </div><br><br>
-
+<a data-toggle="modal" href="#edit"><?php echo $_SESSION['full_name']; ?></a>
+  <a data-toggle="modal" href="#edit"><?php echo $_SESSION['ulvl']; ?></a><br><br>
   <a href="division.php">Home</a>
 
   <a href="gpb.php">Create GPB</a>

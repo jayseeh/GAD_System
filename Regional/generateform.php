@@ -182,7 +182,8 @@ width: 1150px;
           <div class="d-flex justify-content-center">
           <img src="imgreg/01.png" style="max-width:100px;" alt="">
         </div><br><br>
-
+<a data-toggle="modal" href="#edit"><?php echo $_SESSION['full_name']; ?></a>
+  <a data-toggle="modal" href="#edit"><?php echo $_SESSION['ulvl']; ?></a><br><br>
   <a data-toggle="modal" href="#editprof">Profile</a>
 
   <a data-toggle="modal" href="#changepassword">Change password</a>
@@ -190,11 +191,13 @@ width: 1150px;
   <a href="divisionmanagement.php">Division User Management</a>
 
   <a href="mandates.php">DepEd Mandates</a>
-
-  <a href="reggpb.php">GPB</a>
-
-  <a href="reggadar.php">GAD AR</a>
-
+  <?php
+    if($form_type=='GPB'){
+      echo '<a href="reggpb.php" class="active">GPB</a><a href="reggadar.php">GAD AR</a>';
+    }else{
+      echo '<a href="reggpb.php" >GPB</a><a href="reggadar.php" class="active">GAD AR</a>';
+    }
+  ?>  
   <a data-toggle="modal" href="#logout">Logout</a>
 
   <a href="#">Help</a>
@@ -232,12 +235,12 @@ width: 1150px;
 <div class="card text-center" style="width: 70rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link" href="reggpb.php">Pending Forms</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="approvedform.php">Approved GPB</a>
-      </li>
+      
+        <?php echo ($form_type == 'GPB') ? '<li class="nav-item"><a class="nav-link" href="reggpb.php">Pending Forms</a></li><li class="nav-item"><a class="nav-link" href="approvedform.php">Approved GPB</a></li>' : '<li class="nav-item"><a class="nav-link" href="reggadar.php">Pending Forms</a></li><li class="nav-item"><a class="nav-link" href="approvedgad.php">Approved GAD AR</a></li>'; ?>
+      
+      
+        
+      
        <li class="nav-item">
         <a class="nav-link active" aria-current="true">Generate Report</a>
       </li>

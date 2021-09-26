@@ -158,7 +158,8 @@ width: 1150px;
           <div class="d-flex justify-content-center">
           <img src="imgdiv/01.png" style="max-width:100px;" alt="">
         </div><br><br>
-
+  <a data-toggle="modal" href="#edit"><?php echo $_SESSION['full_name']; ?></a>
+  <a data-toggle="modal" href="#edit"><?php echo $_SESSION['ulvl']; ?></a><br><br>
   <a data-toggle="modal" href="#edit">Profile</a>
 
   <a data-toggle="modal" href="#password">Change password</a>

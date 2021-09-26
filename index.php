@@ -17,6 +17,7 @@ if (isset($_POST['login'])){
     $_SESSION['uid'] = $rowValidate['id'];
     $_SESSION['user_password'] = $rowValidate['password'];
     $_SESSION['loc'] = $rowValidate['location'];
+    $_SESSION['full_name'] = $rowValidate['firstname']." ".$rowValidate['lastname'];
  
 
     if($rowValidate['status'] == "ACTIVE"){
