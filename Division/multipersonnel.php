@@ -25,7 +25,7 @@ require('../connect.php');
 
 
 if(isset($_POST['submit-files'])){
-  $html = "<p>Successfully added</p><table class='table table-bordered col-sm-2'  id='table_gad'><tr><th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th><th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Name</th> <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Position</th><th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender</th></tr>";
+  $html = "Successfully added";
   $filen = date('YmdHis');
   $target_dir = "UploadedFile/".$filen."-";
   $target_file = $target_dir . basename($_FILES["file-excel"]["name"]);
@@ -43,17 +43,17 @@ if(isset($_POST['submit-files'])){
       //echo $name." ".$position."<br>";
       if($name!=""){
         mysqli_query($conn,"INSERT INTO attendees(name,position,gender) VALUES ('$name','$position','$gender')");
-        $html = $html.'<tr>
+        /*$html = $html.'<tr>
             <td>'.($row-12).'</td>
             <td>'.$name.'</td>
             <td>'.$position.'</td>
              <td>'.$gender.'</td>                 
-          </tr>';
+          </tr>';*/
       }
       
     } 
   }
-  $html = $html. "</table>";
+  //$html = $html. "</table>";
 }
 ?>
 
@@ -262,6 +262,9 @@ width: 1150px;
       </li>
       <li class="nav-item">
         <a class="nav-link active" aria-current="true">Add Multiple Attendees</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="viewattendees.php" >View Attendees</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="download.php">Download Template</a>

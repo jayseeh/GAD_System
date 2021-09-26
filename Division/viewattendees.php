@@ -4,7 +4,9 @@ include "../connect.php";
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
-
+$query_at = mysqli_query($conn,"SELECT * FROM attendees ORDER BY id");
+$query_male = mysqli_query($conn,"SELECT * FROM attendees WHERE gender='Male'");
+$query_female = mysqli_query($conn,"SELECT * FROM attendees WHERE gender='Female'");
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
@@ -35,6 +37,7 @@ require('../connect.php');
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--AJAX-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -42,7 +45,26 @@ require('../connect.php');
 
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
-
+<script>
+$(document).ready(function(){
+  $("#position").change(function(){
+    //alert($(this).val());
+    console.log($(this).val());
+    var pos = $(this).val()
+    $.post("filterattendees.php",
+    {
+      position: $(this).val()   
+    },
+    function(data){
+      console.log(data);
+      $("#table_gad").html(data);
+      var count = $("#total_count").val();
+      $("#view_pos").html("Total Number of <b>"+pos+"</b>: <b>"+count+"</b>");
+      //alert("Data: " + data + "\nStatus: " + status);
+    });
+  });
+});
+</script>
 <style type="text/css">
   
 /* The sidebar menu */
@@ -221,13 +243,13 @@ width: 1150px;
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Add Attendees</a>
+        <a class="nav-link" href="personnels.php">Add Attendees</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="multipersonnel.php">Add Multiple Attendees</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="viewattendees.php">View Attendees</a>
+        <a class="nav-link active" href="viewattendees.php" aria-current="true">View Attendees</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="download.php">Download Template</a>
@@ -235,51 +257,64 @@ width: 1150px;
     </ul>
   </div>
   <div class="card-body">
+    <div class="mb-3">
+      <label  class="col-sm-4 col-form-label">Total Number of Attendees: <b><?php echo mysqli_num_rows($query_at); ?></b></label>
+    </div>
+    <div class="mb-3">
+      <label  class="col-sm-4 col-form-label">Total Number of Male: <b><?php echo mysqli_num_rows($query_male); ?></b></label>
+    </div>
+    <div class="mb-3">
+      <label  class="col-sm-4 col-form-label">Total Number of Female: <b><?php echo mysqli_num_rows($query_female); ?></b></label>
+    </div>
+    <div class="mb-3">
+      <label  class="col-sm-4 col-form-label">Select Position to Filter</label>
+      <select  name="position-1" style="height: 30px; width: 220px;" id="position">
+         <option value=""></option>
+         <option value="Principal">Principal</option>
+         <option value="Master Teacher II">Master Teacher II</option>
+         <option value="Master Teacher I">Master Teacher I</option>
+         <option value="Department Head">Department Head</option>
+         <option value="Teacher III">Teacher III</option>
+         <option value="Teacher II">Teacher II</option>
+         <option value="Teacher I">Teacher I</option>
+         <option value="Administrative Assistant III">Administrative Assistant III</option>
+         <option value="Administrative Assistant II">Administrative Assistant II</option>
+         <option value="Administrative Assistant I">Administrative Assistant I</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label  class="col-sm-4 col-form-label" id="view_pos"></label>
+    </div>
 
 
         <form action="addattendees.php" method="POST">
-    <div class="col-sm-2">  
-      <table class="table table-bordered col-sm-2"  id="table_gad">
+    <div class="col-sm-12">  
+      <center><table class="table table-bordered col-sm-6"  id="table_gad">
         <tr>
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th>
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Name</th> 
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Position</th>          
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender</th>   
           </tr>
+          <?php
+            $count=1;
+            while($row = mysqli_fetch_assoc($query_at)){
+              echo "<tr>";
+              echo "<td >".$count."</td>";
+              echo "<td >".$row['name']."</td>";
+              echo "<td >".$row['position']."</td>";
+              echo "<td >".$row['gender']."</td>";  
+              echo "</tr>";
+              $count++;
+            }
+          ?>
           <tr>
-            <td><input type="text" id="count_num"  name="number_rows" readonly value="1" style="text-align: center; size: 1px;" size="5"></td>
-            <td><input  type="text" name="personnel_name-1" size="40"></td>
-
-            <td><select  name="position-1" style="height: 30px; width: 220px;">
-                 <option value=""></option>
-                 <option value="Principal">Principal</option>
-                 <option value="Master Teacher II">Master Teacher II</option>
-                 <option value="Master Teacher I">Master Teacher I</option>
-                 <option value="Department Head">Department Head</option>
-                 <option value="Teacher III">Teacher III</option>
-                 <option value="Teacher II">Teacher II</option>
-                 <option value="Teacher I">Teacher I</option>
-                 <option value="Administrative Assistant III">Administrative Assistant III</option>
-                 <option value="Administrative Assistant II">Administrative Assistant II</option>
-                 <option value="Administrative Assistant I">Administrative Assistant I</option>
-                </select></td>
-
-             <td>
-                 <select  name="gender-1" style="height: 30px; width: 80px;">
-                 <option value=""></option>
-                 <option value="male">Male</option>
-                 <option value="female">Female</option>
-                </select>
-            </td>
-                 
+            <td colspan="3">TOTAL: </td>
+            <td><?php echo $count-1; ?></td>
           </tr>
-      </table>
+      </table></center>
     </div>
     <br>
-    <input type="hidden" name="date_sub" value="<?php echo $date; ?>">
-    <input type="hidden" name="numberOfRows" value="1" id="numberOfRows">
-    <input type="button" name="add_rows" value="Add Row" id="add_rows">
-    <input type="Submit" name="submit" value="Submit"> 
 
     </form>
   </div>

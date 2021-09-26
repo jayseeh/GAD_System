@@ -216,6 +216,9 @@ width: 1150px;
         <a class="nav-link" href="multipersonnel.php">Add Multiple Attendees</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="viewattendees.php">View Attendees</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link active" aria-current="true">Download Template</a>
       </li>
     </ul>
