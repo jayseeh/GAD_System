@@ -1,6 +1,8 @@
 <?php session_start(); 
 
 include "../connect.php";
+include('PHPExcel/Classes/PHPExcel/IOFactory.php');
+$html="";
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
@@ -15,6 +17,41 @@ require('../connect.php');
   $sqlprofile = mysqli_query($conn, $queryprofile);
   $rowprofile = mysqli_fetch_array($sqlprofile);
   
+
+//TO READ EXCEL FILES
+
+
+
+if(isset($_POST['submit-files'])){
+  $html = "<p>Successfully added</p><table class='table table-bordered col-sm-2'  id='table_gad'><tr><th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th><th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Name</th> <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Position</th>          <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender</th></tr>";
+  $target_dir = "UploadedFile/";
+  $target_file = $target_dir . basename($_FILES["file-excel"]["name"]);
+  //$uploadOk = 1;
+  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+  move_uploaded_file($_FILES["file-excel"]["tmp_name"], $target_file);
+  $obj = PHPExcel_IOFactory::load($target_file);
+  
+  foreach ($obj->getWorksheetIterator() as $worksheet) {
+    $highRow = $worksheet->getHighestRow();
+    for( $row=13; $row<=$highRow; $row++){
+      $name = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(3,$row)->getValue());
+      $position = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(4,$row)->getValue());
+      $gender = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(5,$row)->getValue());
+      //echo $name." ".$position."<br>";
+      if($name!=""){
+        mysqli_query($conn,"INSERT INTO attendees(name,position,gender) VALUES ('$name','$position','$gender')");
+        $html = $html.'<tr>
+            <td>'.($row-12).'</td>
+            <td>'.$name.'</td>
+            <td>'.$position.'</td>
+             <td>'.$gender.'</td>                 
+          </tr>';
+      }
+      
+    } 
+  }
+  $html = $html. "</table>";
+}
 ?>
 
 
@@ -230,7 +267,7 @@ width: 1150px;
   <div class="card-body">
 
   <div class="d-flex justify-content-center">
-    <form action="uploadpersonnel.php" method="post" enctype="multipart/form-data">
+    <form action="multipersonnel.php" method="post" enctype="multipart/form-data">
     <fieldset>
 
       
@@ -249,13 +286,17 @@ width: 1150px;
     </div>
 
   <label for="file" class="form-label">Upoad report here</label>
-  <input class="form-control" type="file" id="file" name="file[]" multiple><br>
+  <input class="form-control" type="file" id="file" name="file-excel" multiple><br>
   
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <button type="submit" name="submit" class="btn btn-primary rounded-pill">Upload</button>
+    <button type="submit" name="submit-files" class="btn btn-primary rounded-pill">Upload</button>
   </div>
 </div>
-
+<div class="col-sm-2">  
+      
+          <?php echo $html; ?>
+      
+    </div>
 
 
   </div>

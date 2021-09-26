@@ -233,7 +233,7 @@ width: 1150px;
   <div class="card-body">
 
 
-        <form action="submitform.php" method="POST">
+        <form action="addattendees.php" method="POST">
     <div class="col-sm-2">  
       <table class="table table-bordered col-sm-2"  id="table_gad">
         <tr>
@@ -308,7 +308,7 @@ width: 1150px;
       //ADD ROWS FUNCTION
       $("#add_rows").click(function(){
         $("#numberOfRows").val(number);
-        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center;' size='5'></td><td><input  type='text' name='personnel_name-"+number+"'size='40'></td><td><select name='position-"+number+"'style='height: 30px; width: 220px;'></select></td><td><select  name='gender-"+number+"'style='height: 30px; width: 80px;'></select></td></tr>";
+        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center;' size='5'></td><td><input  type='text' name='personnel_name-"+number+"'size='40'></td><td><select name='position-"+number+"'style='height: 30px; width: 220px;'><option value=''></option><option value='Principal'>Principal</option><option value='Master Teacher II'>Master Teacher II</option><option value='Master Teacher I'>Master Teacher I</option><option value='Department Head'>Department Head</option><option value='Teacher III'>Teacher III</option><option value='Teacher II'>Teacher II</option><option value='Teacher I'>Teacher I</option><option value='Administrative Assistant III'>Administrative Assistant III</option><option value='Administrative Assistant II'>Administrative Assistant II</option><option value='Administrative Assistant I'>Administrative Assistant I</option></select></td><td><select  name='gender-"+number+"'style='height: 30px; width: 80px;'><option value=''></option><option value='male'>Male</option><option value='female'>Female</option></select></td></tr>";
         console.log(table);
         $("#table_gad").html(table);
 
