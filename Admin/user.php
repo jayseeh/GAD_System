@@ -197,7 +197,7 @@ background-color: #e6b800;
                 <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
               </div>
               <div class="d-flex justify-content-start"> 
-                <a data-toggle="modal" href="#add" class="btn btn-success rounded-pill">Add User</a>
+                <a data-toggle="modal" href="#add" class="btn btn-success rounded-pill addUserButton">Add User</a>
               </div>             
               <br>
 
@@ -495,33 +495,33 @@ for (i = 0; i < dropdown.length; i++) {
       <div class="form-horizontal">
         <div class="form-group">
             <div class="col-sm-9">
-              <input type="text" name="username" class="form-control" id="addusername" placeholder="Username">
+              <input type="text" name="username" class="form-control disableButton" id="addusername" placeholder="Username" required>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
-              <input type="password" name="password" class="form-control" id="addpassword" placeholder="Password">
+              <input type="password" name="password" class="form-control disableButton" id="addpassword" placeholder="Password" required>
             </div>
         </div>
          <div class="form-group">
             <div class="col-sm-9">
-              <input type="text" name="lastname" class="form-control" id="addlastname" placeholder="Lastname">
+              <input type="text" name="lastname" class="form-control disableButton" id="addlastname" placeholder="Lastname" required>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
-              <input type="text" name="firstname" class="form-control" id="addfirstname" placeholder="Firstname">
+              <input type="text" name="firstname" class="form-control disableButton" id="addfirstname" placeholder="Firstname" required>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
-              <input type="text" name="middlename" class="form-control" id="addmiddlename" placeholder="Middlename">
+              <input type="text" name="middlename" class="form-control disableButton" id="addmiddlename" placeholder="Middlename" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3">Userlevel:</label>
             <div class="col-sm-9">
-              <select class="form-control" name="userlevel" id="adduserlevel">
+              <select class="form-control disableButton" name="userlevel" id="adduserlevel" required>
                 <option value=""></option>
                 <option value="Regional GAD Coordinator">Regional GAD Coordinator</option>
                 <option value="Division GAD Coordinator">Division GAD Coordinator</option>
@@ -531,7 +531,7 @@ for (i = 0; i < dropdown.length; i++) {
         <div class="form-group">
             <label class="control-label col-sm-3">Location:</label>
             <div class="col-sm-9">
-              <select class="form-control" name="location" id="addlocation" >   
+              <select class="form-control disableButton" name="location" id="addlocation" required>   
               </select>
             </div>
         </div>
@@ -544,7 +544,7 @@ for (i = 0; i < dropdown.length; i++) {
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> | 
-      <a data-toggle="modal" href="#save" data-dismiss="modal" class="btn btn-primary">Save</a>
+      <a data-toggle="modal" href="#save" data-dismiss="modal" class="btn btn-primary" id="submitButton">Save</a>
 
     </div>
     </div>
@@ -592,7 +592,7 @@ for (i = 0; i < dropdown.length; i++) {
         <div class="form-group">
             <div class="col-sm-9">
               <label>Username:</label>
-                  <input type="text" class="form-control disableButton" type="text" name="username" id="username">
+                  <input type="text" class="form-control disableButton" type="text" name="username" id="username" >
             </div>
         </div>
         <div class="form-group">
@@ -766,8 +766,8 @@ for (i = 0; i < dropdown.length; i++) {
 
 <!--On Change edit-->
 <script>
-  /*$(document).ready(function(){
-    $('#userlevel').change(function(){
+  $(document).ready(function(){
+    /*$('#userlevel').change(function(){
       var lvlselected = $('#userlevel').val();
       
 
@@ -790,17 +790,100 @@ for (i = 0; i < dropdown.length; i++) {
       }else{
         $('#location').html('<option></option>');
       }
-    })
+    })*/
+    /*setInterval(function(){
+      console.log("TIme");
+      if($('.disableButton').val()==""){
+        $("#submitButton").hide();
+      }else{
+        $("#submitButton").show();
+      }
+    }, 1000);*/
+  });
+  //Disable button when fields is empty
 
-  });*/
   $(".disableButton").keyup(function(){
     console.log("TTTT");
     var val = $(this).val();
     if(val==""){
-      $("#updateButton").prop('disabled', true);
-      alert("Please don't leave blank");
+      $("#updateButton").hide();
+      $("#submitButton").hide();
+      //alert("Please don't leave blank");
     }else {
-        $('#updateButton').prop('disabled', false);
+        $('#updateButton').show();
+        $("#submitButton").show();
+    }
+  });
+  $(".addUserButton").click(function(){
+    console.log("TTTT");
+    var val = $(".disableButton").val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addusername").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addlocation").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#adduserlevel").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addmiddlename").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addfirstname").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addpassword").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addlastname").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
     }
   });
 </script>
