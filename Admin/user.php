@@ -409,7 +409,7 @@ for (i = 0; i < dropdown.length; i++) {
     $(document).on('click', '.edit_user', function(){
         
         var id = $(this).val();
-       
+        
         
          var username = $('#'+id).children('td[id = tusername]').text();
          var password = $('#'+id).children('td[id = tpassword]').text();
@@ -431,9 +431,29 @@ for (i = 0; i < dropdown.length; i++) {
         $("#firstname").val(firstname);
         $("#middlename").val(middlename);
         $("#userlevel").val(userlevel);
-        $("#location").val(location);
+        //$("#location").val(location);
         $("#status").val(status);
         $("#uuid").val(id);
+        var lvlselected = $('#userlevel').val();
+        if (lvlselected == "Regional GAD Coordinator") {
+          $('#location').html('<option>Region 1</option>');
+        }else if(lvlselected == "Division GAD Coordinator"){
+          
+          $.ajax({
+                type: "POST",
+                url: "locationoption.php",
+                data: {
+                  lvlselected: lvlselected
+                },
+                success: function(data){
+                  $('#location').html(data);
+                }
+              });
+          
+          
+        }else{
+          $('#location').html('<option></option>');
+        }
 
         
         $("#edit").modal('toggle');
@@ -572,37 +592,37 @@ for (i = 0; i < dropdown.length; i++) {
         <div class="form-group">
             <div class="col-sm-9">
               <label>Username:</label>
-                  <input type="text" class="form-control" type="text" name="username" id="username">
+                  <input type="text" class="form-control disableButton" type="text" name="username" id="username">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Password:</label>
-                  <input type="text" class="form-control" type="password" name="password" id="password"> 
+                  <input type="text" class="form-control disableButton" type="password" name="password" id="password"> 
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Lastname:</label>
-                <input type="text" class="form-control" type="text" name="lastname" id="lastname"> 
+                <input type="text" class="form-control disableButton" type="text" name="lastname" id="lastname"> 
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Firstname:</label>
-                <input type="text" class="form-control" type="text" name="firstname" id="firstname">  
+                <input type="text" class="form-control disableButton" type="text" name="firstname" id="firstname">  
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Middlename:</label>
-                <input type="text" class="form-control" type="text" name="middlename" id="middlename">   
+                <input type="text" class="form-control disableButton" type="text" name="middlename" id="middlename">   
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3">Userlevel:</label>
             <div class="col-sm-9">
-              <select class="form-control" name="userlevel" id="userlevel">
+              <select class="form-control disableButton" name="userlevel" id="userlevel">
                 <option value="Regional GAD Coordinator">Regional GAD Coordinator</option>
                 <option value="Division GAD Coordinator">Division GAD Coordinator</option>
               </select>
@@ -611,7 +631,7 @@ for (i = 0; i < dropdown.length; i++) {
         <div class="form-group">
             <label class="control-label col-sm-3">Location:</label>
             <div class="col-sm-9">
-              <select class="form-control" name="location" id="location" >   
+              <select class="form-control disableButton" name="location" id="location" >   
               </select>
             </div>
         </div>
@@ -622,7 +642,7 @@ for (i = 0; i < dropdown.length; i++) {
 <div class="modal-footer">
         <input type="hidden" name="id" id="uuid" value="<?php echo $id;?>">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
-         <a data-toggle="modal" href="#update" data-dismiss="modal" class="btn btn-primary">Update</a>      
+         <a data-toggle="modal" href="#update" data-dismiss="modal" class="btn btn-primary" id="updateButton">Update</a>      
     </div>         
        </div>
       </div>
@@ -746,7 +766,7 @@ for (i = 0; i < dropdown.length; i++) {
 
 <!--On Change edit-->
 <script>
-  $(document).ready(function(){
+  /*$(document).ready(function(){
     $('#userlevel').change(function(){
       var lvlselected = $('#userlevel').val();
       
@@ -772,6 +792,16 @@ for (i = 0; i < dropdown.length; i++) {
       }
     })
 
+  });*/
+  $(".disableButton").keyup(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#updateButton").prop('disabled', true);
+      alert("Please don't leave blank");
+    }else {
+        $('#updateButton').prop('disabled', false);
+    }
   });
 </script>
 
