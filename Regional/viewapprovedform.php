@@ -4,13 +4,13 @@
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
   $form_number = $_GET['id'];
+  $str = explode("-", $form_number);
+  $form_type=$str[0];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
   $query_form = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN caps ON gad_form.requestor_id=caps.id WHERE gad_form.form_number='$form_number'");
   $fetch_form = mysqli_fetch_assoc($query_form);
   date_default_timezone_set("Asia/Singapore");
   $date = date('Y-m-d H-i-s');
-  $str = explode("-", $form_number);
-  $form_type=$str[0];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -146,25 +146,27 @@ width: 1150px;
 
   <body>
 
-    <div class="container-fluid">
+     <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="sidenav">
           <div class="d-flex justify-content-center">
-          <img src="imgreg/01.png" style="max-width:100px;" alt="">
+          <img src="imgdiv/01.png" style="max-width:100px;" alt="">
         </div><br><br>
 <a data-toggle="modal" href="#edit"><?php echo $_SESSION['full_name']; ?></a>
   <a data-toggle="modal" href="#edit"><?php echo $_SESSION['ulvl']; ?></a><br><br>
- <a data-toggle="modal" href="#editprof">Profile</a>
+  <a data-toggle="modal" href="#edit">Profile</a>
 
-  <a data-toggle="modal" href="#changepassword">Change password</a>
-
-  <a href="divisionmanagement.php">Division User Management</a>
+  <a data-toggle="modal" href="#password">Change password</a>
 
   <a href="mandates.php">DepEd Mandates</a>
 
-  <a href="reggpb.php" >GPB</a>
-
-  <a href="reggadar.php" class="active">GAD AR</a>
+  <?php
+    if($form_type=='GPB'){
+      echo '<a href="reggpb.php" class="active">GPB</a><a href="reggadar.php">GAD AR</a>';
+    }else{
+      echo '<a href="reggpb.php" >GPB</a><a href="reggadar.php" class="active">GAD AR</a>';
+    }
+  ?> 
 
   <a data-toggle="modal" href="#logout">Logout</a>
 
@@ -184,40 +186,13 @@ width: 1150px;
                 </li>
                </ul>     
                    </div>
-                </nav>    
+                </nav>
+
+
 
 <div class="container-fluid">
 
-  <h2>GAD Plan and Budget</h2>
-   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
-  <br><br>
-<div class="d-flex justify-content-center">
-    <fieldset>
-
-      
-
-  <div class="row">
-    <div class="container-fluid">
-
-<div class="card text-center" >
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link" href="reggpb.php">Pending Forms</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Approved GAD</a>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link" href="generateform.php?id=GAD">Generate Report</a>
-      </li>
-    </ul>
-  </div>
-  <div class="card-body">    
-
-<div class="container-fluid">
-
-  <h2>Regional Home</h2>
+  <h2>View Form</h2>
          
 
   <div class="d-flex justify-content-center">
@@ -253,21 +228,22 @@ width: 1150px;
       <hr>
       <table class="table table-bordered col-sm-2"  id="table_gad">
         <tr>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th> 
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender Issue/GAD Mandate</th>          
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Cause of the Gender Issue</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Result Statement/GAD Objective</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Relevant Organization MFO/PAP</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Activity</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Output Performance Indicator/ Target' : 'Performance Indicator'; ?></th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'GAD Budget' : 'Actual Result (Outputs/Outcomes)'; ?></th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Source of Budget' : 'Total Agency Approved Budget'; ?></th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Responsible Unit/ Office' : 'Actual Cost/ Expenditure'; ?></th>   
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">Gender Issue/GAD Mandate</th>          
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">Cause of the Gender Issue</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">GAD Result Statement/GAD Objective</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">Relevant Organization MFO/PAP</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">GAD Activity</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Output Performance Indicator/ Target' : 'Performance Indicator'; ?></th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'GAD Budget' : 'Actual Result (Outputs/Outcomes)'; ?></th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Source of Budget' : 'Total Agency Approved Budget'; ?></th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Responsible Unit/ Office' : 'Actual Cost/ Expenditure'; ?></th>   
             <?php
               if($form_type=='GAD'){
-                echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Variance/ Remarks</th>";
+                echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class='fonts-fam'>Variance/ Remarks</th>";
               }
-            ?>   
+            ?>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Category</th> 
           </tr>
           <?php
           		$query = mysqli_query($conn,"SELECT * FROM gad_table_entry_value WHERE form_number = '$form_number' ORDER BY row_number");
@@ -290,10 +266,11 @@ width: 1150px;
                 <?php
                 if($form_type=='GAD'){
                   ?>
-                  <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col10']; ?></td>
+                  <td><?php echo $row['col10']; ?></td>
                   <?php
                 }
                 ?>
+                <td><?php echo $row['category_focused']; ?></td>
 		          </tr>
           	<?php 
 		          	}

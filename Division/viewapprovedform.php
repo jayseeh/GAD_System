@@ -4,6 +4,8 @@
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
   $form_number = $_GET['id'];
+  $str = explode("-", $form_number);
+  $form_type=$str[0];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
   $query_form = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN caps ON gad_form.requestor_id=caps.id WHERE gad_form.form_number='$form_number'");
   $fetch_form = mysqli_fetch_assoc($query_form);
@@ -66,9 +68,9 @@
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color:  #3366ff; /* Black */
+  background-color:#0000b3; /* Blue */
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 20px;
+  padding-top: 35px;
 }
 
 /* The navigation menu links */
@@ -82,19 +84,59 @@
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .dropdown-btn:hover {
-  color: black;
+  color: yellow;
 }
 
 /* Style page content */
 .main {
   margin-left: 200px; /* Same as the width of the sidebar */
-  padding: 0px 10px;
+  padding: 0px 0px;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+.dropdown-btn {
+  padding: 6px 8px 6px 30px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: #1a1aff;
+  color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color:black;
+  padding-left: 8px;
+}
+
+ /* Modify the background color */
+ .navbar-custom {
+background-color: #e6b800;
+width: 1150px;
+
+}
+
+.navbar {
+  color: black;
 }
 
 
@@ -106,32 +148,35 @@
 
      <div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="sidenav border-right">
+        <div class="sidenav">
           <div class="d-flex justify-content-center">
           <img src="imgdiv/01.png" style="max-width:100px;" alt="">
         </div><br><br>
 <a data-toggle="modal" href="#edit"><?php echo $_SESSION['full_name']; ?></a>
   <a data-toggle="modal" href="#edit"><?php echo $_SESSION['ulvl']; ?></a><br><br>
-  <a href="regional.php">Home</a>
+  <a data-toggle="modal" href="#edit">Profile</a>
 
-  <a href="approvedform.php">Approved GPB</a>
+  <a data-toggle="modal" href="#password">Change password</a>
 
-  <a href="generateform.php">Generate List</a>
+  <a href="mandates.php">DepEd Mandates</a>
+
+  <?php
+    if($form_type=='GPB'){
+      echo '<a href="gpb.php" class="active">GPB</a><a href="gadar.php">GAD AR</a>';
+    }else{
+      echo '<a href="gpb.php" >GPB</a><a href="gadar.php" class="active">GAD AR</a>';
+    }
+  ?> 
 
   <a data-toggle="modal" href="#logout">Logout</a>
+
   <a href="#">Help</a>
 </div>
 
-
-
-
         <!-- Content -->
-        <div class="main col py-3">
-
-      <div class="container-fluid">
-        
-                 
-                 <nav class="navbar  navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="main">
+                
+                 <nav class="navbar navbar-custom navbar-expand-lg border-bottom">
                     <div class="container">          
                <ul class="navbar">
                  <li class="nav-item">
@@ -142,12 +187,12 @@
                </ul>     
                    </div>
                 </nav>
-      </div>
-    
+
+
 
 <div class="container-fluid">
 
-  <h2>Regional Home</h2>
+  <h2>View Form</h2>
          
 
   <div class="d-flex justify-content-center">

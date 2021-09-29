@@ -162,9 +162,13 @@ width: 1150px;
 
   <a href="mandates.php">DepEd Mandates</a>
 
-  <a href="reggpb.php" >GPB</a>
-
-  <a href="reggadar.php" class="active">GAD AR</a>
+  <?php
+    if($form_type=='GPB'){
+      echo '<a href="reggpb.php" class="active">GPB</a><a href="reggadar.php">GAD AR</a>';
+    }else{
+      echo '<a href="reggpb.php" >GPB</a><a href="reggadar.php" class="active">GAD AR</a>';
+    }
+  ?> 
 
   <a data-toggle="modal" href="#logout">Logout</a>
 

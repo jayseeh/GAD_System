@@ -158,9 +158,13 @@ width: 1150px;
 
   <a href="mandates.php">DepEd Mandates</a>
 
-  <a href="gpb.php" class="active">GPB</a>
-
-  <a href="gadar.php">GAD AR</a>
+  <?php
+    if($form_type=='GPB'){
+      echo '<a href="gpb.php" class="active">GPB</a><a href="gadar.php">GAD AR</a>';
+    }else{
+      echo '<a href="gpb.php" >GPB</a><a href="gadar.php" class="active">GAD AR</a>';
+    }
+  ?> 
 
   <a data-toggle="modal" href="#logout">Logout</a>
 
@@ -233,9 +237,10 @@ width: 1150px;
           </tr>
           <?php
           		$query = mysqli_query($conn,"SELECT * FROM gad_table_entry_value WHERE form_number = '$form_number' ORDER BY row_number");
-
+              $numrows=0;
           		if(mysqli_num_rows($query)>0){
           			while($row=mysqli_fetch_assoc($query)){
+                  $numrows++;
           			
           	?>
 		          <tr>
@@ -252,17 +257,23 @@ width: 1150px;
                 <?php
                 if($form_type=='GAD'){
                   ?>
-                  <td><textarea rows="4" cols="15" name="val9-<?php echo $row['row_number']; ?>"><?php echo $row['col10']; ?></textarea></td>
+                  <td><textarea rows="4" cols="15" name="val10-<?php echo $row['row_number']; ?>"><?php echo $row['col10']; ?></textarea></td>
                   <?php
                 }
                 ?>
                 <td>
-                  <select name="cat-<?php echo $row['row_number']; ?>" value="<?php echo $row['category-focused']; ?>">
+                  <select name="cat-<?php echo $row['row_number']; ?>">
                     <?php
-
+                      $cat = $row['category_focused'];
+                      if($cat=='CLIENT'){
+                        echo '<option value="CLIENT">Client-Focused</option>';
+                        echo '<option value="ORGANIZATION">Organization-Focused</option>';
+                      }else{
+                        echo '<option value="ORGANIZATION">Organization-Focused</option>';
+                        echo '<option value="CLIENT">Client-Focused</option>';
+                      }
                     ?>
-                    <option value="CLIENT">Client-Focused</option>
-                    <option value="ORGANIZATION">Organization-Focused</option>
+
                   </select>
                 </td>
 		          </tr>
@@ -276,9 +287,10 @@ width: 1150px;
     </div>
     <br>
     <input type="hidden" name="date_sub" value="<?php echo $date; ?>">
-    <input type="hidden" name="numberOfRows" value="1" id="numberOfRows">
+    <input type="hidden" name="numberOfRows" value="<?php echo $numrows; ?>" id="numberOfRows">
+    <input type="hidden" name="form_type" value="<?php echo $form_type; ?>">
     <!-- <input type="button" name="add_rows" value="Add Row" id="add_rows"> -->
-    <input type="Submit" name="submit" value="Submit"> 
+    <input type="submit" name="submit" value="Update"> 
 
     </form>
   </div>
