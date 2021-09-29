@@ -198,7 +198,7 @@ width: 1150px;
     <div class="card border-primary mb-3" >
   <h4 class="card-header">Submit Report</h4 >
   <div class="card-body">
-    <form action="submitform.php" method="POST">
+    <form action="updatetablevalue.php" method="POST">
    <div class="mb-3">
     <label  class="col-sm-2 col-form-label">Form Number:</label>
     <div class="col-sm-5">
