@@ -27,6 +27,7 @@ require('../connect.php');
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -35,7 +36,94 @@ require('../connect.php');
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
+<script type="text/javascript">
+  //Disable button when fields is empty
 
+  $(".disableButton").keyup(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#updateButton").hide();
+      //$("#submitButton").hide();
+      //alert("Please don't leave blank");
+    }else {
+      $('#updateButton').show();
+        //$("#submitButton").show();
+    }
+  });
+  $(".addUserButton").keyup(function(){
+    console.log("TTTT");
+    var val = $(".disableButton").val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#username").keyup(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#location").keyup(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#userlevel").keyup(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#middlename").keyup(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#firstname").keyup(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#password").keyup(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#lastname").keyup(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+</script>
 <style type="text/css">
   
 /* The sidebar menu */
@@ -151,7 +239,7 @@ width: 1150px;
           <div class="d-flex justify-content-center">
           <img src="imgreg/01.png" style="max-width:100px;" alt="">
         </div><br><br>
-<a data-toggle="modal" href="#edit"><?php echo $_SESSION['full_name']; ?></a>
+<a data-toggle="modal" href="#edit" class=""><?php echo $_SESSION['full_name']; ?></a>
   <a data-toggle="modal" href="#edit"><?php echo $_SESSION['ulvl']; ?></a><br><br>
   <a data-toggle="modal" href="#edit">Profile</a>
 
@@ -168,10 +256,6 @@ width: 1150px;
   <a data-toggle="modal" href="#logout">Logout</a>
   <a href="#">Help</a>
 </div>
-
-
-
-
         <!-- Content -->
         <div class="main">
 
