@@ -11,7 +11,7 @@
   $date = date('Y-m-d H-i-s');
   $total_budget=0;
   $form_type = $_GET['id'];
-
+  
   if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
