@@ -13,7 +13,7 @@
 
 		// execute query
 		if ($conn->query($sql) === TRUE) {
-		   	echo "<script>alert('Division successfully saved'); window.location = 'admin.php';</script>";
+		   	echo "<script>alert('Division successfully saved'); window.location = 'division.php';</script>";
 		} else {
 		    echo "Error: " . $sql . "<br>" . $conn->error;
 		}	

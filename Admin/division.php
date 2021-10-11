@@ -142,8 +142,11 @@ background-color: #e6b800;
     <div class="row flex-nowrap">
         <div class="sidenav">
           <div class="d-flex justify-content-center">
-          <img src="imgdiv/01.png" style="max-width:100px;" alt="">
+          <img src="img/01.png" style="max-width:90px;" alt="">
         </div><br><br>
+  <center><h6 style="color: white;"><?php echo $_SESSION['ulvl']; ?></h6></center>
+  <hr style="height:2px;color:gray;background-color:gray">
+
 
 
 <a href="user.php">User Management</a>
@@ -168,22 +171,10 @@ background-color: #e6b800;
 
         <!-- Content -->
         <div class="main">
-                
-                 <nav class="navbar navbar-custom navbar-expand-lg border-bottom">
-                    <div class="container">          
-               <ul class="navbar">
-                 <li class="nav-item">
-                  <h2>Online Gender And Development Monitoring and Mainstreaming System<br>
-                 </h2>
-              <h3>Department of Education</h3><h5>Regional Office I</h5>
-                </li>
-               </ul>     
-                   </div>
-                </nav>    
+<center><h2 style="color: black; background-color: #e6b800;">Division Management</h2></center>
 
 <div class="container-fluid">
 
-   <h2>DIVISION</h2>
    <div class="d-flex justify-content-start"> 
   <a href="admin.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
 </div>
@@ -296,8 +287,21 @@ for (i = 0; i < dropdown.length; i++) {
 
  <!-- Modal Add User-->
 <script type = "text/javascript">
+
   $(document).ready(function(){
-    //showUser();
+
+$(document).on('click', '#submitButton', function(){
+
+event.preventDefault();
+    var validatecont =  $("#adddivision").val();
+        if(validatecont == ""){
+          $("#adddivision").focus();
+        }else{
+          $('#save').modal('toggle');
+        }
+});
+
+
     //Add New
     $(document).on('click', '.btncreate', function(){
       if ($('#adddivision').val()==""){
@@ -372,8 +376,48 @@ for (i = 0; i < dropdown.length; i++) {
   });
 
   
-  
 </script>
+
+
+
+<!--<script type="text/javascript">
+  
+//Disable button when fields is empty
+
+  $(".disableButton").keyup(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#updateButton").hide();
+      $("#submitButton").hide();
+      //alert("Please don't leave blank");
+    }else {
+        $('#updateButton').show();
+        $("#submitButton").show();
+    }
+  });
+  $(".addUserButton").click(function(){
+    console.log("TTTT");
+    var val = $(".disableButton").val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+    $("#adddivision").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+
+</script>-->
+
+
 
 <!--Add Modal-->
  <form class="" action="adddiv.php" method="POST">
@@ -388,13 +432,13 @@ for (i = 0; i < dropdown.length; i++) {
       <div class="form-horizontal">
         <div class="form-group">
             <div class="col-sm-9">
-              <input type="text" name="division" class="form-control" id="adddivision" placeholder="Division">
+              <input type="text" name="division" class="form-control disableButton" id="adddivision">
             </div>
         </div>
         
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> | 
-      <a data-toggle="modal" href="#save" data-dismiss="modal" class="btn btn-primary">Save</a>
+      <button class="btn btn-dark" id="submitButton">Save</button>
     </div>
     </div>
   </div>
@@ -413,13 +457,12 @@ for (i = 0; i < dropdown.length; i++) {
     </div>
     <div class="modal-body">
     <center>  
-<h4>Are you sure you want to save this Division?</h4><br>
+<h4>Are you sure you want to save this division?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md btncreate">
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md btncreate">
 </center>
-</div>
-         
+</div>        
        </div>
       </div>
     </div>
@@ -434,7 +477,7 @@ for (i = 0; i < dropdown.length; i++) {
     <div class="modal-content">
     <div class = "modal-header">
        <h3 class = "text-primary modal-title">Update Division</h3>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
      
     </div>
     <div class="modal-body">
@@ -449,7 +492,7 @@ for (i = 0; i < dropdown.length; i++) {
 <div class="modal-footer">
         <input type="hidden" name="id" id="uuid" value="<?php echo $id;?>">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
-         <a data-toggle="modal" href="#update" data-dismiss="modal" class="btn btn-primary">Update</a>
+         <a data-toggle="modal" href="#update" class="btn btn-primary" id="updateButton">Update</a>
     </div>
           
         </div>

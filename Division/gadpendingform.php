@@ -157,13 +157,15 @@ width: 1150px;
     <div class="row flex-nowrap">
         <div class="sidenav">
           <div class="d-flex justify-content-center">
-          <img src="imgdiv/01.png" style="max-width:100px;" alt="">
-        </div><br><br>
-  <a data-toggle="modal" href="#edit"><?php echo $_SESSION['full_name']; ?></a>
-  <a data-toggle="modal" href="#edit"><?php echo $_SESSION['ulvl']; ?></a><br><br>
-  <a data-toggle="modal" href="#edit">Profile</a>
+          <img src="imgdiv/01.png" style="max-width:90px;" alt="">
+        </div><br>
+<center><h6 style="color: white;"><?php echo $_SESSION['full_name']; ?></h6></center>
+  <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
+  <hr style="height:2px;color:gray;background-color:gray">
 
-  <a data-toggle="modal" href="#password">Change password</a>
+  <a data-toggle="modal" href="#editprof">Profile</a>
+
+  <a data-toggle="modal" href="#changepassword">Change password</a>
 
   <a href="mandates.php">DepEd Mandates</a>
 
@@ -180,22 +182,14 @@ width: 1150px;
         <!-- Content -->
         <div class="main">
                 
-                 <nav class="navbar navbar-custom navbar-expand-lg border-bottom">
-                    <div class="container">          
-               <ul class="navbar">
-                 <li class="nav-item">
-                  <h2>Online Gender And Development Monitoring and Mainstreaming System<br>
-                 </h2>
-              <h3>Department of Education</h3><h5>Regional Office I</h5>
-                </li>
-               </ul>     
-                   </div>
-                </nav>   
+ <center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>
+ <br> 
+ 
 
 <div class="container-fluid">
 
-  <h2>GAD Accomplishment Report</h2>
-         
+  <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+  <a href="personnels.php" class="btn btn-success rounded-pill">Add Attendees</a>   <br><br>      
 
   <div class="d-flex justify-content-center">
    <fieldset>
@@ -210,15 +204,17 @@ width: 1150px;
         <a class="nav-link" href="gadar.php">Submit GAD AR</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Submitted GAD AR</a>
+        <a class="nav-link active" aria-current="true">Pending GAD AR</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="gadapprovedform.php">Approved GAD AR</a>
       </li>
     </ul>
   </div>
   <div class="card-body">
 
-<h2>GAD FORMS</h2>
-         <section><br><br><br>
-              <legend>GAD FORMS YOU'VE SUBMITTED</legend>
+<h2>PENDING GAD AR FORMS</h2>
+         <section><br><br>
               <div class="d-flex justify-content-end"> 
                 <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
               </div>
@@ -230,7 +226,7 @@ width: 1150px;
         $sql="SELECT * FROM gad_form WHERE requestor_id='$user' and form_number LIKE 'GAD%' ORDER BY date_submitted";
         $result=mysqli_query($conn, $sql);
 
-        echo "<table id='list' class='table table-hover'>";
+        echo "<table id='list' class='table table-bordered table-hover'>";
         
           echo "<tr>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Form Number</th>";           
@@ -283,7 +279,7 @@ width: 1150px;
 
 <!-- Update profile and password --> 
 
-<!-- update user info -->
+    <!-- update user info -->
   <script type = "text/javascript">
   $(document).ready(function(){
 
@@ -295,6 +291,8 @@ width: 1150px;
       $lastname=$('#lastname').val();
       $firstname=$('#firstname').val();
       $middlename=$('#middlename').val();
+      $userlevel=$('#userlevel').val();
+      $location=$('#location').val();
              
       //check ta nu maala na values bago ka ag ajaxstatus
       console.log($uid);
@@ -307,7 +305,9 @@ width: 1150px;
             username: $username,           
             lastname: $lastname,
             firstname: $firstname,
-            middlename: $middlename, 
+            middlename: $middlename,
+            userlevel: $userlevel,
+            location: $location,   
             edit: 1,
           },
           success: function(){
@@ -325,9 +325,10 @@ width: 1150px;
   
 </script>
 
- <!-- Edit Modal --> 
+
+ <!-- Updateinfo Modal --> 
 <form class="" action="updateinfo.php" method="POST">
-<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="editprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -368,13 +369,43 @@ width: 1150px;
               <input type="text" class="form-control" name="userlevel" id="userlevel" value="Division GAD Coordinator" readonly>
             </div>
         </div>
+       <div class="form-group">
+            <label class="control-label col-sm-3">Location:</label>
+            <div class="col-sm-9">
+              <select class="form-control disableButton" name="location" id="location" >
+
+                 <label selected><?php echo $rowprofile['location'];?></label>
+
+                  <?php
+
+                  $sqlOffice="SELECT DISTINCT division FROM division";
+                  $office=mysqli_query($conn, $sqlOffice);
+                  if(mysqli_num_rows($office)>0){
+                    while($divrow=mysqli_fetch_assoc($office)){
+                      if ( $divrow['division'] == $rowprofile['location']){?>
+                        <option value="<?php echo $divrow['division']; ?>" selected><?php echo $divrow['division']; ?></option>
+                      <?php }else{ ?>
+                        <option value="<?php echo $divrow['division']; ?>"><?php echo $divrow['division']; ?></option>
+                      <?php } 
+                      }
+                    }else{
+                    ?>
+                    <option value="" disabled>Add division first</option>
+                    <?php
+                  } 
+                  ?>
+              </select>
+            </div>
+        </div>
+
+       
 <br>
  </div>
 </div>
 <div class="modal-footer">
         <input type="hidden" name="id" id="uuid" value="<?php echo $rowprofile['id'];?>">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
-        <a data-toggle="modal" name="Update" href="#update" data-dismiss="modal" class="btn btn-primary">Update</a>
+        <a data-toggle="modal" name="Update" href="#update" class="btn btn-primary">Update</a>
 </div>
 
   </div>
@@ -466,31 +497,18 @@ function myFunction2() {
   $(document).ready(function(){
 
 $(document).on('click', '.btnSubmit', function(){
+  event.preventDefault();
+
 $uid = $('#uid').val();
 $passW = $('#confirm_pword').val();
-console.log($uid);
-console.log($passW); 
+
       if ($('.current_pw').val()=="" || $('#new_pword').val()=="" || $('#confirm_pword').val()==""){/*=========incomplte input */
       alert("Please fill out all fields!");
 
        }else if ($('.real_pw').val()!=$('.current_pw').val()){
       alert("Incorrect Password!");
     }else{
-         $.ajax({
-          type: "POST",
-          url: "",
-          data: {
-            id: $uid,
-            password: $passW,           
-            edit: 1,
-          },
-          success: function(){
-            window.location = "../index.php";
-            alert("Password successfully updated");
-          }
-        });
-    
-
+         $('.changepass').submit();
   }
   });
 
@@ -500,8 +518,8 @@ console.log($passW);
 
 
 <!-- Change Password Modal --> 
-<form class="" action="updatepword.php" method="POST">
-<div class="modal fade" id="password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
+<form class="changepass" action="updatepword.php" method="POST">
+<div class="modal fade" id="changepassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
@@ -516,21 +534,21 @@ console.log($passW);
               <label>Current Password:</label>
               <input type="hidden" id="real_pword" class="real_pw" name="real_pword" value="<?php echo $rowprofile['password'];?>">
               <input type="hidden" id="uid" name="uid" value="<?php echo $rowprofile['id'];?>"> 
-                  <input type="password" class="form-control current_pw" name="current_pword" id="current_pword">
+                  <input type="password" class="form-control current_pw" name="current_pword" id="current_pword" required>
                   <input type="checkbox" onclick="myFunction()">Show Password
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>New Password:</label>
-                  <input type="password" class="form-control" name="new_pword" onkeyup="passwordValidate()"id="new_pword">
+                  <input type="password" class="form-control" name="new_pword" onkeyup="passwordValidate()"id="new_pword" required>
                   <input type="checkbox" onclick="myFunction2()">Show Password
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Confirm Password:</label>
-                  <input type="password" class="form-control" name="confirm_pword" onkeyup="passwordValidate()"id="confirm_pword">
+                  <input type="password" class="form-control" name="confirm_pword" onkeyup="passwordValidate()"id="confirm_pword" required>
                   <i id="confirm-message" style="font-size: 20px;"></i>
             </div>
         </div>

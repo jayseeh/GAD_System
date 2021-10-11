@@ -117,7 +117,6 @@ background-color: #e6b800;
   color: black;
 }
 
-
 </style>
 
   </head>
@@ -128,8 +127,11 @@ background-color: #e6b800;
     <div class="row flex-nowrap">
         <div class="sidenav">
           <div class="d-flex justify-content-center">
-          <img src="imgreg/01.png" style="max-width:100px;" alt="">
-        </div><br><br>
+          <img src="imgreg/01.png" style="max-width:90px;" alt="">
+        </div><br>
+<center><h6 style="color: white;"><?php echo $_SESSION['full_name']; ?></h6></center>
+  <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
+  <hr style="height:2px;color:gray;background-color:gray">
 
 
   <a data-toggle="modal" href="#editprof">Profile</a>
@@ -156,24 +158,11 @@ background-color: #e6b800;
         <!-- Content -->
         <div class="main">
 
-                
-                 <nav class="navbar navbar-custom navbar-expand-lg border-bottom">
-                    <div class="container">          
-               <ul class="navbar">
-                 <li class="nav-item">
-                  <h2>Online Gender And Development Monitoring and Mainstreaming System<br>
-                 </h2>
-              <h3>Department of Education</h3><h5>Regional Office I</h5>
-                </li>
-               </ul>     
-                   </div>
-                </nav>
-
-    
-
+ <center><h2 style="color: black; background-color: #e6b800;">Division Management</h2></center>
+ <br>
 <div class="container-fluid">
 
-  <h2>HOME</h2>
+ 
 <div class="d-flex justify-content-start"> 
   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
 </div>
@@ -187,7 +176,7 @@ background-color: #e6b800;
                 <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
               </div>
               <div class="d-flex justify-content-start"> 
-                <a data-toggle="modal" href="#add" class="btn btn-success rounded-pill">Add User</a>
+               <a data-toggle="modal" href="#add" class="btn btn-success rounded-pill addUserButton">Add User</a>
               </div>  
               <br>
 
@@ -207,6 +196,7 @@ background-color: #e6b800;
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Firstname</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Middlename</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Userlevel</th>";
+             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Division</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Status</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Action</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>STATUS</th>";
@@ -224,6 +214,7 @@ background-color: #e6b800;
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tfirstname'>".$row['firstname']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tmiddlename'>".$row['middlename']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tuserlevel'>".$row['userlevel']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tlocation'>".$row['location']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tstatus'>".$row['status']."</td>";?>
 
               <td><button class="btn btn-primary rounded-pill edit_user"  value="<?php echo $row['id']; ?>">
@@ -295,8 +286,8 @@ $(document).ready(function(){
     //showUser();
     //Add New
     $(document).on('click', '.btncreate', function(){
-      if ($('#addusername').val()=="" || $('#addpassword').val()=="" || $('#addlastname').val()=="" || $('#addfirstname').val()=="" || $('#addmiddlename').val()=="" || $('#adduserlevel').val()==""){
-        alert('Please input data first');
+      if ($('#addusername').val()=="" || $('#addpassword').val()=="" || $('#addlastname').val()=="" || $('#addfirstname').val()=="" || $('#addmiddlename').val()=="" || $('#adduserlevel').val()=="" || $('#addlocation').val()==""){
+        alert('Please input all the data needed first!');
          return false;
       }
       else{
@@ -306,6 +297,7 @@ $(document).ready(function(){
       $addfirstname=$('#addfirstname').val();
       $addmiddlename=$('#addmiddlename').val();
       $adduserlevel=$('#adduserlevel').val();
+      $addlocation=$('#addlocation').val();
       $addstatus=$('#addstatus').val();        
         $.ajax({
           type: "POST",
@@ -317,6 +309,7 @@ $(document).ready(function(){
             firstname: $addfirstname,
             middlename: $addmiddlename,
             userlevel: $adduserlevel,
+            location: $addlocation,
             status: $addstatus,
             add: 1,
           },
@@ -330,13 +323,14 @@ $(document).ready(function(){
 
     //Update
     $(document).on('click', '.update_user', function(){
-      $uid=$("#uuid").val();
+      $uid=$("#uuidedit").val();
       $username=$('#username').val(); 
       $password=$('#password').val();
       $lastname=$('#lastname').val();
       $firstname=$('#firstname').val();
       $middlename=$('#middlename').val();
       $userlevel=$('#userlevel').val();
+      $location=$('#location').val();
       $status=$('#status').val();
         
       //check ta nu maala na values bago ka ag ajaxstatus
@@ -353,6 +347,7 @@ $(document).ready(function(){
             firstname: $firstname,
             middlename: $middlename,
             userlevel: $userlevel,
+            location: $location,
             status: $status,
             edit: 1,
           },
@@ -376,6 +371,7 @@ $(document).ready(function(){
          var firstname = $('#'+id).children('td[id = tfirstname]').text();
          var middlename = $('#'+id).children('td[id = tmiddlename]').text();
          var userlevel = $('#'+id).children('td[id = tuserlevel]').text();
+         var location = $('#'+id).children('td[id = tlocation]').text();
          var status = $('#'+id).children('td[id = tstatus]').text();
 
         console.log(id);
@@ -389,14 +385,31 @@ $(document).ready(function(){
         $("#firstname").val(firstname);
         $("#middlename").val(middlename);
         $("#userlevel").val(userlevel);
+        //$("#location").val(location);
         $("#status").val(status);
-        $("#uuid").val(id);
+        $("#uuidedit").val(id);
+        var lvlselected = $('#userlevel').val();
+         if(lvlselected == "Division GAD Coordinator"){
+          
+          $.ajax({
+                type: "POST",
+                url: "locationoption.php",
+                data: {
+                  lvlselected: lvlselected
+                },
+                success: function(data){
+                  $('#location').html(data);
+                }
+              });
+          
+          
+        }
 
         
         $("#edit").modal('toggle');
       });
   
-  });
+  
 
 
   //EDIT STATUS OF THE USER
@@ -417,7 +430,8 @@ $(document).ready(function(){
         $("#editstatus").modal('toggle');
    });
   
-  
+  });
+ 
 </script>
 
 
@@ -442,19 +456,111 @@ $(document).ready(function(){
             });
         
         
-      }else{
-        $('#addlocation').html('<option>loc</option>');
       }
-    })
+    });
 
   });
+</script>
+
+
+<!--On Change edit-->
+<script>
+  $(document).ready(function(){
+ 
+  //Disable button when fields is empty
+
+  $(".disableButton").keyup(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#updateButton").hide();
+      $("#submitButton").hide();
+      //alert("Please don't leave blank");
+    }else {
+        $('#updateButton').show();
+        $("#submitButton").show();
+    }
+  });
+  $(".addUserButton").click(function(){
+    console.log("TTTT");
+    var val = $(".disableButton").val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addusername").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addlocation").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#adduserlevel").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addmiddlename").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addfirstname").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addpassword").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addlastname").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+   });
 </script>
 
 
 
 
 <!--Add Modal-->
- <form class="" action="create.php" method="POST">
+<form class="" action="create.php" method="POST">
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -466,33 +572,33 @@ $(document).ready(function(){
       <div class="form-horizontal">
         <div class="form-group">
             <div class="col-sm-9">
-              <input type="text" name="username" class="form-control" id="addusername" placeholder="Username">
+              <input type="text" name="username" class="form-control disableButton" id="addusername" placeholder="Username" required>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
-              <input type="password" name="password" class="form-control" id="addpassword" placeholder="Password">
+              <input type="password" name="password" class="form-control disableButton" id="addpassword" placeholder="Password" required>
             </div>
         </div>
          <div class="form-group">
             <div class="col-sm-9">
-              <input type="text" name="lastname" class="form-control" id="addlastname" placeholder="Lastname">
+              <input type="text" name="lastname" class="form-control disableButton" id="addlastname" placeholder="Lastname" required>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
-              <input type="text" name="firstname" class="form-control" id="addfirstname" placeholder="Firstname">
+              <input type="text" name="firstname" class="form-control disableButton" id="addfirstname" placeholder="Firstname" required>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
-              <input type="text" name="middlename" class="form-control" id="addmiddlename" placeholder="Middlename">
+              <input type="text" name="middlename" class="form-control disableButton" id="addmiddlename" placeholder="Middlename" required>
             </div>
         </div>
-       <div class="form-group">
+        <div class="form-group">
             <label class="control-label col-sm-3">Userlevel:</label>
             <div class="col-sm-9">
-              <select class="form-control" name="userlevel" id="adduserlevel">
+              <select class="form-control disableButton" name="userlevel" id="adduserlevel" required>
                 <option value=""></option>
                 <option value="Division GAD Coordinator">Division GAD Coordinator</option>
               </select>
@@ -501,7 +607,7 @@ $(document).ready(function(){
         <div class="form-group">
             <label class="control-label col-sm-3">Location:</label>
             <div class="col-sm-9">
-              <select class="form-control" name="location" id="addlocation" >   
+              <select class="form-control disableButton" name="location" id="addlocation" required>   
               </select>
             </div>
         </div>
@@ -514,11 +620,14 @@ $(document).ready(function(){
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> | 
-     <a data-toggle="modal" href="#save" data-dismiss="modal" class="btn btn-success">Save</a>
+      <a data-toggle="modal" href="#save" class="btn btn-dark" id="submitButton">Save</a>
+
     </div>
     </div>
   </div>
 </div>
+
+
 
 <!-- Save Verification Modal -->
  
@@ -536,13 +645,11 @@ $(document).ready(function(){
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
 <input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md btncreate">
 </center>
-</div>
-         
+</div>        
        </div>
       </div>
     </div>
-
-</form> 
+   </form>
 
 
  <!-- Edit Modal --> 
@@ -560,46 +667,55 @@ $(document).ready(function(){
         <div class="form-group">
             <div class="col-sm-9">
               <label>Username:</label>
-                  <input type="text" class="form-control" type="text" name="username" id="username">
+                  <input type="text" class="form-control disableButton" type="text" name="username" id="username">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Password:</label>
-                  <input type="text" class="form-control" type="password" name="password" id="password"> 
+                  <input type="text" class="form-control disableButton" type="password" name="password" id="password"> 
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Lastname:</label>
-                <input type="text" class="form-control" type="text" name="lastname" id="lastname"> 
+                <input type="text" class="form-control disableButton" type="text" name="lastname" id="lastname"> 
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Firstname:</label>
-                <input type="text" class="form-control" type="text" name="firstname" id="firstname">  
+                <input type="text" class="form-control disableButton" type="text" name="firstname" id="firstname">  
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Middlename:</label>
-                <input type="text" class="form-control" type="text" name="middlename" id="middlename">   
+                <input type="text" class="form-control disableButton" type="text" name="middlename" id="middlename">   
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label col-sm-3">Userlevel:</label>
             <div class="col-sm-9">
-              <label>Userlevel:</label>
-              <input type="text" class="form-control" type="text" name="userlevel" id="userlevel" value="Division GAD Coordinator" readonly>
+              <select class="form-control disableButton" name="userlevel" id="userlevel">                
+                <option value="Division GAD Coordinator">Division GAD Coordinator</option>
+              </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Location:</label>
+            <div class="col-sm-9">
+              <select class="form-control disableButton" name="location" id="location" >   
+              </select>
             </div>
         </div>
 <br>
  </div>
 </div>
 <div class="modal-footer">
-        <input type="hidden" name="id" id="uuid" value="<?php echo $id;?>">
+        <input type="hidden" name="id" id="uuidedit" value="<?php echo $rowprofile['id'];?>">
         <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> |
-        <a data-toggle="modal" href="#update" data-dismiss="modal" class="btn btn-primary">Update</a>
+        <a data-toggle="modal" href="#update" class="btn btn-dark" id="updateButton">Update</a>
     </div>
         </div>
       </div>
@@ -618,7 +734,7 @@ $(document).ready(function(){
 <h4>Are you sure you want to update this user?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md update_user">
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
 </center>
 </div>
          
@@ -664,21 +780,22 @@ $(document).ready(function(){
 
 
 
-<!-- Update profile and password -->
+<!-- update user info and password-->
 
-
-   <!-- update user info -->
+        <!-- update user info -->
   <script type = "text/javascript">
   $(document).ready(function(){
 
 
     //Update
-    $(document).on('click', '.update_profile', function(){
-      $uid=$("#uuid").val();
-      $username=$('#username').val();      
-      $lastname=$('#lastname').val();
-      $firstname=$('#firstname').val();
-      $middlename=$('#middlename').val();
+    $(document).on('click', '.update_user', function(){
+      $uid=$("#uuidupdate").val();
+      $usernameinfo=$('#usernameinfo').val();      
+      $lastnameinfo=$('#lastnameinfo').val();
+      $firstnameinfo=$('#firstnameinfo').val();
+      $middlenameinfo=$('#middlenameinfo').val();
+      $userlevelinfo=$('#userlevelinfo').val();
+      $locationinfo=$('#locationinfo').val();
              
       //check ta nu maala na values bago ka ag ajaxstatus
       console.log($uid);
@@ -688,15 +805,17 @@ $(document).ready(function(){
           url: "",
           data: {
             id: $uid,
-            username: $username,           
-            lastname: $lastname,
-            firstname: $firstname,
-            middlename: $middlename, 
+            username: $usernameinfo,           
+            lastname: $lastnameinfo,
+            firstname: $firstnameinfo,
+            middlename: $middlenameinfo,
+            userlevel: $userlevelinfo,
+            location: $locationinfo, 
             edit: 1,
           },
           success: function(){
             window.location = "../index.php";
-            alert("User information successfully updated");
+           
           }
         });
     });
@@ -711,14 +830,14 @@ $(document).ready(function(){
 
 
 
- <!-- Edit Modal --> 
+ <!-- Updateinfo Modal --> 
 <form class="" action="updateinfo.php" method="POST">
 <div class="modal fade" id="editprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
-       <h3 class = "text-success modal-title">Update Info</h3>
+       <h3 class = "text-success modal-title">Update Profile</h3>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
      
     </div>
@@ -727,40 +846,46 @@ $(document).ready(function(){
         <div class="form-group">
             <div class="col-sm-9">
               <label>Username:</label>
-                  <input type="text" class="form-control" type="text" name="username" id="username" value="<?php echo $rowprofile['username'];?>">
+                  <input type="text" class="form-control" type="text" name="username" id="usernameinfo" value="<?php echo $rowprofile['username'];?>">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Lastname:</label>
-                <input type="text" class="form-control" name="lastname" id="lastname" value="<?php echo $rowprofile['lastname'];?>"> 
+                <input type="text" class="form-control" name="lastname" id="lastnameinfo" value="<?php echo $rowprofile['lastname'];?>"> 
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Firstname:</label>
-                <input type="text" class="form-control" name="firstname" id="firstname" value="<?php echo $rowprofile['firstname'];?>">  
+                <input type="text" class="form-control" name="firstname" id="firstnameinfo" value="<?php echo $rowprofile['firstname'];?>">  
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Middlename:</label>
-                <input type="text" class="form-control" name="middlename" id="middlename" value="<?php echo $rowprofile['middlename'];?>">   
+                <input type="text" class="form-control" name="middlename" id="middlenameinfo" value="<?php echo $rowprofile['middlename'];?>">   
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Userlevel:</label>
-              <input type="text" class="form-control" name="userlevel" id="userlevel" value="Division GAD Coordinator" readonly>
+                <input type="text" class="form-control" name="userlevel" id="userlevelinfo" value="<?php echo $rowprofile['userlevel'];?>" readonly>   
+            </div>
+        </div>
+          <div class="form-group">
+            <div class="col-sm-9">
+              <label>Location:</label>
+                <input type="text" class="form-control" name="location" id="locationinfo" value="<?php echo $rowprofile['location'];?>" readonly>   
             </div>
         </div>
 <br>
  </div>
 </div>
 <div class="modal-footer">
-        <input type="hidden" name="id" id="uuid" value="<?php echo $rowprofile['id'];?>">
+        <input type="hidden" name="id" id="uuidupdate" value="<?php echo $rowprofile['id'];?>">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
-        <a data-toggle="modal" name="Update" href="#update" data-dismiss="modal" class="btn btn-primary">Update</a>
+        <a data-toggle="modal" name="Update" href="#updateinfo" class="btn btn-primary">Update</a>
 </div>
 
   </div>
@@ -769,7 +894,7 @@ $(document).ready(function(){
 
  <!-- Update Verification Modal -->
  
-<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+<div class="modal fade" id="updateinfo" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
     <div class = "modal-header">   
@@ -779,7 +904,7 @@ $(document).ready(function(){
 <h4>Are you sure you want to save this update?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_profile">
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
 </center>
 </div>
          
@@ -851,32 +976,19 @@ function myFunction2() {
   <script type = "text/javascript">
   $(document).ready(function(){
 
-$(document).on('click', '.update_pword', function(){
+$(document).on('click', '.btnSubmit', function(){
+  event.preventDefault();
+
 $uid = $('#uid').val();
 $passW = $('#confirm_pword').val();
-console.log($uid);
-console.log($passW); 
+
       if ($('.current_pw').val()=="" || $('#new_pword').val()=="" || $('#confirm_pword').val()==""){/*=========incomplte input */
       alert("Please fill out all fields!");
 
        }else if ($('.real_pw').val()!=$('.current_pw').val()){
       alert("Incorrect Password!");
     }else{
-         $.ajax({
-          type: "POST",
-          url: "",
-          data: {
-            id: $uid,
-            password: $passW,           
-            edit: 1,
-          },
-          success: function(){
-            window.location = "../index.php";
-            alert("Password successfully updated");
-          }
-        });
-    
-
+         $('.changepass').submit();
   }
   });
 
@@ -886,7 +998,7 @@ console.log($passW);
 
 
 <!-- Change Password Modal --> 
-<form class="" action="updatepword.php" method="POST">
+<form class="changepass" action="updatepword.php" method="POST">
 <div class="modal fade" id="changepassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -902,21 +1014,21 @@ console.log($passW);
               <label>Current Password:</label>
               <input type="hidden" id="real_pword" class="real_pw" name="real_pword" value="<?php echo $rowprofile['password'];?>">
               <input type="hidden" id="uid" name="uid" value="<?php echo $rowprofile['id'];?>"> 
-                  <input type="password" class="form-control current_pw" name="current_pword" id="current_pword">
+                  <input type="password" class="form-control current_pw" name="current_pword" id="current_pword" required>
                   <input type="checkbox" onclick="myFunction()">Show Password
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>New Password:</label>
-                  <input type="password" class="form-control" name="new_pword" onkeyup="passwordValidate()"id="new_pword">
+                  <input type="password" class="form-control" name="new_pword" onkeyup="passwordValidate()"id="new_pword" required>
                   <input type="checkbox" onclick="myFunction2()">Show Password
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Confirm Password:</label>
-                  <input type="password" class="form-control" name="confirm_pword" onkeyup="passwordValidate()"id="confirm_pword">
+                  <input type="password" class="form-control" name="confirm_pword" onkeyup="passwordValidate()"id="confirm_pword" required>
                   <i id="confirm-message" style="font-size: 20px;"></i>
             </div>
         </div>
@@ -927,13 +1039,14 @@ console.log($passW);
 <div class="modal-footer">
         <input type="hidden" name="id" id="uuid" value="<?php echo $rowprofile['id'];?>">
         <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> |
-        <input type="button" class="btn btn-primary update_pword" id="btnupdate" value="Update">
+        <input type="button" class="btn btn-primary btnSubmit" id="btnupdate" value="Update">
 </div>
 
   </div>
  </div>
 </div>
 </form>
+
 
 
 <!-- Logout Modal -->
@@ -961,6 +1074,8 @@ console.log($passW);
       </div>
     </div>
     </form>
+
+
   <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">

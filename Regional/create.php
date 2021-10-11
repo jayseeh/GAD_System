@@ -12,11 +12,12 @@
 		$firstname = $_POST['firstname'];
 		$middlename = $_POST['middlename'];
 		$userlevel = $_POST['userlevel'];
+		$location = $_POST['location'];
 		$status = $_POST['status'];
 		
 
 		// query
-		$sql = "INSERT INTO caps (username, password, lastname, firstname, middlename, userlevel, status) VALUES ('$username', '$password', '$lastname', '$firstname', '$middlename', '$userlevel', '$status');";
+		$sql = "INSERT INTO caps (username, password, lastname, firstname, middlename, userlevel,location, status) VALUES ('$username', '$password', '$lastname', '$firstname', '$middlename', '$userlevel', '$location', '$status');";
 
 		// execute query
 		if ($conn->query($sql) === TRUE) {

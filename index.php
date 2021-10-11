@@ -82,6 +82,11 @@ body{
 header{
 background-color:white;
 }
+.p1{
+ 
+  font-size: 41px;
+   
+}
 
 </style>
 
@@ -92,20 +97,12 @@ background-color:white;
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-      <div class="container-fluid">
-      <div class="col-lg-20 order-lg-20">
-            <div class="p-15">
-               <ul class="navbar-brand ml-auto">
+      <div class="container-sm">      
+               <ul class="navbar-nav ml-auto">
                  <li class="nav-item">
-               <a class="nav-link"><h3>Online Gender And Development Monitoring and <br> Mainstreaming System</h3></a>
+               <p class="p1" style="color: white;">Online Gender And Development Monitoring and Mainstreaming System</p>
                 </li>
-               </ul>
-            </div>
-          </div>
-        <a class="navbar-nav"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+               </ul>                 
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">

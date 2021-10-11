@@ -1,12 +1,15 @@
-<?php session_start(); 
-
-include "../connect.php";
+<?php 
+  session_start();
+  include "../connect.php";
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
+  date_default_timezone_set("Asia/Singapore");
+  $date = date('Y-m-d H-i-s');
 
-if(empty($_SESSION['ulvl'])){
+  if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
+
 
 require('../connect.php');
  $un = $_SESSION['uid'];
@@ -14,11 +17,7 @@ require('../connect.php');
   $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
   $sqlprofile = mysqli_query($conn, $queryprofile);
   $rowprofile = mysqli_fetch_array($sqlprofile);
-  
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,6 +41,28 @@ require('../connect.php');
 
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
+    <script>
+    $(document).ready(function(){
+      var number;
+      var d = new Date();
+      var n = d.getTime();
+      //console.log(n);
+      $("#form_id").val("GAD-"+n);
+      var number = parseInt($("#count_num").val())+1;
+      console.log(number);
+
+      //ADD ROWS FUNCTION
+      $("#add_rows").click(function(){
+        $("#numberOfRows").val(number);
+        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center;'></td><td><textarea rows='4' cols='20' name='val1-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val2-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val3-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val4-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val5-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val6-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val7-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val8-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val9-"+number+"'></textarea></td></tr>";
+        console.log(table);
+        $("#table_gad").html(table);
+
+        number = number +1;
+      });
+    });
+    </script>
+    
 
 <style type="text/css">
   
@@ -131,27 +152,8 @@ width: 1150px;
 
   <body>
 
-<?php
-    include("../connect.php");
-    if(isset($_GET['id'])){
-      $id=$_GET['id'];
 
-
-      $sql="SELECT * FROM caps WHERE id='$id'";
-      $result=mysqli_query($conn, $sql);
-
-      if(mysqli_num_rows($result)>0){
-        while($row=mysqli_fetch_assoc($result)){
-
-
-
-    } 
-  }
-}
-  
-  ?>
-
-  <div class="container-fluid">
+     <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="sidenav">
           <div class="d-flex justify-content-center">
@@ -160,8 +162,8 @@ width: 1150px;
 <center><h6 style="color: white;"><?php echo $_SESSION['full_name']; ?></h6></center>
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
-  
-   <a data-toggle="modal" href="#editprof">Profile</a>
+
+  <a data-toggle="modal" href="#editprof">Profile</a>
 
   <a data-toggle="modal" href="#changepassword">Change password</a>
 
@@ -180,141 +182,58 @@ width: 1150px;
         <!-- Content -->
         <div class="main">
                 
-<center><h2 style="color: black; background-color: #e6b800;">Trained GAD Personnels</h2></center>
- <br>    
+ <center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>
+ <br> 
+ 
 
 <div class="container-fluid">
 
- <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
- <a href="gadar.php" class="btn btn-success rounded-pill">Submit GAD AR</a>
- <br><br>   
-        
- <!-- Template Table--> 
+  <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+  <a href="personnels.php" class="btn btn-success rounded-pill">Add Attendees</a>   <br><br>      
+
   <div class="d-flex justify-content-center">
- 
-        <fieldset>
+   <fieldset>
+
   <div class="row">
     <div class="container-fluid">
 
-    <div class="row">
-  <div class="col">
- <div class="card" style="width: 70rem;">
+<div class="card text-center" style="width: 70rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link" href="personnels.php">Add Attendees</a>
+        <a class="nav-link" href="gadar.php">Submit GAD AR</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="multipersonnel.php">Add Multiple Attendees</a>
+        <a class="nav-link" href="gadpendingform.php">Pending GAD AR</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="viewattendees.php">View Attendees</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Download Template</a>
+       <li class="nav-item">
+        <a class="nav-link active" aria-current="true">Approved GAD AR</a>
       </li>
     </ul>
   </div>
   <div class="card-body">
 
+<h2>APPROVED GAD AR FORMS</h2>
+         <section><br><br>
+              <div class="d-flex justify-content-end"> 
+                <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
+              </div>
+              <br>
 
-      <form action="download.php" method="post" enctype="multipart/form-data">
-                        
-                  
-  <div class="d-flex justify-content-center">
-
-    <div class="card border-primary mb-3" style="width: 60rem;">
-  
-  <div class="card-body">
-    <tr>
-
-                  <?php
-                   include("../connect.php");
-
-                   $sql="SELECT * FROM template";
-                   $result=mysqli_query($conn, $sql);
-                       ?>
-
-
-                   
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th style="padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;"><h4>Templates</h4></th>
-
-                                        <th style="padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;"><h4>Date</h4></th>
-                                        
-                                        <th style="padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;"><h4>Download</h4></th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                <?php
-
-                                if(mysqli_num_rows($result)>0){
-                                while($row=mysqli_fetch_assoc($result)){
-                                   ?>
-                                <tr>
-                                    <td><?php echo $row['filename']; ?></td>
-
-                                    <td><?php echo $row['date_temp']; ?></td>
-                                    
-                                    <td><a href="../Regional/Templates/<?php echo $row['filename']; ?>" download>Download</a></td>
-                                      
-                                </tr>
-                                <?php } ?>
-                                 <?php } ?>
-                                </tbody>
-                            </table>
-                        
-
-                   
-
-           </tr>
-           </div>
-         </div>
-       </div>
-         </form>
+   
+    </section>
   </div>
-</div>
- </div>
-  </div>  
-   </div>
+   </div> 
     </div>
-     </fieldset>
-  </div> 
-   </div>
-   </div>
-</div>
- </div>
+     </div>
+      </fieldset>
+       </div> 
+        </div>
+         </div>
+          </div>
+           </div>
 
 
-
-<script>
-    $(document).ready(function(){
-      var number;
-      var d = new Date();
-      var n = d.getTime();
-      //console.log(n);
-      $("#form_id").val("GAD-"+n);
-      var number = parseInt($("#count_num").val())+1;
-      console.log(number);
-
-      //ADD ROWS FUNCTION
-      $("#add_rows").click(function(){
-        $("#numberOfRows").val(number);
-        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center;' size='5'></td><td><input  type='text' name='personnel_name-"+number+"'size='40'></td><td><select name='position-"+number+"'style='height: 30px; width: 220px;'></select></td><td><select  name='gender-"+number+"'style='height: 30px; width: 80px;'></select></td></tr>";
-        console.log(table);
-        $("#table_gad").html(table);
-
-        number = number +1;
-      });
-    });
-    </script>
-
-
-    
 <!-- Update profile and password --> 
 
     <!-- update user info -->
@@ -604,7 +523,8 @@ $passW = $('#confirm_pword').val();
  </div>
 </div>
 </form>
-
+   
+     
 <!-- Logout Modal -->
  <form class="" action="../logout.php" method="POST">
 <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -626,17 +546,16 @@ $passW = $('#confirm_pword').val();
 </center>
 </div>
          
-       </div>
-      </div>
     </div>
-    </form>
-  
-<br><br><br><br><br><br><br>
+  </div>
+</div>
+</form>
 
+<br><br><br>
   <!-- Footer -->
     <footer class="py-5 bg-black">
-      <div class="container-fluid">
-        <p class=" text-center text-white large">GAD</p>
+      <div class="container">
+        <p class="m-0 text-center text-white small">GAD</p>
       </div>
       <!-- /.container -->
     </footer>
@@ -648,4 +567,5 @@ $passW = $('#confirm_pword').val();
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

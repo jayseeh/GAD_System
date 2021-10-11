@@ -4,7 +4,7 @@
 		include("../connect.php");
 		
 		// get form value
-		$password = $_POST['password'];
+		$password = $_POST['new_pword'];
 		$id= $_POST['id'];
 		
 		// query

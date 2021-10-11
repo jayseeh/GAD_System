@@ -111,11 +111,9 @@ background-color: #e6b800;
   color: black;
 }
 
-h1{
-  font-size: 34px;
-}
 
 </style>
+
 
   </head>
 
@@ -151,7 +149,8 @@ h1{
   <center><h6 style="color: white;"><?php echo $_SESSION['ulvl']; ?></h6></center>
   <hr style="height:2px;color:gray;background-color:gray">
 
-  <a href="user.php">User Management</a>
+
+  <a href="user.php" class="active">User Management</a>
 
   <a href="division.php">Division Management</a>
 
@@ -165,6 +164,7 @@ h1{
 
   <a data-toggle="modal" href="#logout">Logout</a>
   <a href="#">Help</a>
+
 </div>
 
 
@@ -172,43 +172,37 @@ h1{
 
         <!-- Content -->
         <div class="main">
-
- <nav class="navbar navbar-custom navbar-expand-lg border-bottom" style=" padding: 20px 15px 25px 15px;"> 
-    <ul class="navbar-nav">
-      <li class="nav-item">
-      <h1>Online Gender And Development Monitoring and Mainstreaming System</h1>
-      <hr style="height:2px;color:gray;background-color:gray">
-      <h2>Department of Education</h2>
-      <h3>Regional Office I</h3>
-      </li>
-    </ul>    
- </nav>
+<center><h2 style="color: black; background-color: #e6b800;">User Management</h2></center>
 
 <div class="container-fluid">
-
- <h2>Welcome <?php echo $_SESSION['ulvl']; ?></h2>
-         
-  <section>
-   
-        <div class="row align-items-center">
-          <div class="col-lg-5 order-lg-2">
-            <div class="p-5">
-              <img src="img/01.png" style="max-width:400px;" alt="">
-            </div>
-          </div>
-          <div id="about" class="col-lg-6 order-lg-1">
-            <div class="p-5">
-              <h2 class="display-4">All about region I</h2>
-              <p>The Ilocos Region lies on the northwestern coast of Luzon. It is bounded by Cagayan, Kalinga, Apayao, Abra, Mt. Province, Benguet and Nueva Vizcaya on the east; Nueva Ecija, Tarlac and Zambales on the south; and the China Sea on the northwest. Its strategic location has made it the gateway to East Asia.<br>
-
-              Region 1 consists of four (4) provinces and eight (8) cities, namely: the province of Ilocos Norte, Ilocos Sur, La Union and Pangasinan; and the cities of Dagupan, San Carlos, Alaminos and Urdaneta in Pangasinan; Laoag in Ilocos Norte, Vigan and Candon in Ilocos Sur; San Fernando in La Union. The City of San Fernando is the center of the region.</p>
-            </div>
-          </div>
-        </div>
-     
+  <a href="admin.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+  </div>
+         <section><br>
+        <div class="row">
+        <div class="col">
+         <div class="card" style="width: 73rem;">
+          <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link" href="user.php">List of Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true">Deactivated Users</a>
+      </li>
+    </ul>
+  </div>
+         <div class="card-body">
+              <div class="d-flex justify-content-end"> 
+                <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
+              </div>
+              
+      </div>
+      </div>
+      </div>
+      </div>   
     </section>
-
-   </div>
+  
+ 
    </div>
 </div>
  </div>
@@ -220,6 +214,17 @@ h1{
   crossorigin="anonymous"></script>
 
 
+<!--Search-->
+<script>
+$(document).ready(function(){
+  $("#search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#usertable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 
 <!--Dropdown-->
 
@@ -241,7 +246,69 @@ for (i = 0; i < dropdown.length; i++) {
   });
 }
 
+
 </script>
+
+  
+
+    
+
+<script type = "text/javascript">
+
+
+   //EDIT STATUS OF THE USER
+   $(document).on('click', '.edit_status', function(){
+        
+        var id = $(this).val();
+        console.log(status);
+        $("#uuid1").val(id);
+        var status1 = $('#'+id).children('td[id = tstatus]').text();
+        $("#status1").val(status1);
+        if(status1=='ACTIVE'){
+          $("#label_status").html("Are you sure you want to deactivate this account?");
+          $("#submit_status").val("DEACTIVATE");
+        }else{
+          $("#label_status").html("Are you sure you want to activate this account?");
+          $("#submit_status").val("ACTIVATE");
+        }
+        $("#editstatus").modal('toggle');
+   });
+
+</script>
+
+
+
+ <!-- DEACT Modal --> 
+<form class="" action="changestatus.php" method="POST">
+<div class="modal fade" id="editstatus" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+       <h3 class = "text-primary modal-title">USER STATUS</h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+     
+    </div>
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label id="label_status"></label>
+            </div>
+        </div>
+<br>
+ </div>
+</div>
+<div class="modal-footer">
+        <input type="hidden" name="id" id="uuid1">
+        <input type="hidden" name="status" id="status1">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
+         <input type="submit"  class="btn btn-primary" id="submit_status">      
+    </div>         
+       </div>
+      </div>
+    </div>    
+</form>
+<!-- END MODAL FOR DEACTIVATE ACCOUNT Modal -->
 
 <!-- Logout Modal -->
  <form class="" action="../logout.php" method="POST">
@@ -260,26 +327,18 @@ for (i = 0; i < dropdown.length; i++) {
 <h4>Are you sure you want to logout?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="yes" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md btnlogout">
+<input type="submit" name="yes" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md ">
 </center>
 </div>
          
        </div>
       </div>
     </div>
-    </form>  
-
-  
-
-    
-
-
-  
-
- 
-            
-
-
+    </form>             
+        </div>
+    </div>
+</div>
+<br><br> 
   <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">

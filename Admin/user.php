@@ -144,8 +144,11 @@ background-color: #e6b800;
     <div class="row flex-nowrap">
         <div class="sidenav">
           <div class="d-flex justify-content-center">
-          <img src="img/01.png" style="max-width:100px;" alt="">
+          <img src="img/01.png" style="max-width:90px;" alt="">
         </div><br><br>
+  <center><h6 style="color: white;"><?php echo $_SESSION['ulvl']; ?></h6></center>
+  <hr style="height:2px;color:gray;background-color:gray">
+
 
   <a href="user.php" class="active">User Management</a>
 
@@ -169,30 +172,26 @@ background-color: #e6b800;
 
         <!-- Content -->
         <div class="main">
- 
-                <nav class="navbar navbar-custom navbar-expand-lg border-bottom">
-                    <div class="container">          
-               <ul class="navbar">
-                 <li class="nav-item">
-                  <h2>Online Gender And Development Monitoring and Mainstreaming System</h2>
-              <h3>Department of Education</h3><h5>Regional Office I</h5>
-                </li>
-               </ul>     
-                   </div>
-                </nav>
-
-    
+<center><h2 style="color: black; background-color: #e6b800;">User Management</h2></center>
 
 <div class="container-fluid">
-
-<h2>USER</h2>
-<div class="d-flex justify-content-start"> 
   <a href="admin.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
-</div> 
+</div>
          <section><br>
-         <div class="card" style="width: 70rem;">
+        <div class="row">
+        <div class="col">
+         <div class="card" style="width: 73rem;">
+          <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true">List of Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="deactuser.php">Deactivated Users</a>
+      </li>
+    </ul>
+  </div>
          <div class="card-body">
-              <legend>List of Users</legend>
               <div class="d-flex justify-content-end"> 
                 <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
               </div>
@@ -268,10 +267,12 @@ background-color: #e6b800;
         echo "</table";
       ?>
       </div>
+      </div>
+      </div>
       </div>   
     </section>
   
-   </div>
+   
    </div>
 </div>
  </div>
@@ -544,7 +545,7 @@ for (i = 0; i < dropdown.length; i++) {
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> | 
-      <a data-toggle="modal" href="#save" data-dismiss="modal" class="btn btn-primary" id="submitButton">Save</a>
+      <a data-toggle="modal" href="#save" class="btn btn-dark" id="submitButton">Save</a>
 
     </div>
     </div>
@@ -635,6 +636,11 @@ for (i = 0; i < dropdown.length; i++) {
               </select>
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="hidden" name="status" class="form-control" id="status" value="ACTIVE" readonly>
+            </div>
+        </div>
 
 <br>
  </div>
@@ -642,7 +648,7 @@ for (i = 0; i < dropdown.length; i++) {
 <div class="modal-footer">
         <input type="hidden" name="id" id="uuid" value="<?php echo $id;?>">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
-         <a data-toggle="modal" href="#update" data-dismiss="modal" class="btn btn-primary" id="updateButton">Update</a>      
+         <a data-toggle="modal" href="#update" class="btn btn-primary" id="updateButton">Update</a>      
     </div>         
        </div>
       </div>

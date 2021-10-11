@@ -8,14 +8,16 @@
 		$lastname = $_POST['lastname'];
 		$firstname = $_POST['firstname'];
 		$middlename = $_POST['middlename'];
+		$userlevel = $_POST['userlevel'];
+		$location = $_POST['location'];
 		$id= $_POST['id'];
 		
 		// query
-		$sql="UPDATE caps SET username='$username', lastname='$lastname', firstname='$firstname', middlename='$middlename' WHERE id='$id'";
+		$sql="UPDATE caps SET username='$username', lastname='$lastname', firstname='$firstname', middlename='$middlename', userlevel='$userlevel', location='$location' WHERE id='$id'";
 
 
 		if(mysqli_query($conn,$sql)){
-			echo "<script>alert('User information successfully updated'); window.location = '../index.php';</script>";
+			echo "<script>alert('User information successfully updated'); window.location = 'regional.php';</script>";
 		}else{
 			echo "Error updating records!" . mysqli_error($conn);
 		}

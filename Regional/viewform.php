@@ -11,6 +11,13 @@
   $fetch_form = mysqli_fetch_assoc($query_form);
   date_default_timezone_set("Asia/Singapore");
   $date = date('Y-m-d H-i-s');
+
+   require('../connect.php');
+ $un = $_SESSION['uid'];
+
+  $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
+  $sqlprofile = mysqli_query($conn, $queryprofile);
+  $rowprofile = mysqli_fetch_array($sqlprofile);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -149,11 +156,13 @@ width: 1150px;
     <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="sidenav">
-          <div class="d-flex justify-content-center">
-          <img src="imgreg/01.png" style="max-width:100px;" alt="">
-        </div><br><br>
-<a data-toggle="modal" href="#edit"><?php echo $_SESSION['full_name']; ?></a>
-  <a data-toggle="modal" href="#edit"><?php echo $_SESSION['ulvl']; ?></a><br><br>
+         <div class="d-flex justify-content-center">
+          <img src="imgreg/01.png" style="max-width:90px;" alt="">
+        </div><br>
+<center><h6 style="color: white;"><?php echo $_SESSION['full_name']; ?></h6></center>
+  <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
+  <hr style="height:2px;color:gray;background-color:gray">
+  
  <a data-toggle="modal" href="#editprof">Profile</a>
 
   <a data-toggle="modal" href="#changepassword">Change password</a>
@@ -178,22 +187,26 @@ width: 1150px;
         <!-- Content -->
         <div class="main">
                 
-                 <nav class="navbar navbar-custom navbar-expand-lg border-bottom">
-                    <div class="container">          
-               <ul class="navbar">
-                 <li class="nav-item">
-                  <h2>Online Gender And Development Monitoring and Mainstreaming System<br>
-                 </h2>
-              <h3>Department of Education</h3><h5>Regional Office I</h5>
-                </li>
-               </ul>     
-                   </div>
-                </nav>    
+  <?php
+    if($form_type=='GPB'){
+      echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Plan And Budget</h2></center>';
+    }else{
+      echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>';
+    }
+  ?>
+                
+ <br>   
 
 <div class="container-fluid">
 
-  <h2>GAD Plan and Budget</h2>
-   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+  <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+   <?php
+    if($form_type=='GPB'){
+      echo '<a href="reggpb.php" class="btn btn-success rounded-pill">Go Back</a>';
+    }else{
+      echo '<a href="reggadar.php" class="btn btn-success rounded-pill">Go Back</a>';
+    }
+  ?> 
   <br><br>
 <div class="d-flex justify-content-center">
     <fieldset>
@@ -315,6 +328,272 @@ width: 1150px;
 
     
     
+<!-- update user info and password-->
+
+        <!-- update user info -->
+  <script type = "text/javascript">
+  $(document).ready(function(){
+
+
+    //Update
+    $(document).on('click', '.update_user', function(){
+      $uid=$("#uuidupdate").val();
+      $usernameinfo=$('#usernameinfo').val();      
+      $lastnameinfo=$('#lastnameinfo').val();
+      $firstnameinfo=$('#firstnameinfo').val();
+      $middlenameinfo=$('#middlenameinfo').val();
+      $userlevelinfo=$('#userlevelinfo').val();
+      $locationinfo=$('#locationinfo').val();
+             
+      //check ta nu maala na values bago ka ag ajaxstatus
+      console.log($uid);
+      console.log($username);
+        $.ajax({
+          type: "POST",
+          url: "",
+          data: {
+            id: $uid,
+            username: $usernameinfo,           
+            lastname: $lastnameinfo,
+            firstname: $firstnameinfo,
+            middlename: $middlenameinfo,
+            userlevel: $userlevelinfo,
+            location: $locationinfo, 
+            edit: 1,
+          },
+          success: function(){
+            window.location = "../index.php";
+           
+          }
+        });
+    });
+
+   
+  
+  });
+
+  
+  
+</script>
+
+
+
+ <!-- Updateinfo Modal --> 
+<form class="" action="updateinfo.php" method="POST">
+<div class="modal fade" id="editprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+       <h3 class = "text-success modal-title">Update Profile</h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+     
+    </div>
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Username:</label>
+                  <input type="text" class="form-control" type="text" name="username" id="usernameinfo" value="<?php echo $rowprofile['username'];?>">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Lastname:</label>
+                <input type="text" class="form-control" name="lastname" id="lastnameinfo" value="<?php echo $rowprofile['lastname'];?>"> 
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Firstname:</label>
+                <input type="text" class="form-control" name="firstname" id="firstnameinfo" value="<?php echo $rowprofile['firstname'];?>">  
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Middlename:</label>
+                <input type="text" class="form-control" name="middlename" id="middlenameinfo" value="<?php echo $rowprofile['middlename'];?>">   
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Userlevel:</label>
+                <input type="text" class="form-control" name="userlevel" id="userlevelinfo" value="<?php echo $rowprofile['userlevel'];?>" readonly>   
+            </div>
+        </div>
+          <div class="form-group">
+            <div class="col-sm-9">
+              <label>Location:</label>
+                <input type="text" class="form-control" name="location" id="locationinfo" value="<?php echo $rowprofile['location'];?>" readonly>   
+            </div>
+        </div>
+<br>
+ </div>
+</div>
+<div class="modal-footer">
+        <input type="hidden" name="id" id="uuidupdate" value="<?php echo $rowprofile['id'];?>">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
+        <a data-toggle="modal" name="Update" href="#updateinfo" class="btn btn-primary">Update</a>
+</div>
+
+  </div>
+ </div>
+</div>
+
+ <!-- Update Verification Modal -->
+ 
+<div class="modal fade" id="updateinfo" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">   
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to save this update?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
+</form>
+
+
+
+
+<script type="text/javascript">
+
+
+    var passwordValidate = function() {
+  if (document.getElementById('new_pword').value ==
+    document.getElementById('confirm_pword').value) {
+
+    document.getElementById('confirm-message').style.color = 'green';
+    document.getElementById('confirm-message').innerHTML = 'Password Matched';
+    document.getElementById('btnupdate').disabled=false;
+    document.getElementById('btnupdate').style.background='#ee0979';
+    document.getElementById('btnupdate').style.color='white';
+
+  } else if (document.getElementById('new_pword').value !=
+    document.getElementById('confirm_pword').value)  {
+
+    document.getElementById('confirm-message').style.color = 'red';
+    document.getElementById('confirm-message').innerHTML = 'Password not Match';
+    document.getElementById('btnupdate').disabled=true;
+    document.getElementById('btnupdate').style.background='white';
+    document.getElementById('btnupdate').style.color='black';
+
+  } 
+}
+
+</script>
+
+
+
+<!-- Hide/unhide password --> 
+<script type="text/javascript">
+  
+function myFunction() {
+  var x = document.getElementById("current_pword");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
+function myFunction2() {
+  var y = document.getElementById("new_pword");
+  
+
+  if (y.type === "password") {
+    y.type = "text";
+  } else {
+    y.type = "password";
+  }
+
+}
+  
+</script>
+
+
+<!-- update password -->
+  <script type = "text/javascript">
+  $(document).ready(function(){
+
+$(document).on('click', '.btnSubmit', function(){
+  event.preventDefault();
+
+$uid = $('#uid').val();
+$passW = $('#confirm_pword').val();
+
+      if ($('.current_pw').val()=="" || $('#new_pword').val()=="" || $('#confirm_pword').val()==""){/*=========incomplte input */
+      alert("Please fill out all fields!");
+
+       }else if ($('.real_pw').val()!=$('.current_pw').val()){
+      alert("Incorrect Password!");
+    }else{
+         $('.changepass').submit();
+  }
+  });
+
+  });
+ 
+</script>
+
+
+<!-- Change Password Modal --> 
+<form class="changepass" action="updatepword.php" method="POST">
+<div class="modal fade" id="changepassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+       <h3 class = "text-success modal-title">Update Password</h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>     
+    </div>
+    <div class="modal-body">
+      <div class="container">
+      <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Current Password:</label>
+              <input type="hidden" id="real_pword" class="real_pw" name="real_pword" value="<?php echo $rowprofile['password'];?>">
+              <input type="hidden" id="uid" name="uid" value="<?php echo $rowprofile['id'];?>"> 
+                  <input type="password" class="form-control current_pw" name="current_pword" id="current_pword" required>
+                  <input type="checkbox" onclick="myFunction()">Show Password
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>New Password:</label>
+                  <input type="password" class="form-control" name="new_pword" onkeyup="passwordValidate()"id="new_pword" required>
+                  <input type="checkbox" onclick="myFunction2()">Show Password
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Confirm Password:</label>
+                  <input type="password" class="form-control" name="confirm_pword" onkeyup="passwordValidate()"id="confirm_pword" required>
+                  <i id="confirm-message" style="font-size: 20px;"></i>
+            </div>
+        </div>
+<br>
+ </div>
+</div>
+</div>
+<div class="modal-footer">
+        <input type="hidden" name="id" id="uuid" value="<?php echo $rowprofile['id'];?>">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> |
+        <input type="button" class="btn btn-primary btnSubmit" id="btnupdate" value="Update">
+</div>
+
+  </div>
+ </div>
+</div>
+</form>
 
   
 <!-- Logout Modal -->
