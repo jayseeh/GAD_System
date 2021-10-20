@@ -45,8 +45,26 @@ $(document).ready(function(){
   $("#position").change(function(){
     //alert($(this).val());
     console.log($(this).val());
-    var pos = $(this).val()
+    var pos = $(this).val();
+    $("#location").val("All");
     $.post("filterattendees.php",
+    {
+      position: $(this).val()   
+    },
+    function(data){
+      console.log(data);
+      $("#table_gad").html(data);
+      var count = $("#total_count").val();
+      $("#view_pos").html("Total Number of <b>"+pos+"</b>: <b>"+count+"</b>");
+      //alert("Data: " + data + "\nStatus: " + status);
+    });
+  });
+  $("#location").change(function(){
+    //alert($(this).val());
+    console.log($(this).val());
+    var pos = $(this).val();
+    $("#position").val("All");
+    $.post("filterlocation.php",
     {
       position: $(this).val()   
     },
@@ -241,7 +259,7 @@ width: 1150px;
     <div class="mb-3">
       <label  class="col-sm-4 col-form-label">Select Position to Filter</label>
       <select  name="position-1" style="height: 30px; width: 220px;" id="position">
-         <option value=""></option>
+         <option value="All">All</option>
          <option value="Principal">Principal</option>
          <option value="Master Teacher II">Master Teacher II</option>
          <option value="Master Teacher I">Master Teacher I</option>
@@ -294,7 +312,8 @@ width: 1150px;
             <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Number</th>
             <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Name</th> 
             <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Position</th>          
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Gender</th>   
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Gender</th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Division</th>      
           </tr>
           <?php
             $count=1;
@@ -303,22 +322,23 @@ width: 1150px;
               echo "<td style='font-size: 15px' class='fonts-fam'>".$count."</td>";
               echo "<td style='font-size: 15px' class='fonts-fam'>".$row['name']."</td>";
               echo "<td style='font-size: 15px' class='fonts-fam'>".$row['position']."</td>";
-              echo "<td style='font-size: 15px' class='fonts-fam'>".$row['gender']."</td>";  
+              echo "<td style='font-size: 15px' class='fonts-fam'>".$row['gender']."</td>";
+              echo "<td style='font-size: 15px' class='fonts-fam'>".$row['division']."</td>";  
               echo "</tr>";
               $count++;
             }
           ?>
 
           <tr>
-            <td colspan="3" class="fonts-fam"><b>Total:</b></td>
+            <td colspan="4" class="fonts-fam"><b>Total:</b></td>
             <td class="fonts-fam"><b><?php echo mysqli_num_rows($query_at); ?></b></td>
           </tr>
           <tr>
-             <td colspan="3" class="fonts-fam"><b>Total Number of Male:</b></td>
+             <td colspan="4" class="fonts-fam"><b>Total Number of Male:</b></td>
              <td class="fonts-fam"><b><?php echo mysqli_num_rows($query_male); ?></b></td>
           </tr>
            <tr>
-             <td colspan="3" class="fonts-fam"><b>Total Number of Female:</b></td>
+             <td colspan="4" class="fonts-fam"><b>Total Number of Female:</b></td>
              <td class="fonts-fam"><b><?php echo mysqli_num_rows($query_female); ?></b></td>
           </tr>
       </table></center>

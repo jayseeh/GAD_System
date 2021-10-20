@@ -42,7 +42,7 @@ if(isset($_POST['submit-files'])){
       $gender = mysqli_real_escape_string($conn, $worksheet->getCellByColumnAndRow(5,$row)->getValue());
       //echo $name." ".$position."<br>";
       if($name!=""){
-        mysqli_query($conn,"INSERT INTO attendees(name,position,gender) VALUES ('$name','$position','$gender')");
+        mysqli_query($conn,"INSERT INTO attendees(name,position,gender,division) VALUES ('$name','$position','$gender','$loc')");
         /*$html = $html.'<tr>
             <td>'.($row-12).'</td>
             <td>'.$name.'</td>

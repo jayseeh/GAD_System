@@ -9,7 +9,7 @@ $html = "<tr>
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender</th>  
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Division</th>   
           </tr>";
-$query = mysqli_query($conn,"SELECT * FROM attendees WHERE position='$position'");
+$query = mysqli_query($conn,"SELECT * FROM attendees WHERE division='$position'");
 while($row = mysqli_fetch_assoc($query)){
 	$html = $html . "<tr>
 	<td>".$count."</td>
