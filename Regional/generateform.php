@@ -226,6 +226,7 @@ width: 1150px;
 <div class="container-fluid">
  <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
   <button class="btn btn-warning rounded-pill" onclick="generatePDF()">Export as PDF</button>
+  <button class="btn btn-warning rounded-pill" onclick="print()">Open as PDF</button>
   <br><br>
     <fieldset>
 
