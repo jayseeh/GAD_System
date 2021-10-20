@@ -204,23 +204,66 @@ width: 1150px;
         <a class="nav-link" href="gadar.php">Submit GAD AR</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="gadpendingform.php">Pending GAD AR</a>
+        <a class="nav-link" href="gadpendingform.php" >Pending GAD AR</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Approved GAD AR</a>
+        <a class="nav-link active" aria-current="true" >Approved GAD AR</a>
       </li>
     </ul>
   </div>
   <div class="card-body">
 
-<h2>APPROVED GAD AR FORMS</h2>
+<h2>PENDING GAD AR FORMS</h2>
          <section><br><br>
               <div class="d-flex justify-content-end"> 
                 <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
               </div>
               <br>
 
-   
+      <?php
+        include("../connect.php");
+
+        $sql="SELECT * FROM gad_form WHERE requestor_id='$user' and form_number LIKE 'GAD%' and form_status='APPROVED' ORDER BY date_submitted";
+        $result=mysqli_query($conn, $sql);
+
+        echo "<table id='list' class='table table-bordered table-hover'>";
+        
+          echo "<tr>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Form Number</th>";           
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Form Status</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Date Submitted</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; text-align: center;' colspan='2'>ACTION</th>";
+          echo "</tr>";
+          echo "<tbody id='usertable'>";
+
+        if(mysqli_num_rows($result)>0){
+          while($row=mysqli_fetch_assoc($result)){
+            echo "<tr>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['form_number']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['form_status']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$row['date_submitted']."</td>";
+              if($row['form_status']!='PENDING'){
+      
+              ?>
+                <td style='padding: 10px;border-bottom: 1px solid black;'><a class="btn btn-primary edit_status"  href="viewapprovedform.php?id=<?php echo $row['form_number'] ?>">
+                  <i class="bi bi-pencil-square">VIEW</i>
+                  </a>
+                 <?php
+                 }else{
+                 ?> 
+                </td>
+                <td style='padding: 10px;border-bottom: 1px solid black;'><a class="btn btn-primary edit_status"  href="updateform.php?id=<?php echo $row['form_number'] ?>">
+                      <i class="bi bi-pencil-square">EDIT</i>
+                      </a>    
+                </td>
+              <?php
+              } 
+            echo "</tr>";
+          }
+        }
+        echo "</tbody>";
+        echo "</table";
+      ?>   
     </section>
   </div>
    </div> 
@@ -551,7 +594,7 @@ $passW = $('#confirm_pword').val();
 </div>
 </form>
 
-<br><br><br>
+
   <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">

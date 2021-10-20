@@ -176,7 +176,7 @@ background-color: #e6b800;
 
 <div class="container-fluid">
   <a href="admin.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
-  </div>
+</div>
          <section><br>
         <div class="row">
         <div class="col">
@@ -184,10 +184,10 @@ background-color: #e6b800;
           <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link" href="user.php">List of Users</a>
+        <a class="nav-link" href="user.php" >List of Users</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Deactivated Users</a>
+        <a class="nav-link active" aria-current="true" >Deactivated Users</a>
       </li>
     </ul>
   </div>
@@ -195,14 +195,82 @@ background-color: #e6b800;
               <div class="d-flex justify-content-end"> 
                 <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
               </div>
-              
+                          
+              <br>
+
+      <?php
+        include("../connect.php");
+
+        $sql="SELECT * FROM caps WHERE userlevel != 'Admin' and status='INACTIVE'";
+        $result=mysqli_query($conn, $sql);
+
+        echo "<table id='list' class='table table-hover'>";
+        
+          echo "<tr>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>ID</th>";           
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Username</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Password</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Lastname</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Firstname</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Middlename</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Userlevel</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Location</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Status</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Action</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>STATUS</th>";
+                       
+          echo "</tr>";
+          echo "<tbody id='usertable'>";
+
+        if(mysqli_num_rows($result)>0){
+          while($row=mysqli_fetch_assoc($result)){
+            echo "<tr id=".$row['id'] .">";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['id']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['username']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$row['password']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tlastname'>".$row['lastname']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tfirstname'>".$row['firstname']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tmiddlename'>".$row['middlename']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tuserlevel'>".$row['userlevel']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tlocation'>".$row['location']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tstatus'>".$row['status']."</td>";?>
+
+              <td><button class="btn btn-primary rounded-pill edit_user"  value="<?php echo $row['id']; ?>">
+                  <i class="bi bi-pencil-square">Edit</i>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                  </svg></button>
+                
+            </td>
+            <td><button class="btn btn-primary edit_status"  value="<?php echo $row['id']; ?>">
+                  <i class="bi bi-pencil-square">
+                    <?php 
+                      if ($row['status']=='ACTIVE'){
+                        echo "Deactivate";      
+                      }else {
+                        echo "Activate";
+                      }
+                    ?>
+                  
+                  </i>
+                  </button>
+                
+            </td>
+              <?php
+            echo "</tr>";
+          }
+        }
+        echo "</tbody>";
+        echo "</table";
+      ?>
       </div>
       </div>
       </div>
       </div>   
     </section>
   
- 
+   
    </div>
 </div>
  </div>
@@ -253,7 +321,144 @@ for (i = 0; i < dropdown.length; i++) {
 
     
 
+
+  
+
+ <!-- Modal Add User-->
 <script type = "text/javascript">
+   $(document).ready(function(){
+    //Add New
+    $(document).on('click', '.btncreate', function(){
+      if ($('#addusername').val()=="" || $('#addpassword').val()=="" || $('#addlastname').val()=="" || $('#addfirstname').val()=="" || $('#addmiddlename').val()=="" || $('#adduserlevel').val()=="" || $('#addlocation').val()==""){
+        alert('Please input data first');
+         return false;
+      }
+      else{
+      $addusername=$('#addusername').val();
+      $addpassword=$('#addpassword').val();
+      $addlastname=$('#addlastname').val();
+      $addfirstname=$('#addfirstname').val();
+      $addmiddlename=$('#addmiddlename').val();
+      $adduserlevel=$('#adduserlevel').val();
+      $addlocation=$('#addlocation').val();
+      $addstatus=$('#addstatus').val();        
+        $.ajax({
+          type: "POST",
+          url: "",
+          data: {
+            username: $addusername,
+            password: $addpassword,
+            lastname: $addlastname,
+            firstname: $addfirstname,
+            middlename: $addmiddlename,
+            userlevel: $adduserlevel,
+            location: $addlocation,
+            status: $addstatus,
+            add: 1,
+          },
+          success: function(){
+            //showUser();
+            $('#add').modal('hide');
+            alert("User information successfully saved");
+            window.location = "user.php";
+          }
+        });
+      }
+    });
+
+    //Update
+    $(document).on('click', '.update_user', function(){
+      $uid=$("#uuid").val();
+      $username=$('#username').val(); 
+      $password=$('#password').val();
+      $lastname=$('#lastname').val();
+      $firstname=$('#firstname').val();
+      $middlename=$('#middlename').val();
+      $userlevel=$('#userlevel').val();
+      $location=$('#location').val();
+      $status=$('#status').val();
+        
+      //check ta nu maala na values bago ka ag ajaxstatus
+      console.log($uid);
+      console.log($username);
+        $.ajax({
+          type: "POST",
+          url: "",
+          data: {
+            id: $uid,
+            username: $username,
+            password: $password,
+            lastname: $lastname,
+            firstname: $firstname,
+            middlename: $middlename,
+            userlevel: $userlevel,
+            location: $location,
+            status: $status,
+            edit: 1,
+          },
+          success: function(){
+            alert("User information successfully updated");
+            window.location = "user.php";
+          }
+        });
+    });
+
+   
+    
+    $(document).on('click', '.edit_user', function(){
+        
+        var id = $(this).val();
+        
+        
+         var username = $('#'+id).children('td[id = tusername]').text();
+         var password = $('#'+id).children('td[id = tpassword]').text();
+         var lastname = $('#'+id).children('td[id = tlastname]').text();
+         var firstname = $('#'+id).children('td[id = tfirstname]').text();
+         var middlename = $('#'+id).children('td[id = tmiddlename]').text();
+         var userlevel = $('#'+id).children('td[id = tuserlevel]').text();
+         var location = $('#'+id).children('td[id = tlocation]').text();
+         var status = $('#'+id).children('td[id = tstatus]').text();
+
+        console.log(id);
+        console.log(username);
+        console.log(userlevel);
+
+        
+        $("#username").val(username);
+        $("#password").val(password);
+        $("#lastname").val(lastname);
+        $("#firstname").val(firstname);
+        $("#middlename").val(middlename);
+        $("#userlevel").val(userlevel);
+        //$("#location").val(location);
+        $("#status").val(status);
+        $("#uuid").val(id);
+        var lvlselected = $('#userlevel').val();
+        if (lvlselected == "Regional GAD Coordinator") {
+          $('#location').html('<option>Region 1</option>');
+        }else if(lvlselected == "Division GAD Coordinator"){
+          
+          $.ajax({
+                type: "POST",
+                url: "locationoption.php",
+                data: {
+                  lvlselected: lvlselected
+                },
+                success: function(data){
+                  $('#location').html(data);
+                }
+              });
+          
+          
+        }else{
+          $('#location').html('<option></option>');
+        }
+
+        
+        $("#edit").modal('toggle');
+      });
+  
+  });
 
 
    //EDIT STATUS OF THE USER
@@ -276,7 +481,198 @@ for (i = 0; i < dropdown.length; i++) {
 
 </script>
 
+<!--Add Modal-->
+<form class="" action="create.php" method="POST">
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+       <h3 class = "text-primary modal-title">Add User</h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="text" name="username" class="form-control disableButton" id="addusername" placeholder="Username" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="password" name="password" class="form-control disableButton" id="addpassword" placeholder="Password" required>
+            </div>
+        </div>
+         <div class="form-group">
+            <div class="col-sm-9">
+              <input type="text" name="lastname" class="form-control disableButton" id="addlastname" placeholder="Lastname" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="text" name="firstname" class="form-control disableButton" id="addfirstname" placeholder="Firstname" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="text" name="middlename" class="form-control disableButton" id="addmiddlename" placeholder="Middlename" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Userlevel:</label>
+            <div class="col-sm-9">
+              <select class="form-control disableButton" name="userlevel" id="adduserlevel" required>
+                <option value=""></option>
+                <option value="Regional GAD Coordinator">Regional GAD Coordinator</option>
+                <option value="Division GAD Coordinator">Division GAD Coordinator</option>
+              </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Location:</label>
+            <div class="col-sm-9">
+              <select class="form-control disableButton" name="location" id="addlocation" required>   
+              </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="hidden" name="status" class="form-control" id="addstatus" value="ACTIVE" readonly>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> | 
+      <a data-toggle="modal" href="#save" class="btn btn-dark" id="submitButton">Save</a>
 
+    </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Save Verification Modal -->
+ 
+<div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+      <h3 class = "text-danger modal-title"></h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to save this user?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md btncreate">
+</center>
+</div>        
+       </div>
+      </div>
+    </div>
+   </form>
+
+
+
+ <!-- Edit Modal --> 
+<form class="" action="update.php" method="POST">
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+       <h3 class = "text-primary modal-title">Update User</h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+     
+    </div>
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Username:</label>
+                  <input type="text" class="form-control disableButton" type="text" name="username" id="username" >
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Password:</label>
+                  <input type="text" class="form-control disableButton" type="password" name="password" id="password"> 
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Lastname:</label>
+                <input type="text" class="form-control disableButton" type="text" name="lastname" id="lastname"> 
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Firstname:</label>
+                <input type="text" class="form-control disableButton" type="text" name="firstname" id="firstname">  
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Middlename:</label>
+                <input type="text" class="form-control disableButton" type="text" name="middlename" id="middlename">   
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Userlevel:</label>
+            <div class="col-sm-9">
+              <select class="form-control disableButton" name="userlevel" id="userlevel">
+                <option value="Regional GAD Coordinator">Regional GAD Coordinator</option>
+                <option value="Division GAD Coordinator">Division GAD Coordinator</option>
+              </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Location:</label>
+            <div class="col-sm-9">
+              <select class="form-control disableButton" name="location" id="location" >   
+              </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="hidden" name="status" class="form-control" id="status" value="ACTIVE" readonly>
+            </div>
+        </div>
+
+<br>
+ </div>
+</div>
+<div class="modal-footer">
+        <input type="hidden" name="id" id="uuid" value="<?php echo $id;?>">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
+         <a data-toggle="modal" href="#update" class="btn btn-primary" id="updateButton">Update</a>      
+    </div>         
+       </div>
+      </div>
+    </div>
+        <!-- Update Verification Modal -->
+ 
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+      <h3 class = "text-danger modal-title"></h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to update this user?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md update_user">
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>    
+</form>
 
  <!-- DEACT Modal --> 
 <form class="" action="changestatus.php" method="POST">
@@ -334,11 +730,176 @@ for (i = 0; i < dropdown.length; i++) {
        </div>
       </div>
     </div>
-    </form>             
+    </form>  
+
+
+
+
+
+
+<!--On Change add-->
+<script>
+  $(document).ready(function(){
+    $('#adduserlevel').change(function(){
+      var lvlselected = $('#adduserlevel').val();
+      
+
+      if (lvlselected == "Regional GAD Coordinator") {
+        $('#addlocation').html('<option>Region 1</option>');
+      }else if(lvlselected == "Division GAD Coordinator"){
+        
+        $.ajax({
+              type: "POST",
+              url: "locationoption.php",
+              data: {
+                lvlselected: lvlselected
+              },
+              success: function(data){
+                $('#addlocation').html(data);
+              }
+            });
+        
+        
+      }else{
+        $('#addlocation').html('<option>loc</option>');
+      }
+    })
+
+  });
+</script>
+
+<!--On Change edit-->
+<script>
+  $(document).ready(function(){
+    /*$('#userlevel').change(function(){
+      var lvlselected = $('#userlevel').val();
+      
+
+      if (lvlselected == "Regional GAD Coordinator") {
+        $('#location').html('<option>Region 1</option>');
+      }else if(lvlselected == "Division GAD Coordinator"){
+        
+        $.ajax({
+              type: "POST",
+              url: "locationoption.php",
+              data: {
+                lvlselected: lvlselected
+              },
+              success: function(data){
+                $('#location').html(data);
+              }
+            });
+        
+        
+      }else{
+        $('#location').html('<option></option>');
+      }
+    })*/
+    /*setInterval(function(){
+      console.log("TIme");
+      if($('.disableButton').val()==""){
+        $("#submitButton").hide();
+      }else{
+        $("#submitButton").show();
+      }
+    }, 1000);*/
+  });
+  //Disable button when fields is empty
+
+  $(".disableButton").keyup(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#updateButton").hide();
+      $("#submitButton").hide();
+      //alert("Please don't leave blank");
+    }else {
+        $('#updateButton').show();
+        $("#submitButton").show();
+    }
+  });
+  $(".addUserButton").click(function(){
+    console.log("TTTT");
+    var val = $(".disableButton").val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addusername").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addlocation").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#adduserlevel").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addmiddlename").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addfirstname").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addpassword").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+  $("#addlastname").click(function(){
+    console.log("TTTT");
+    var val = $(this).val();
+    if(val==""){
+      $("#submitButton").prop('disabled', true);
+    }else {
+        $("#submitButton").prop('disabled', false);
+    }
+  });
+</script>
+
+
+
+
+            
         </div>
     </div>
 </div>
-<br><br> 
+
   <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">

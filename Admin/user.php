@@ -203,7 +203,7 @@ background-color: #e6b800;
       <?php
         include("../connect.php");
 
-        $sql="SELECT * FROM caps WHERE userlevel != 'Admin'";
+        $sql="SELECT * FROM caps WHERE userlevel != 'Admin' and status='ACTIVE'";
         $result=mysqli_query($conn, $sql);
 
         echo "<table id='list' class='table table-hover'>";

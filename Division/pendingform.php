@@ -218,7 +218,7 @@ width: 1150px;
       <?php
         include("../connect.php");
 
-        $sql="SELECT * FROM gad_form WHERE requestor_id='$user' and form_number LIKE 'GPB%' ORDER BY date_submitted";
+        $sql="SELECT * FROM gad_form WHERE requestor_id='$user' and form_number LIKE 'GPB%' and form_status='PENDING' ORDER BY date_submitted";
         $result=mysqli_query($conn, $sql);
 
         echo "<table id='list' class='table table-hover'>";
