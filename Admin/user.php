@@ -448,6 +448,7 @@ for (i = 0; i < dropdown.length; i++) {
                 },
                 success: function(data){
                   $('#location').html(data);
+                  console.log(data);
                 }
               });
           
@@ -758,6 +759,7 @@ for (i = 0; i < dropdown.length; i++) {
               },
               success: function(data){
                 $('#addlocation').html(data);
+                console.log(data);
               }
             });
         
