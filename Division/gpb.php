@@ -193,7 +193,7 @@ width: 1150px;
   <div class="row">
     <div class="container-fluid">
 
-<div class="card" style="width: 70rem;">
+<div class="card" >
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
