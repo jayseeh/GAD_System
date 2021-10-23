@@ -243,6 +243,9 @@ width: 1150px;
        <li class="nav-item">
         <a class="nav-link active" aria-current="true">Trained Personnels</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="attendees.php">Attendees</a>
+      </li>
     </ul>
   </div>
 

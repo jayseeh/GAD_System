@@ -199,7 +199,7 @@ width: 1150px;
         <?php echo ($form_type == 'GPB') ? '<a class="nav-link" href="generateform.php?id=GPB">Generate Report</a>' : '<li class="nav-item"><a class="nav-link " href="generateform.php?id=GAD">Generate Report</a></li>';?>
       </li>
       <li class="nav-item">
-         <?php echo ($form_type == 'GPB') ? '<a class="nav-link active" href="generatelist.php?id=GPB">Generate List</a>' : '<li class="nav-item"><a class="nav-link active" href="generatelist.php?id=GAD">Generate List</a></li><li class="nav-item"><a class="nav-link" href="viewpersonnels.php">Trained Personnels</a></li>';?>
+         <?php echo ($form_type == 'GPB') ? '<a class="nav-link active" href="generatelist.php?id=GPB">Generate List</a>' : '<li class="nav-item"><a class="nav-link active" href="generatelist.php?id=GAD">Generate List</a></li><li class="nav-item"><a class="nav-link" href="viewpersonnels.php">Trained Personnels</a></li><li class="nav-item"> <a class="nav-link" href="attendees.php">Attendees</a></li>';?>
       </li>
     </ul>
   </div>

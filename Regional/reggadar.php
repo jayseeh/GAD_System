@@ -187,6 +187,9 @@ width: 1150px;
        <li class="nav-item">
         <a class="nav-link" href="viewpersonnels.php">Trained Personnels</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="attendees.php">Attendees</a>
+      </li>
     </ul>
   </div>
   <div class="card-body">

@@ -12,7 +12,7 @@
 
 
 		if(mysqli_query($conn,$sql)){
-			echo "<script>alert('Password successfully updated'); window.location = '../index.php';</script>";
+			echo "<script>window.location = 'regional.php?updated';</script>";
 		}else{
 			echo "Error updating records!" . mysqli_error($conn);
 		}

@@ -1,18 +1,6 @@
-<?php 
-  session_start();
-  include "../connect.php";
-  $user = $_SESSION['uid'];
-  $loc = $_SESSION['loc'];
-  //$form_number = $_GET['id'];
-  $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
-  $query_form = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED'");
-  $fetch_form = mysqli_fetch_assoc($query_form);
-  date_default_timezone_set("Asia/Singapore");
-  $date = date('Y-m-d H-i-s');
-  $total_budget=0;
-  $form_type = $_GET['id'];
-  
-  if(empty($_SESSION['ulvl'])){
+<?php session_start(); 
+
+if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
   require('../connect.php');
@@ -21,6 +9,7 @@
   $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
   $sqlprofile = mysqli_query($conn, $queryprofile);
   $rowprofile = mysqli_fetch_array($sqlprofile);
+
 ?>
 
 <!DOCTYPE html>
@@ -39,54 +28,13 @@
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--AJAX-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
-
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
-    <script>
-    $(document).ready(function(){
-      var number, total_budget;
-      var d = new Date();
-      var n = d.getTime();
-      //console.log(n);
-      //$("#form_id").val("GAD-"+n);
-      var number = parseInt($("#count_num").val())+1;
-      var total_budget = $("#total_budget").val();
-      $("#viewtotal").html("Total GAA of Agency: &#8369;"+total_budget.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-      console.log(number);
 
-      //ADD ROWS FUNCTION
-      $("#add_rows").click(function(){
-        $("#numberOfRows").val(number);
-        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center;'></td><td><textarea rows='4' cols='15' name='val1-"+number+"'></textarea></td><td><textarea rows='4' cols='15' name='val2-"+number+"'></textarea></td><td><textarea rows='4' cols='15' name='val3-"+number+"'></textarea></td><td><textarea rows='4' cols='15' name='val4-"+number+"'></textarea></td><td><textarea rows='4' cols='15' name='val5-"+number+"'></textarea></td><td><textarea rows='4' cols='15' name='val6-"+number+"'></textarea></td><td><textarea rows='4' cols='15' name='val7-"+number+"'></textarea></td><td><textarea rows='4' cols='15' name='val8-"+number+"'></textarea></td><td><textarea rows='4' cols='15' name='val9-"+number+"'></textarea></td></tr>";
-        console.log(table);
-        $("#table_gad").html(table);
-
-        number = number +1;
-      });
-    });
-    </script>
-    <script>
-      function generatePDF(){
-        const element = document.getElementById('invoice');
-        var opt = {
-          margin:       .5,
-          jsPDF:        {orientation: 'landscape' }
-        };
-
-        html2pdf().set(opt).from(element).save();
-      }
-    </script>
-    <style>
-    .tbl{
-     width: 595pt;
-     border: 1px solid #000;
-    }
-    </style>
 
 <style type="text/css">
   
@@ -169,66 +117,54 @@ width: 1150px;
   color: black;
 }
 
-.fonts-fam{
-  font-family: Bookman Old Style;
-}
+
 </style>
 
   </head>
 
   <body>
 
-     <div class="container-fluid">
+    <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="sidenav">
-            <div class="d-flex justify-content-center">
+         <div class="d-flex justify-content-center">
           <img src="imgreg/01.png" style="max-width:90px;" alt="">
         </div><br>
 <center><h6 style="color: white;"><?php echo $_SESSION['full_name']; ?></h6></center>
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
 
-  <a data-toggle="modal" href="#editprof">Profile</a>
+ <a data-toggle="modal" href="#editprof">Profile</a>
 
   <a data-toggle="modal" href="#changepassword">Change password</a>
 
   <a href="divisionmanagement.php">Division User Management</a>
 
   <a href="mandates.php">DepEd Mandates</a>
-  <?php
-    if($form_type=='GPB'){
-      echo '<a href="reggpb.php" class="active">GPB</a><a href="reggadar.php">GAD AR</a>';
-    }else{
-      echo '<a href="reggpb.php" >GPB</a><a href="reggadar.php" class="active">GAD AR</a>';
-    }
-  ?>  
+
+  <a href="reggpb.php" >GPB</a>
+
+  <a href="reggadar.php" class="active">GAD AR</a>
+
   <a data-toggle="modal" href="#logout">Logout</a>
 
   <a href="#">Help</a>
 </div>
 
-
-
-
-
-
         <!-- Content -->
         <div class="main">
- <?php
-    if($form_type=='GPB'){
-      echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Plan And Budget</h2></center>';
-    }else{
-      echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>';
-    }
-  ?>
- <br>  
+                
+ <center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>
+ <br> 
 
 <div class="container-fluid">
- <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
-  <button class="btn btn-warning rounded-pill" onclick="generatePDF()">Export as PDF</button>
-  <button class="btn btn-warning rounded-pill" onclick="print()">Open as PDF</button>
+
+   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
   <br><br>
+<div class="d-flex justify-content-center">
     <fieldset>
+
+      
 
   <div class="row">
     <div class="container-fluid">
@@ -236,141 +172,31 @@ width: 1150px;
 <div class="card text-center" style="width: 70rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
-      
-        <?php echo ($form_type == 'GPB') ? '<li class="nav-item"><a class="nav-link" href="reggpb.php">Pending Forms</a></li><li class="nav-item"><a class="nav-link" href="approvedform.php">Approved GPB</a></li>' : '<li class="nav-item"><a class="nav-link" href="reggadar.php">Pending Forms</a></li><li class="nav-item"><a class="nav-link" href="approvedgad.php">Approved GAD AR</a></li>'; ?>
-       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Generate Report</a>
+      <li class="nav-item">
+        <a class="nav-link" href="reggadar.php">Pending Forms</a>
       </li>
       <li class="nav-item">
-        <?php echo ($form_type == 'GPB') ? '<a class="nav-link" href="generatelist.php?id=GPB">Generate List</a>' : '<a class="nav-link " href="generatelist.php?id=GAD">Generate List</a><li class="nav-item"><a class="nav-link" href="viewpersonnels.php">Trained Personnels</a></li><li class="nav-item"> <a class="nav-link" href="attendees.php">Attendees</a></li>';?>
-        
+        <a class="nav-link" href="approvedgad.php">Approved GAD AR</a>
       </li>
-      
+       <li class="nav-item">
+        <a class="nav-link" href="generateform.php?id=GAD">Generate Report</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="generatelist.php?id=GAD">Generate List</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="viewpersonnels.php">Trained Personnels</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true">Attendees</a>
+      </li>
     </ul>
   </div>
   <div class="card-body">
 
-     <h2><center>All Approved <?php echo $form_type; ?> </center></h2>
 
+<h2>Attendees Lists</h2>
 
-    <div class="col-sm-12" id="invoice">  
-      <img src="imgreg/deped.png" style="width: 100px; height: 100px; display: block; margin-left: auto; margin-right: auto;">
-      <center><p style="font-family: Old English Text MT;"><b><text style="font-size: 12px;">Republic of the Philippines</text><br><text style="font-size: 18px;">Department of Education</text></b><br><text style="font-size: 11px; font-family: Times New Roman;">Region I</text></p>
-      <p style="font-family: Bookman Old Style;"><b><?php echo ($form_type == 'GPB') ? 'ANNUAL GENDER AND DEVELOPMENT (GAD) PLAN AND BUDGET' : 'ANNUAL GENDER AND DEVELOPMENT (GAD) ACCOMPLISHMENT REPORT'; ?></b></p></center>
-      <table class="table" style="font-family: Bookman Old Style;">
-        <tr>
-          <td style="line-height: 1px; font-family: Bookman Old Style; font-size: 11px;">Agency: Department of Education - Region 1</td>
-          <td style="line-height: 1px; font-family: Bookman Old Style; font-size: 11px; text-align: right;">Department (Central Office): Department of Education</td>
-        </tr>
-        <?php
-          if($form_type=='GPB'){
-        ?>
-        <tr>
-          <td style="line-height: 1px; font-family: Bookman Old Style; font-size: 11px;" id="viewtotal"></td>
-          <td></td>
-        </tr>
-        <?php
-          }
-        ?>
-      </table>
-      <table class="table table-bordered"  id="table_gad" CELLSPACING='0'>
-        <tr>
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Gender Issue/GAD Mandate</th>          
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Cause of the Gender Issue</th>
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">GAD Result Statement/GAD Objective</th>
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Relevant Organization MFO/PAP</th>
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">GAD Activity</th>
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Output Performance Indicator/ Target' : 'Performance Indicator'; ?></th>
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'GAD Budget' : 'Actual Result (Outputs/Outcomes)'; ?></th>
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Source of Budget' : 'Total Agency Approved Budget'; ?></th>
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Responsible Unit/ Office' : 'Actual Cost/ Expenditure'; ?></th>   
-            <?php
-              if($form_type=='GAD'){
-                echo "<th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class='fonts-fam'>Variance/ Remarks</th>";
-              }
-            ?>
-          </tr>
-          <tr>
-            <td colspan="10" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>CLIENT-FOCUSED</b></td>
-          </tr>
-          <?php
-              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED' AND gad_table_entry_value.category_focused='CLIENT' AND gad_form.form_number LIKE '%".$form_type."%' ORDER BY gad_form.form_number");
-
-              if(mysqli_num_rows($query)>0){
-                while($row=mysqli_fetch_assoc($query)){
-                if($form_type=='GPB'){
-                   $total_budget = $total_budget + $row['col7'];
-                }
-            ?>
-              <tr>
-                <!-- class="html2pdf__page-break" -->
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col1']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col2']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col3']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col4']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col5']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col6']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col7']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col8']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col9']; ?></td>
-                <?php
-                if($form_type=='GAD'){
-                  ?>
-                  <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col10']; ?></td>
-                  <?php
-                }
-                ?>
-              </tr>
-            <?php 
-                }
-              }else{
-                echo "<tr><td colspan='10' style='font-size: 10px' class='fonts-fam'>None</td></tr>";
-              }
-            ?>
-
-          <tr>
-            <td colspan="10" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>ORGANIZATION-FOCUSED</b></td>
-          </tr>
-          <?php
-              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED' AND gad_table_entry_value.category_focused='ORGANIZATION' AND gad_form.form_number LIKE '%".$form_type."%' ORDER BY gad_form.form_number");
-
-              if(mysqli_num_rows($query)>0){
-                while($row=mysqli_fetch_assoc($query)){
-                  if($form_type=='GPB'){
-                   $total_budget = $total_budget + $row['col7'];
-                  }
-                
-            ?>
-              <tr>
-                <!-- class="html2pdf__page-break" -->
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col1']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col2']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col3']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col4']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col5']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col6']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col7']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col8']; ?></td>
-                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col9']; ?></td>
-                <?php
-                if($form_type=='GAD'){
-                  ?>
-                  <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col10']; ?></td>
-                  <?php
-                }
-                ?>
-              </tr>
-              <input type="hidden" name="total_budget" id="total_budget" value="<?php echo $total_budget; ?>">
-            <?php 
-                }
-            }else{
-                echo "<tr><td colspan='10' style='font-size: 10px' class='fonts-fam'>None</td></tr>";
-              }
-            ?>
-
-            
-      </table>
-    </div>
 
   </div>
 </div>
@@ -378,18 +204,13 @@ width: 1150px;
    </div>
    </div>
  </fieldset>
-
-
-  
- 
-  </div> 
-  <!--container--> 
-
-
-   </div>
-   </div>
+</div>    
 </div>
+</div>
+  </div> 
+   </div>
 
+   
 
  <!-- update user info and password-->
 
@@ -657,8 +478,8 @@ $passW = $('#confirm_pword').val();
  </div>
 </div>
 </form>
-  
-  
+
+     
 <!-- Logout Modal -->
  <form class="" action="../logout.php" method="POST">
 <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -685,6 +506,9 @@ $passW = $('#confirm_pword').val();
     </div>
     </form>
 
+
+    
+<br><br><br><br><br><br><br><br><br><br><br>
   <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">
@@ -700,5 +524,4 @@ $passW = $('#confirm_pword').val();
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

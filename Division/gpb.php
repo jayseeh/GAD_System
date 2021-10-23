@@ -41,6 +41,9 @@ require('../connect.php');
 
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
     $(document).ready(function(){
       var number;
@@ -193,7 +196,7 @@ width: 1150px;
   <div class="row">
     <div class="container-fluid">
 
-<div class="card" >
+<div class="card" style="width: 70rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -261,10 +264,31 @@ width: 1150px;
     <input type="hidden" name="form_type" value="GPB">
     <input type="hidden" name="date_sub" value="<?php echo $date; ?>">
     <input type="hidden" name="numberOfRows" value="1" id="numberOfRows">
-    <input type="button" name="add_rows" value="Add Row" id="add_rows">
-    <input type="Submit" name="submit" value="Submit"> 
+    <input type="button" name="add_rows" value="Add Row" id="add_rows" class="btn rounded-pill">
+    <!--<input type="Submit" name="submit" value="Submit" class="btn btn-dark rounded-pill">--> 
+    <a data-toggle="modal" href="#submit_gpb" class="btn btn-dark rounded-pill">Submit</a>
 
 </div>
+
+
+
+<div class="modal fade" id="submit_gpb" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">   
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to upload this report?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="Submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md">
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
     </form>
 
   </div>
@@ -279,6 +303,20 @@ width: 1150px;
 </div>
 </div>
 
+
+<!-- Swal -->
+<?php 
+  $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  if (strpos($fullUrl, "upload_gpb") == true){
+    echo "<script>Swal.fire({
+    icon: 'success',
+    title: 'GAD Plan and Budget successfully uploaded!',
+    showConfirmButton: true, 
+    }).then(function (){
+    window.location.href = 'gpb.php';
+    });</script>";
+  }
+  ?>
 
 
   

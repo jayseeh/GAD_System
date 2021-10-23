@@ -42,6 +42,9 @@
 
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
     $(document).ready(function(){
       var number;
@@ -218,6 +221,7 @@ width: 1150px;
     <div class="card border-primary mb-3" >
   <h4 class="card-header">Submit Report</h4 >
   <div class="card-body">
+
     <form action="updatetablevalue.php" method="POST">
    <div class="mb-3">
     <label  class="col-sm-2 col-form-label">Form Number:</label>
@@ -305,9 +309,28 @@ width: 1150px;
     <input type="hidden" name="date_sub" value="<?php echo $date; ?>">
     <input type="hidden" name="numberOfRows" value="<?php echo $numrows; ?>" id="numberOfRows">
     <input type="hidden" name="form_type" value="<?php echo $form_type; ?>">
-    <!-- <input type="button" name="add_rows" value="Add Row" id="add_rows"> -->
-    <input type="submit" name="submit" value="Update"> 
+    <!-- <input type="button" name="add_rows" value="Add Row" id="add_rows"> 
+    <input type="submit" name="submit" value="Update" class="btn btn-dark rounded-pill">-->
+    <a data-toggle="modal" href="#update_gpb" class="btn btn-dark rounded-pill">Update</a> 
 
+
+<div class="modal fade" id="update_gpb" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">   
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to update this report?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md">
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
     </form>
   </div>
 </div>
@@ -325,6 +348,9 @@ width: 1150px;
    </div>
 </div>
  </div>
+
+
+
 
 
 <!-- Update profile and password --> 

@@ -35,7 +35,7 @@ require('../connect.php');
 
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style type="text/css">
   
 /* The sidebar menu */
@@ -403,10 +403,20 @@ $uid = $('#uid').val();
 $passW = $('#confirm_pword').val();
 
       if ($('.current_pw').val()=="" || $('#new_pword').val()=="" || $('#confirm_pword').val()==""){/*=========incomplte input */
-      alert("Please fill out all fields!");
+      $("#updatepass").modal('hide');
+      Swal.fire({
+                  icon: 'warning',
+                  title: 'Please fill up all fields.',
+                  showConfirmButton: true, 
+                })
 
        }else if ($('.real_pw').val()!=$('.current_pw').val()){
-      alert("Incorrect Password!");
+      $("#updatepass").modal('hide');
+      Swal.fire({
+                  icon: 'warning',
+                  title: 'Incorrect Password',
+                  showConfirmButton: true, 
+                })
     }else{
          $('.changepass').submit();
   }
@@ -415,6 +425,20 @@ $passW = $('#confirm_pword').val();
   });
  
 </script>
+
+
+<?php 
+  $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  if (strpos($fullUrl, "updated") == true){
+    echo "<script>Swal.fire({
+    icon: 'success',
+    title: 'Password successfully updated!',
+    showConfirmButton: true, 
+    }).then(function (){
+    window.location.href = 'regional.php';
+    });</script>";
+  }
+  ?>
 
 
 <!-- Change Password Modal --> 
@@ -459,12 +483,33 @@ $passW = $('#confirm_pword').val();
 <div class="modal-footer">
         <input type="hidden" name="id" id="uuid" value="<?php echo $rowprofile['id'];?>">
         <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> |
-        <input type="button" class="btn btn-primary btnSubmit" id="btnupdate" value="Update">
+        <!--<input type="button" class="btn btn-primary btnSubmit" id="btnupdate" value="Update">-->
+        <a data-toggle="modal" name="Update" href="#updatepass" class="btn btn-primary" id="btnupdate">Update</a>
 </div>
 
   </div>
  </div>
 </div>
+
+<!-- Update password Verification Modal -->
+ 
+<div class="modal fade" id="updatepass" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">   
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to save this update?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="button" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md btnSubmit">
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
 </form>
 
 
