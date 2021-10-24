@@ -36,7 +36,7 @@ require('../connect.php');
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style type="text/css">
   
 /* The sidebar menu */
@@ -162,16 +162,26 @@ background-color: #e6b800;
  <br>
 <div class="container-fluid">
 
- 
 <div class="d-flex justify-content-start"> 
   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
 </div>
 <br>
   <section>
+     <div class="row">
+     <div class="col">
      <div class="card" style="width: 70rem;">
+      <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true">List of Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="deactuser.php">Deactivated Users</a>
+      </li>
+    </ul>
+  </div>
          <div class="card-body">
-    
-              <legend>List of Users</legend>
+              <legend>List of Users</legend>         
               <div class="d-flex justify-content-end"> 
                 <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
               </div>
@@ -183,7 +193,7 @@ background-color: #e6b800;
       <?php
         include("../connect.php");
 
-         $sql="SELECT * FROM caps WHERE userlevel = 'Division GAD Coordinator' ";
+         $sql="SELECT * FROM caps WHERE userlevel = 'Division GAD Coordinator' and status='ACTIVE'";
         $result=mysqli_query($conn, $sql);
 
         echo "<table id='list' class='table table-hover'>";
@@ -217,7 +227,7 @@ background-color: #e6b800;
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tlocation'>".$row['location']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tstatus'>".$row['status']."</td>";?>
 
-              <td><button class="btn btn-primary rounded-pill edit_user"  value="<?php echo $row['id']; ?>">
+              <td><button class="btn btn-warning rounded-pill edit_user"  value="<?php echo $row['id']; ?>">
                   <i class="bi bi-pencil-square">Edit</i>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -247,6 +257,8 @@ background-color: #e6b800;
         echo "</tbody>";
         echo "</table";
       ?>
+      </div>
+      </div>
       </div>
       </div>   
     </section>
@@ -280,17 +292,13 @@ $(document).ready(function(){
   
 
     
- <!-- Modal Add User-->
+  <!-- Modal Add User-->
 <script type = "text/javascript">
   $(document).ready(function(){
     //showUser();
     //Add New
     $(document).on('click', '.btncreate', function(){
-      if ($('#addusername').val()=="" || $('#addpassword').val()=="" || $('#addlastname').val()=="" || $('#addfirstname').val()=="" || $('#addmiddlename').val()=="" || $('#adduserlevel').val()=="" || $('#addlocation').val()==""){
-        alert('Please input all the data needed first!');
-         return false;
-      }
-      else{
+      
       $addusername=$('#addusername').val();
       $addpassword=$('#addpassword').val();
       $addlastname=$('#addlastname').val();
@@ -301,7 +309,7 @@ $(document).ready(function(){
       $addstatus=$('#addstatus').val();        
         $.ajax({
           type: "POST",
-          url: "",
+          url: "create.php",
           data: {
             username: $addusername,
             password: $addpassword,
@@ -314,11 +322,18 @@ $(document).ready(function(){
             add: 1,
           },
           success: function(){
-            window.location = "divisionmanagement.php";
-            alert("User information successfully saved");
+            $("#add").modal('hide');
+            $("#save").modal('hide');
+            Swal.fire({
+                  icon: 'success',
+                  title: 'New user successfully saved!',
+                  showConfirmButton: true, 
+                }).then(function (){
+                  location.reload()
+                  });
           }
         });
-      }
+      
     });
 
     //Update
@@ -338,7 +353,7 @@ $(document).ready(function(){
       console.log($username);
         $.ajax({
           type: "POST",
-          url: "",
+          url: "update.php",
           data: {
             id: $uid,
             username: $username,
@@ -352,8 +367,16 @@ $(document).ready(function(){
             edit: 1,
           },
           success: function(){
-            alert("User information successfully updated");
-            window.location = "divisionmanagement.php";
+            $("#edit").modal('hide');
+            $("#update").modal('hide');
+            Swal.fire({
+                  icon: 'success',
+                  title: 'User successfully updated!',
+                  showConfirmButton: true, 
+                }).then(function (){
+                  location.reload()
+                  });
+           
           }
         });
     });
@@ -431,6 +454,32 @@ $(document).ready(function(){
    });
   
   });
+
+$(document).on('click', '.submit_status', function(){
+      $id=$("#uuid1").val();
+      $status1=$('#status1').val();
+              
+        $.ajax({
+          type: "POST",
+          url: "changestatus.php",
+          data: {
+            id: $id,
+            status: $status1,           
+            edit: 1,
+          },
+          success: function(){
+            $("#editstatus").modal('hide');
+            Swal.fire({
+                  icon: 'info',
+                  title: 'User successfully deactivated!',
+                  showConfirmButton: true, 
+                }).then(function (){
+                  location.reload()
+                  });           
+          }
+        });
+      
+    });
  
 </script>
 
@@ -560,7 +609,7 @@ $(document).ready(function(){
 
 
 <!--Add Modal-->
-<form class="" action="create.php" method="POST">
+
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -620,7 +669,7 @@ $(document).ready(function(){
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> | 
-      <a data-toggle="modal" href="#save" class="btn btn-dark" id="submitButton">Save</a>
+      <a data-toggle="modal" href="#save" class="btn btn-primary" id="submitButton">Save</a>
 
     </div>
     </div>
@@ -649,11 +698,11 @@ $(document).ready(function(){
        </div>
       </div>
     </div>
-   </form>
+
 
 
  <!-- Edit Modal --> 
-<form class="" action="update.php" method="POST">
+
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -709,13 +758,18 @@ $(document).ready(function(){
               </select>
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="hidden" name="status" class="form-control" id="status" value="<?php echo $rowprofile['status'];?>" readonly>
+            </div>
+        </div>
 <br>
  </div>
 </div>
 <div class="modal-footer">
         <input type="hidden" name="id" id="uuidedit" value="<?php echo $rowprofile['id'];?>">
         <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> |
-        <a data-toggle="modal" href="#update" class="btn btn-dark" id="updateButton">Update</a>
+        <a data-toggle="modal" href="#update" class="btn btn-primary" id="updateButton">Update</a>
     </div>
         </div>
       </div>
@@ -741,11 +795,11 @@ $(document).ready(function(){
        </div>
       </div>
     </div>
-  </form>
+
     
 
  <!-- DEACT Modal --> 
-<form class="" action="changestatus.php" method="POST">
+
 <div class="modal fade" id="editstatus" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -768,12 +822,12 @@ $(document).ready(function(){
         <input type="hidden" name="id" id="uuid1">
         <input type="hidden" name="status" id="status1">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
-         <input type="submit"  class="btn btn-primary" id="submit_status">      
+         <input type="submit"  class="btn btn-primary submit_status" id="submit_status">      
     </div>         
        </div>
       </div>
     </div>    
-</form>
+
 <!-- END MODAL FOR DEACTIVATE ACCOUNT Modal -->
 
 
@@ -788,7 +842,7 @@ $(document).ready(function(){
 
 
     //Update
-    $(document).on('click', '.update_user', function(){
+    $(document).on('click', '.update_info', function(){
       $uid=$("#uuidupdate").val();
       $usernameinfo=$('#usernameinfo').val();      
       $lastnameinfo=$('#lastnameinfo').val();
@@ -799,10 +853,10 @@ $(document).ready(function(){
              
       //check ta nu maala na values bago ka ag ajaxstatus
       console.log($uid);
-      console.log($username);
+      console.log($usernameinfo);
         $.ajax({
           type: "POST",
-          url: "",
+          url: "updateinfo.php",
           data: {
             id: $uid,
             username: $usernameinfo,           
@@ -814,7 +868,16 @@ $(document).ready(function(){
             edit: 1,
           },
           success: function(){
-            window.location = "../index.php";
+            $("#editprof").modal('hide');
+            $("#updateinfo").modal('hide');
+            Swal.fire({
+                  icon: 'success',
+                  title: 'User information successfully updated',
+                  showConfirmButton: true, 
+                }).then(function (){
+                  location.reload()
+                  });
+
            
           }
         });
@@ -831,7 +894,7 @@ $(document).ready(function(){
 
 
  <!-- Updateinfo Modal --> 
-<form class="" action="updateinfo.php" method="POST">
+
 <div class="modal fade" id="editprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   
   <div class="modal-dialog" role="document">
@@ -904,14 +967,13 @@ $(document).ready(function(){
 <h4>Are you sure you want to save this update?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_info">
 </center>
 </div>
          
        </div>
       </div>
     </div>
-</form>
 
 
 

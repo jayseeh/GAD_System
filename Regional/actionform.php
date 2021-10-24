@@ -9,7 +9,7 @@ $remarks = $_POST['remarks'];
 $user = $_SESSION['uid'];
 
 if(mysqli_query($conn, "UPDATE gad_form SET form_status='$status', approver_id='$user', date_approved='$date', remarks='$remarks' WHERE form_number='$form'")){
-	echo "<script>alert('Form Successfully Updated'); window.location = 'reggpb.php';</script>";
+	echo "<script>window.location = 'reggpb.php?approved';</script>";
 }else{
 	echo "Error updating records!" . mysqli_error($conn);
 }

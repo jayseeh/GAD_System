@@ -83,6 +83,7 @@ if(isset($_POST['submit-files'])){
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style type="text/css">
   
 /* The sidebar menu */
@@ -255,11 +256,9 @@ width: 1150px;
   <div class="card-body">
 
   <div class="d-flex justify-content-center">
+
     <form action="multipersonnel.php" method="post" enctype="multipart/form-data">
     <fieldset>
-
-      
-
   <div class="row">
   <div class="col">
     <div class="card border-primary mb-3" style=" width: 70rem;">
@@ -277,8 +276,28 @@ width: 1150px;
   <input class="form-control" type="file" id="file" name="file-excel" multiple><br>
   
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <button type="submit" name="submit-files" class="btn btn-primary rounded-pill">Upload</button>
+    <!--<button type="submit" name="submit-files" class="btn btn-dark rounded-pill">Upload</button>-->
+     <a data-toggle="modal" href="#upload_multi" class="btn btn-dark rounded-pill">Upload</a>
   </div>
+
+<!-- Upload verification -->
+<div class="modal fade" id="upload_multi" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">   
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to upload this attendees?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="submit" name="submit-files" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md">
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
 </div>
 <div class="col-sm-2">  
       
@@ -363,7 +382,7 @@ width: 1150px;
       console.log($username);
         $.ajax({
           type: "POST",
-          url: "",
+          url: "updateinfo.php",
           data: {
             id: $uid,
             username: $username,           
@@ -375,8 +394,15 @@ width: 1150px;
             edit: 1,
           },
           success: function(){
-            window.location = "../index.php";
-            alert("User information successfully updated");
+            $("#editprof").modal('hide');
+            $("#updateinfo").modal('hide');
+            Swal.fire({
+                  icon: 'success',
+                  title: 'User information successfully updated',
+                  showConfirmButton: true, 
+                }).then(function (){
+                  location.reload()
+                  });
           }
         });
     });
@@ -391,13 +417,13 @@ width: 1150px;
 
 
  <!-- Updateinfo Modal --> 
-<form class="" action="updateinfo.php" method="POST">
+
 <div class="modal fade" id="editprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
-       <h3 class = "text-success modal-title">Update Info</h3>
+       <h3 class = "text-primary modal-title">Update Info</h3>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
      
     </div>
@@ -469,7 +495,7 @@ width: 1150px;
 <div class="modal-footer">
         <input type="hidden" name="id" id="uuid" value="<?php echo $rowprofile['id'];?>">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
-        <a data-toggle="modal" name="Update" href="#update" class="btn btn-primary">Update</a>
+        <a data-toggle="modal" name="Update" href="#updateinfo" class="btn btn-primary">Update</a>
 </div>
 
   </div>
@@ -478,7 +504,7 @@ width: 1150px;
 
  <!-- Update Verification Modal -->
  
-<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+<div class="modal fade" id="updateinfo" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
     <div class = "modal-header">   
@@ -495,7 +521,6 @@ width: 1150px;
        </div>
       </div>
     </div>
-</form>
 
 
 

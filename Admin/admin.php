@@ -30,7 +30,7 @@ if(empty($_SESSION['ulvl'])){
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style type="text/css">
   
 /* The sidebar menu */
@@ -166,6 +166,20 @@ h1{
   <a data-toggle="modal" href="#logout">Logout</a>
   <a href="#">Help</a>
 </div>
+
+
+<!--invalid cridential-->
+                <?php 
+                $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                if (strpos($fullUrl, "db_restored") == true){
+                  echo "<script>Swal.fire({
+                  icon: 'success',
+                  title: 'Database successfully restored!',
+                  showConfirmButton: true, 
+                })</script>";
+                }
+                ?>
+                <!--end of invalid cridential-->
 
 
 

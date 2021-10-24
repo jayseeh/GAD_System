@@ -35,7 +35,7 @@ if(empty($_SESSION['ulvl'])){
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style type="text/css">
   
 /* The sidebar menu */

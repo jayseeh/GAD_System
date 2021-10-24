@@ -17,7 +17,7 @@
 
 
 		if(mysqli_query($conn,$sql)){
-			echo "<script>alert('User information successfully updated'); window.location = '../index.php';</script>";
+			echo "<script>window.location = '../index.php';</script>";
 		}else{
 			echo "Error updating records!" . mysqli_error($conn);
 		}

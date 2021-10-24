@@ -3,6 +3,13 @@
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
+require('../connect.php');
+ $un = $_SESSION['uid'];
+
+  $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
+  $sqlprofile = mysqli_query($conn, $queryprofile);
+  $rowprofile = mysqli_fetch_array($sqlprofile);
+
 ?>
 
 
@@ -22,7 +29,6 @@ if(empty($_SESSION['ulvl'])){
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--AJAX-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
@@ -111,58 +117,37 @@ background-color: #e6b800;
   color: black;
 }
 
-
 </style>
-
 
   </head>
 
   <body>
 
-<?php
-    include("../connect.php");
-    if(isset($_GET['id'])){
-      $id=$_GET['id'];
-
-
-      $sql="SELECT * FROM caps WHERE id='$id'";
-      $result=mysqli_query($conn, $sql);
-
-      if(mysqli_num_rows($result)>0){
-        while($row=mysqli_fetch_assoc($result)){
-
-
-
-    } 
-  }
-}
-  
-  ?>
-
-
-<div class="container-fluid">
+    <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="sidenav">
           <div class="d-flex justify-content-center">
-          <img src="img/01.png" style="max-width:90px;" alt="">
-        </div><br><br>
-  <center><h6 style="color: white;"><?php echo $_SESSION['ulvl']; ?></h6></center>
+          <img src="imgreg/01.png" style="max-width:90px;" alt="">
+        </div><br>
+<center><h6 style="color: white;"><?php echo $_SESSION['full_name']; ?></h6></center>
+  <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
 
 
-  <a href="user.php" class="active">User Management</a>
+  <a data-toggle="modal" href="#editprof">Profile</a>
 
-  <a href="division.php">Division Management</a>
+  <a data-toggle="modal" href="#changepassword">Change password</a>
 
-  <button class="dropdown-btn dropdown-toggle">Database
-    
-  </button>
-  <div class="dropdown-container">
-    <a class="dropdown-item" href="backup.php">Backup</a>
-    <a class="dropdown-item" href="restore.php">Restore</a>
-  </div>
+  <a href="divisionmanagement.php" class="active">Division User Management</a>
+
+  <a href="mandates.php">DepEd Mandates</a>
+
+  <a href="reggpb.php">GPB</a>
+
+  <a href="reggadar.php">GAD AR</a>
 
   <a data-toggle="modal" href="#logout">Logout</a>
+
   <a href="#">Help</a>
 
 </div>
@@ -172,38 +157,42 @@ background-color: #e6b800;
 
         <!-- Content -->
         <div class="main">
-<center><h2 style="color: black; background-color: #e6b800;">User Management</h2></center>
 
+ <center><h2 style="color: black; background-color: #e6b800;">Division Management</h2></center>
+ <br>
 <div class="container-fluid">
-  <a href="admin.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+
+ 
+<div class="d-flex justify-content-start"> 
+  <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
 </div>
-         <section><br>
-        <div class="row">
-        <div class="col">
-         <div class="card" style="width: 73rem;">
-          <div class="card-header">
+<br>
+  <section>
+     <div class="row">
+     <div class="col">
+     <div class="card" style="width: 70rem;">
+      <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">List of Users</a>
+        <a class="nav-link" href="divisionmanagement.php">List of Users</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="deactuser.php">Deactivated Users</a>
+        <a class="nav-link active" aria-current="true">Deactivated Users</a>
       </li>
     </ul>
   </div>
          <div class="card-body">
+    
+              <legend>List of Deactivated Users</legend>
               <div class="d-flex justify-content-end"> 
                 <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
-              </div>
-              <div class="d-flex justify-content-start"> 
-                <a data-toggle="modal" href="#add" class="btn btn-success rounded-pill addUserButton">Add User</a>
-              </div>             
+              </div>               
               <br>
 
       <?php
         include("../connect.php");
 
-        $sql="SELECT * FROM caps WHERE userlevel != 'Admin' and status='ACTIVE'";
+         $sql="SELECT * FROM caps WHERE userlevel = 'Division GAD Coordinator' and status='INACTIVE'";
         $result=mysqli_query($conn, $sql);
 
         echo "<table id='list' class='table table-hover'>";
@@ -216,7 +205,7 @@ background-color: #e6b800;
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Firstname</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Middlename</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Userlevel</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Location</th>";
+             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Division</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Status</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Action</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>STATUS</th>";
@@ -242,10 +231,10 @@ background-color: #e6b800;
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                  </svg></button>
-                
-            </td>
-            <td><button class="btn btn-primary edit_status"  value="<?php echo $row['id']; ?>">
+                  </svg>
+                </button>
+              </td>
+              <td><button class="btn btn-primary edit_status"  value="<?php echo $row['id']; ?>">
                   <i class="bi bi-pencil-square">
                     <?php 
                       if ($row['status']=='ACTIVE'){
@@ -260,6 +249,7 @@ background-color: #e6b800;
                 
             </td>
               <?php
+             
             echo "</tr>";
           }
         }
@@ -271,11 +261,15 @@ background-color: #e6b800;
       </div>
       </div>   
     </section>
-  
-   
+         
+ 
+
+   </div>
    </div>
 </div>
  </div>
+
+
     <br>
                
 <script
@@ -283,8 +277,6 @@ background-color: #e6b800;
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
 
-
-<!--Search-->
 <script>
 $(document).ready(function(){
   $("#search").on("keyup", function() {
@@ -296,34 +288,13 @@ $(document).ready(function(){
 });
 </script>
 
-<!--Dropdown-->
-
-<script type="text/javascript">
-  
-  //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-var dropdown = document.getElementsByClassName("dropdown-btn");
-var i;
-
-for (i = 0; i < dropdown.length; i++) {
-  dropdown[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var dropdownContent = this.nextElementSibling;
-    if (dropdownContent.style.display === "block") {
-      dropdownContent.style.display = "none";
-    } else {
-      dropdownContent.style.display = "block";
-    }
-  });
-}
-
-
-</script>
-
   
 
+    
  <!-- Modal Add User-->
 <script type = "text/javascript">
-   $(document).ready(function(){
+  $(document).ready(function(){
+    //showUser();
     //Add New
     $(document).on('click', '.btncreate', function(){
       
@@ -350,7 +321,6 @@ for (i = 0; i < dropdown.length; i++) {
             add: 1,
           },
           success: function(){
-            //showUser();
             $("#add").modal('hide');
             $("#save").modal('hide');
             Swal.fire({
@@ -367,7 +337,7 @@ for (i = 0; i < dropdown.length; i++) {
 
     //Update
     $(document).on('click', '.update_user', function(){
-      $uid=$("#uuid").val();
+      $uid=$("#uuidedit").val();
       $username=$('#username').val(); 
       $password=$('#password').val();
       $lastname=$('#lastname').val();
@@ -405,6 +375,7 @@ for (i = 0; i < dropdown.length; i++) {
                 }).then(function (){
                   location.reload()
                   });
+           
           }
         });
     });
@@ -414,7 +385,7 @@ for (i = 0; i < dropdown.length; i++) {
     $(document).on('click', '.edit_user', function(){
         
         var id = $(this).val();
-        
+       
         
          var username = $('#'+id).children('td[id = tusername]').text();
          var password = $('#'+id).children('td[id = tpassword]').text();
@@ -438,11 +409,9 @@ for (i = 0; i < dropdown.length; i++) {
         $("#userlevel").val(userlevel);
         //$("#location").val(location);
         $("#status").val(status);
-        $("#uuid").val(id);
+        $("#uuidedit").val(id);
         var lvlselected = $('#userlevel').val();
-        if (lvlselected == "Regional GAD Coordinator") {
-          $('#location').html('<option>Region 1</option>');
-        }else if(lvlselected == "Division GAD Coordinator"){
+         if(lvlselected == "Division GAD Coordinator"){
           
           $.ajax({
                 type: "POST",
@@ -456,18 +425,16 @@ for (i = 0; i < dropdown.length; i++) {
               });
           
           
-        }else{
-          $('#location').html('<option></option>');
         }
 
         
         $("#edit").modal('toggle');
       });
   
-  });
+  
 
 
-   //EDIT STATUS OF THE USER
+  //EDIT STATUS OF THE USER
    $(document).on('click', '.edit_status', function(){
         
         var id = $(this).val();
@@ -484,8 +451,10 @@ for (i = 0; i < dropdown.length; i++) {
         }
         $("#editstatus").modal('toggle');
    });
+  
+  });
 
-   $(document).on('click', '.submit_status', function(){
+$(document).on('click', '.submit_status', function(){
       $id=$("#uuid1").val();
       $status1=$('#status1').val();
               
@@ -501,7 +470,7 @@ for (i = 0; i < dropdown.length; i++) {
             $("#editstatus").modal('hide');
             Swal.fire({
                   icon: 'info',
-                  title: 'User successfully deactivated!',
+                  title: 'User successfully activated!',
                   showConfirmButton: true, 
                 }).then(function (){
                   location.reload()
@@ -510,262 +479,8 @@ for (i = 0; i < dropdown.length; i++) {
         });
       
     });
-
+ 
 </script>
-
-<!--Add Modal-->
-<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <div class = "modal-header">
-       <h3 class = "text-primary modal-title">Add User</h3>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    </div>
-    <div class="modal-body">
-      <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-sm-9">
-              <input type="text" name="username" class="form-control disableButton" id="addusername" placeholder="Username" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-              <input type="password" name="password" class="form-control disableButton" id="addpassword" placeholder="Password" required>
-            </div>
-        </div>
-         <div class="form-group">
-            <div class="col-sm-9">
-              <input type="text" name="lastname" class="form-control disableButton" id="addlastname" placeholder="Lastname" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-              <input type="text" name="firstname" class="form-control disableButton" id="addfirstname" placeholder="Firstname" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-              <input type="text" name="middlename" class="form-control disableButton" id="addmiddlename" placeholder="Middlename" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-3">Userlevel:</label>
-            <div class="col-sm-9">
-              <select class="form-control disableButton" name="userlevel" id="adduserlevel" required>
-                <option value=""></option>
-                <option value="Regional GAD Coordinator">Regional GAD Coordinator</option>
-                <option value="Division GAD Coordinator">Division GAD Coordinator</option>
-              </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-3">Location:</label>
-            <div class="col-sm-9">
-              <select class="form-control disableButton" name="location" id="addlocation" required>   
-              </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-              <input type="hidden" name="status" class="form-control" id="addstatus" value="ACTIVE" readonly>
-            </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> | 
-      <a data-toggle="modal" href="#save" class="btn btn-dark" id="submitButton">Save</a>
-
-    </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Save Verification Modal -->
- 
-<div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class = "modal-header">
-      <h3 class = "text-danger modal-title"></h3>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
-    </div>
-    <div class="modal-body">
-    <center>  
-<h4>Are you sure you want to save this user?</h4><br>
-
-<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md btncreate">
-</center>
-</div>        
-       </div>
-      </div>
-    </div>
- 
-
-
-
- <!-- Edit Modal --> 
-
-<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <div class = "modal-header">
-       <h3 class = "text-primary modal-title">Update User</h3>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-     
-    </div>
-    <div class="modal-body">
-      <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-sm-9">
-              <label>Username:</label>
-                  <input type="text" class="form-control disableButton" type="text" name="username" id="username" >
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-              <label>Password:</label>
-                  <input type="text" class="form-control disableButton" type="password" name="password" id="password"> 
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-              <label>Lastname:</label>
-                <input type="text" class="form-control disableButton" type="text" name="lastname" id="lastname"> 
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-              <label>Firstname:</label>
-                <input type="text" class="form-control disableButton" type="text" name="firstname" id="firstname">  
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-              <label>Middlename:</label>
-                <input type="text" class="form-control disableButton" type="text" name="middlename" id="middlename">   
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-3">Userlevel:</label>
-            <div class="col-sm-9">
-              <select class="form-control disableButton" name="userlevel" id="userlevel">
-                <option value="Regional GAD Coordinator">Regional GAD Coordinator</option>
-                <option value="Division GAD Coordinator">Division GAD Coordinator</option>
-              </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-3">Location:</label>
-            <div class="col-sm-9">
-              <select class="form-control disableButton" name="location" id="location" >   
-              </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-              <input type="hidden" name="status" class="form-control" id="status" value="<?php echo $rowprofile['status'];?>" readonly>
-            </div>
-        </div>
-
-<br>
- </div>
-</div>
-<div class="modal-footer">
-        <input type="hidden" name="id" id="uuid" value="<?php echo $id;?>">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
-         <a data-toggle="modal" href="#update" class="btn btn-primary" id="updateButton">Update</a>      
-    </div>         
-       </div>
-      </div>
-    </div>
-        <!-- Update Verification Modal -->
- 
-<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class = "modal-header">
-      <h3 class = "text-danger modal-title"></h3>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
-    </div>
-    <div class="modal-body">
-    <center>  
-<h4>Are you sure you want to update this user?</h4><br>
-
-<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
-</center>
-</div>
-         
-       </div>
-      </div>
-    </div>    
-
-
- <!-- DEACT Modal --> 
-
-<div class="modal fade" id="editstatus" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <div class = "modal-header">
-       <h3 class = "text-primary modal-title">USER STATUS</h3>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-     
-    </div>
-    <div class="modal-body">
-      <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-sm-9">
-              <label id="label_status"></label>
-            </div>
-        </div>
-<br>
- </div>
-</div>
-<div class="modal-footer">
-        <input type="hidden" name="id" id="uuid1">
-        <input type="hidden" name="status" id="status1">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
-         <input type="submit"  class="btn btn-primary submit_status" id="submit_status">      
-    </div>         
-       </div>
-      </div>
-    </div>    
-
-<!-- END MODAL FOR DEACTIVATE ACCOUNT Modal -->
-
-<!-- Logout Modal -->
- <form class="" action="../logout.php" method="POST">
-<div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class = "modal-header">
-      <h3 class = "text-danger modal-title">Logout <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="red" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
-  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-</svg></h3>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
-    </div>
-    <div class="modal-body">
-    <center>  
-<h4>Are you sure you want to logout?</h4><br>
-
-<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="yes" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md ">
-</center>
-</div>
-         
-       </div>
-      </div>
-    </div>
-    </form>  
-
-
-
-
 
 
 <!--On Change add-->
@@ -775,9 +490,7 @@ for (i = 0; i < dropdown.length; i++) {
       var lvlselected = $('#adduserlevel').val();
       
 
-      if (lvlselected == "Regional GAD Coordinator") {
-        $('#addlocation').html('<option>Region 1</option>');
-      }else if(lvlselected == "Division GAD Coordinator"){
+       if(lvlselected == "Division GAD Coordinator"){
         
         $.ajax({
               type: "POST",
@@ -787,55 +500,21 @@ for (i = 0; i < dropdown.length; i++) {
               },
               success: function(data){
                 $('#addlocation').html(data);
-                console.log(data);
               }
             });
         
         
-      }else{
-        $('#addlocation').html('<option>loc</option>');
       }
-    })
+    });
 
   });
 </script>
 
+
 <!--On Change edit-->
 <script>
   $(document).ready(function(){
-    /*$('#userlevel').change(function(){
-      var lvlselected = $('#userlevel').val();
-      
-
-      if (lvlselected == "Regional GAD Coordinator") {
-        $('#location').html('<option>Region 1</option>');
-      }else if(lvlselected == "Division GAD Coordinator"){
-        
-        $.ajax({
-              type: "POST",
-              url: "locationoption.php",
-              data: {
-                lvlselected: lvlselected
-              },
-              success: function(data){
-                $('#location').html(data);
-              }
-            });
-        
-        
-      }else{
-        $('#location').html('<option></option>');
-      }
-    })*/
-    /*setInterval(function(){
-      console.log("TIme");
-      if($('.disableButton').val()==""){
-        $("#submitButton").hide();
-      }else{
-        $("#submitButton").show();
-      }
-    }, 1000);*/
-  });
+ 
   //Disable button when fields is empty
 
   $(".disableButton").keyup(function(){
@@ -922,15 +601,533 @@ for (i = 0; i < dropdown.length; i++) {
         $("#submitButton").prop('disabled', false);
     }
   });
+   });
 </script>
 
 
 
 
-            
-        </div>
+<!--Add Modal-->
+
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+       <h3 class = "text-primary modal-title">Add User</h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     </div>
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="text" name="username" class="form-control disableButton" id="addusername" placeholder="Username" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="password" name="password" class="form-control disableButton" id="addpassword" placeholder="Password" required>
+            </div>
+        </div>
+         <div class="form-group">
+            <div class="col-sm-9">
+              <input type="text" name="lastname" class="form-control disableButton" id="addlastname" placeholder="Lastname" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="text" name="firstname" class="form-control disableButton" id="addfirstname" placeholder="Firstname" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="text" name="middlename" class="form-control disableButton" id="addmiddlename" placeholder="Middlename" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Userlevel:</label>
+            <div class="col-sm-9">
+              <select class="form-control disableButton" name="userlevel" id="adduserlevel" required>
+                <option value=""></option>
+                <option value="Division GAD Coordinator">Division GAD Coordinator</option>
+              </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Location:</label>
+            <div class="col-sm-9">
+              <select class="form-control disableButton" name="location" id="addlocation" required>   
+              </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="hidden" name="status" class="form-control" id="addstatus" value="ACTIVE" readonly>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> | 
+      <a data-toggle="modal" href="#save" class="btn btn-dark" id="submitButton">Save</a>
+
+    </div>
+    </div>
+  </div>
 </div>
+
+
+
+<!-- Save Verification Modal -->
+ 
+<div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+      <h3 class = "text-danger modal-title"></h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to save this user?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md btncreate">
+</center>
+</div>        
+       </div>
+      </div>
+    </div>
+
+
+
+ <!-- Edit Modal --> 
+
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+       <h3 class = "text-primary modal-title">Update User</h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+     
+    </div>
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Username:</label>
+                  <input type="text" class="form-control disableButton" type="text" name="username" id="username">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Password:</label>
+                  <input type="text" class="form-control disableButton" type="password" name="password" id="password"> 
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Lastname:</label>
+                <input type="text" class="form-control disableButton" type="text" name="lastname" id="lastname"> 
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Firstname:</label>
+                <input type="text" class="form-control disableButton" type="text" name="firstname" id="firstname">  
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Middlename:</label>
+                <input type="text" class="form-control disableButton" type="text" name="middlename" id="middlename">   
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Userlevel:</label>
+            <div class="col-sm-9">
+              <select class="form-control disableButton" name="userlevel" id="userlevel">                
+                <option value="Division GAD Coordinator">Division GAD Coordinator</option>
+              </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Location:</label>
+            <div class="col-sm-9">
+              <select class="form-control disableButton" name="location" id="location" >   
+              </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <input type="hidden" name="status" class="form-control" id="status" value="<?php echo $rowprofile['status'];?>" readonly>
+            </div>
+        </div>
+<br>
+ </div>
+</div>
+<div class="modal-footer">
+        <input type="hidden" name="id" id="uuidedit" value="<?php echo $rowprofile['id'];?>">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> |
+        <a data-toggle="modal" href="#update" class="btn btn-dark" id="updateButton">Update</a>
+    </div>
+        </div>
+      </div>
+    </div>
+        <!-- Update Verification Modal -->
+ 
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+      <h3 class = "text-danger modal-title"></h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to update this user?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
+ 
+    
+
+ <!-- DEACT Modal --> 
+
+<div class="modal fade" id="editstatus" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+       <h3 class = "text-primary modal-title">USER STATUS</h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+     
+    </div>
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label id="label_status"></label>
+            </div>
+        </div>
+<br>
+ </div>
+</div>
+<div class="modal-footer">
+        <input type="hidden" name="id" id="uuid1">
+        <input type="hidden" name="status" id="status1">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
+         <input type="submit"  class="btn btn-primary submit_status" id="submit_status">      
+    </div>         
+       </div>
+      </div>
+    </div>    
+
+<!-- END MODAL FOR DEACTIVATE ACCOUNT Modal -->
+
+
+
+
+
+<!-- update user info and password-->
+
+        <!-- update user info -->
+  <script type = "text/javascript">
+  $(document).ready(function(){
+
+
+    //Update
+    $(document).on('click', '.update_info', function(){
+      $uid=$("#uuidupdate").val();
+      $usernameinfo=$('#usernameinfo').val();      
+      $lastnameinfo=$('#lastnameinfo').val();
+      $firstnameinfo=$('#firstnameinfo').val();
+      $middlenameinfo=$('#middlenameinfo').val();
+      $userlevelinfo=$('#userlevelinfo').val();
+      $locationinfo=$('#locationinfo').val();
+             
+      //check ta nu maala na values bago ka ag ajaxstatus
+      console.log($uid);
+      console.log($username);
+        $.ajax({
+          type: "POST",
+          url: "",
+          data: {
+            id: $uid,
+            username: $usernameinfo,           
+            lastname: $lastnameinfo,
+            firstname: $firstnameinfo,
+            middlename: $middlenameinfo,
+            userlevel: $userlevelinfo,
+            location: $locationinfo, 
+            edit: 1,
+          },
+          success: function(){
+            window.location = "../index.php";
+           
+          }
+        });
+    });
+
+   
+  
+  });
+
+  
+  
+</script>
+
+
+
+ <!-- Updateinfo Modal --> 
+<form class="" action="updateinfo.php" method="POST">
+<div class="modal fade" id="editprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+       <h3 class = "text-success modal-title">Update Profile</h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+     
+    </div>
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Username:</label>
+                  <input type="text" class="form-control" type="text" name="username" id="usernameinfo" value="<?php echo $rowprofile['username'];?>">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Lastname:</label>
+                <input type="text" class="form-control" name="lastname" id="lastnameinfo" value="<?php echo $rowprofile['lastname'];?>"> 
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Firstname:</label>
+                <input type="text" class="form-control" name="firstname" id="firstnameinfo" value="<?php echo $rowprofile['firstname'];?>">  
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Middlename:</label>
+                <input type="text" class="form-control" name="middlename" id="middlenameinfo" value="<?php echo $rowprofile['middlename'];?>">   
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Userlevel:</label>
+                <input type="text" class="form-control" name="userlevel" id="userlevelinfo" value="<?php echo $rowprofile['userlevel'];?>" readonly>   
+            </div>
+        </div>
+          <div class="form-group">
+            <div class="col-sm-9">
+              <label>Location:</label>
+                <input type="text" class="form-control" name="location" id="locationinfo" value="<?php echo $rowprofile['location'];?>" readonly>   
+            </div>
+        </div>
+<br>
+ </div>
+</div>
+<div class="modal-footer">
+        <input type="hidden" name="id" id="uuidupdate" value="<?php echo $rowprofile['id'];?>">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
+        <a data-toggle="modal" name="Update" href="#updateinfo" class="btn btn-primary">Update</a>
+</div>
+
+  </div>
+ </div>
+</div>
+
+ <!-- Update Verification Modal -->
+ 
+<div class="modal fade" id="updateinfo" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">   
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to save this update?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_info">
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
+</form>
+
+
+
+
+<script type="text/javascript">
+
+
+    var passwordValidate = function() {
+  if (document.getElementById('new_pword').value ==
+    document.getElementById('confirm_pword').value) {
+
+    document.getElementById('confirm-message').style.color = 'green';
+    document.getElementById('confirm-message').innerHTML = 'Password Matched';
+    document.getElementById('btnupdate').disabled=false;
+    document.getElementById('btnupdate').style.background='#ee0979';
+    document.getElementById('btnupdate').style.color='white';
+
+  } else if (document.getElementById('new_pword').value !=
+    document.getElementById('confirm_pword').value)  {
+
+    document.getElementById('confirm-message').style.color = 'red';
+    document.getElementById('confirm-message').innerHTML = 'Password not Match';
+    document.getElementById('btnupdate').disabled=true;
+    document.getElementById('btnupdate').style.background='white';
+    document.getElementById('btnupdate').style.color='black';
+
+  } 
+}
+
+</script>
+
+
+
+<!-- Hide/unhide password --> 
+<script type="text/javascript">
+  
+function myFunction() {
+  var x = document.getElementById("current_pword");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
+function myFunction2() {
+  var y = document.getElementById("new_pword");
+  
+
+  if (y.type === "password") {
+    y.type = "text";
+  } else {
+    y.type = "password";
+  }
+
+}
+  
+</script>
+
+
+<!-- update password -->
+  <script type = "text/javascript">
+  $(document).ready(function(){
+
+$(document).on('click', '.btnSubmit', function(){
+  event.preventDefault();
+
+$uid = $('#uid').val();
+$passW = $('#confirm_pword').val();
+
+      if ($('.current_pw').val()=="" || $('#new_pword').val()=="" || $('#confirm_pword').val()==""){/*=========incomplte input */
+      alert("Please fill out all fields!");
+
+       }else if ($('.real_pw').val()!=$('.current_pw').val()){
+      alert("Incorrect Password!");
+    }else{
+         $('.changepass').submit();
+  }
+  });
+
+  });
+ 
+</script>
+
+
+<!-- Change Password Modal --> 
+<form class="changepass" action="updatepword.php" method="POST">
+<div class="modal fade" id="changepassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+       <h3 class = "text-success modal-title">Update Password</h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>     
+    </div>
+    <div class="modal-body">
+      <div class="container">
+      <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Current Password:</label>
+              <input type="hidden" id="real_pword" class="real_pw" name="real_pword" value="<?php echo $rowprofile['password'];?>">
+              <input type="hidden" id="uid" name="uid" value="<?php echo $rowprofile['id'];?>"> 
+                  <input type="password" class="form-control current_pw" name="current_pword" id="current_pword" required>
+                  <input type="checkbox" onclick="myFunction()">Show Password
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>New Password:</label>
+                  <input type="password" class="form-control" name="new_pword" onkeyup="passwordValidate()"id="new_pword" required>
+                  <input type="checkbox" onclick="myFunction2()">Show Password
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+              <label>Confirm Password:</label>
+                  <input type="password" class="form-control" name="confirm_pword" onkeyup="passwordValidate()"id="confirm_pword" required>
+                  <i id="confirm-message" style="font-size: 20px;"></i>
+            </div>
+        </div>
+<br>
+ </div>
+</div>
+</div>
+<div class="modal-footer">
+        <input type="hidden" name="id" id="uuid" value="<?php echo $rowprofile['id'];?>">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> |
+        <input type="button" class="btn btn-primary btnSubmit" id="btnupdate" value="Update">
+</div>
+
+  </div>
+ </div>
+</div>
+</form>
+
+
+
+<!-- Logout Modal -->
+ <form class="" action="../logout.php" method="POST">
+<div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+      <h3 class = "text-danger modal-title">Logout <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="red" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+</svg></h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to logout?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="submit" name="yes" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md ">
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
+    </form>
+
 
   <!-- Footer -->
     <footer class="py-5 bg-black">

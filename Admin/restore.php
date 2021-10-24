@@ -25,12 +25,12 @@ function restoreMysqlDB($filePath, $conn)
                 }
                 $sql = '';
 
-                 echo "<script>alert('Database successfully restored'); window.location = 'admin.php';</script>";
+                 echo "<script>window.location = 'admin.php?db_restored';</script>";
             
             }
         } // end foreach
         
-        if ($error) {
+       /* if ($error) {
             $response = array(
                 "type" => "error",
                 "message" => $error
@@ -41,7 +41,7 @@ function restoreMysqlDB($filePath, $conn)
                 "message" => "Database Restore Completed Successfully."
             );
             
-        }
+        }*/
     } // end if file exists
     return $response;
 }

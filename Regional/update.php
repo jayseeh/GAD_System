@@ -19,7 +19,7 @@
 
 
 		if(mysqli_query($conn,$sql)){
-			echo "<script>alert('User information successfully updated'); window.location = 'divisionmanagement.php';</script>";
+			echo "<script>window.location = 'divisionmanagement.php';</script>";
 		}else{
 			echo "Error updating records!" . mysqli_error($conn);
 		}

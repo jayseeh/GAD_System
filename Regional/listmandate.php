@@ -169,7 +169,7 @@ width: 1150px;
 
 
 
-<div class="card text-center" style="width: 70rem;">
+<div class="card " style="width: 70rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -186,10 +186,9 @@ width: 1150px;
 </div>
 <br>
 <!--Display mandate-->
-  <div class="d-flex justify-content-center">
+  
 
-    <div class="card border-primary mb-3" style="width: 70rem;">  
-  <div class="card-body">
+    
      <tr>
 
                   <?php
@@ -202,9 +201,9 @@ width: 1150px;
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;"><h4>DepEd Order No.</h4></th>
+                                        <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 300px;"><h5>DepEd Order Number</h5></th>
 
-                                        <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;"><h4>DepEd Order Content</h4></th>
+                                        <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;"><h5>DepEd Order Content</h5></th>
                                         
                                     </tr>
                                 </thead>
@@ -232,9 +231,8 @@ width: 1150px;
 
 
     
-           </div>
-         </div>
-       </div>
+           
+      
   </div>
 </div>
 

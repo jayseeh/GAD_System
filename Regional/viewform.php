@@ -42,6 +42,8 @@
 
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
     $(document).ready(function(){
       var number;
@@ -218,6 +220,7 @@ width: 1150px;
     <div class="card border-primary mb-3" >
   <h4 class="card-header">Pending Report</h4 >
   <div class="card-body">
+
     <form action="actionform.php" method="POST">
    <div class="mb-3">
     <label  class="col-sm-2 col-form-label">Form Number:</label>
@@ -301,11 +304,35 @@ width: 1150px;
       	<option value="APPROVED">APPROVED</option>
       	<option value="DISAPPROVED">DISAPPROVED</option>
       </select><br>
-      <label  class="col-sm-2 col-form-label">Remarks</label><br>
+      <label  class="col-sm-4 col-form-label">Remarks</label><br>
       <textarea cols="30" name="remarks"></textarea><br>
-      <input type="Submit" name="submit" value="Submit"> 
+      <!--<input type="Submit" name="submit" value="Submit">-->
+      <a data-toggle="modal" href="#approve" data-dismiss="modal" class="btn btn-dark rounded-pill">Submit</a>  
     </div></center>
 
+
+<!-- Approve Verification Modal -->
+ 
+<div class="modal fade" id="approve" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+      <h3 class = "text-danger modal-title"></h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to do this action?</h4><br>
+
+<input type="hidden" name="form_type" value="GAD">
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="Submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md">
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
     </form>
   </div>
 </div>

@@ -43,6 +43,7 @@ require('../connect.php');
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style type="text/css">
   
 /* The sidebar menu */
@@ -337,7 +338,7 @@ width: 1150px;
       console.log($username);
         $.ajax({
           type: "POST",
-          url: "",
+          url: "updateinfo.php",
           data: {
             id: $uid,
             username: $username,           
@@ -349,8 +350,15 @@ width: 1150px;
             edit: 1,
           },
           success: function(){
-            window.location = "../index.php";
-            alert("User information successfully updated");
+            $("#editprof").modal('hide');
+            $("#updateinfo").modal('hide');
+            Swal.fire({
+                  icon: 'success',
+                  title: 'User information successfully updated',
+                  showConfirmButton: true, 
+                }).then(function (){
+                  location.reload()
+                  });
           }
         });
     });
@@ -365,13 +373,13 @@ width: 1150px;
 
 
  <!-- Updateinfo Modal --> 
-<form class="" action="updateinfo.php" method="POST">
+
 <div class="modal fade" id="editprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
-       <h3 class = "text-success modal-title">Update Info</h3>
+       <h3 class = "text-primary modal-title">Update Info</h3>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
      
     </div>
@@ -443,7 +451,7 @@ width: 1150px;
 <div class="modal-footer">
         <input type="hidden" name="id" id="uuid" value="<?php echo $rowprofile['id'];?>">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
-        <a data-toggle="modal" name="Update" href="#update" class="btn btn-primary">Update</a>
+        <a data-toggle="modal" name="Update" href="#updateinfo" class="btn btn-primary">Update</a>
 </div>
 
   </div>
@@ -452,7 +460,7 @@ width: 1150px;
 
  <!-- Update Verification Modal -->
  
-<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+<div class="modal fade" id="updateinfo" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
     <div class = "modal-header">   
@@ -469,7 +477,6 @@ width: 1150px;
        </div>
       </div>
     </div>
-</form>
 
 
 

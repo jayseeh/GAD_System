@@ -16,7 +16,7 @@
 
 		// execute query
 		if ($conn->query($sql) === TRUE) {
-		   	echo "<script>alert('DepEd Mandate successfully saved'); window.location = 'mandates.php';</script>";
+		   	echo "<script>window.location = 'mandates.php?mandate_uploaded';</script>";
 		} else {
 		    echo "Error: " . $sql . "<br>" . $conn->error;
 		}	

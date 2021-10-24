@@ -40,6 +40,8 @@ $query_female = mysqli_query($conn,"SELECT * FROM attendees WHERE gender='Female
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 $(document).ready(function(){
   $("#position").change(function(){

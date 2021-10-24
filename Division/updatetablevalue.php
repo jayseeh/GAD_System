@@ -27,10 +27,10 @@ while ( $totalrows > 0) {
 		$col10= $_POST["val10-".$count];
 		//,col2='$col2',col3='$col3',col4='$col4',col5='$col5',col6='$col6',col7='$col7',col8='$col8',col9='$col9',col0='$col10',category_focused='$category'
 		mysqli_query($conn, "UPDATE gad_table_entry_value SET col1='$col1',col2='$col2',col3='$col3',col4='$col4',col5='$col5',col6='$col6',col7='$col7',col8='$col8',col9='$col9',col10='$col10',category_focused='$category' WHERE form_number='$form_id' AND row_number='$rownum'");	
-		echo "<script>alert('Successfully updated GAD the form'); window.location = 'gadpendingform.php';</script>";
+		echo "<script>window.location = 'gadpendingform.php?success';</script>";
 	}else{
 		mysqli_query($conn, "UPDATE gad_table_entry_value SET col1='$col1',col2='$col2',col3='$col3',col4='$col4',col5='$col5',col6='$col6',col7='$col7',col8='$col8',col9='$col9',category_focused='$category' WHERE form_number='$form_id' AND row_number='$count'");
-		echo "<script>alert('Successfully updated GPB the form'); window.location = 'pendingform.php';</script>";
+		echo "<script>window.location = 'pendingform.php?success';</script>";
 	}
 	$totalrows= $totalrows-1; 
 	$count++;

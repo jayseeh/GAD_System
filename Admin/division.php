@@ -30,7 +30,7 @@ if(empty($_SESSION['ulvl'])){
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style type="text/css">
   
 /* The sidebar menu */
@@ -189,7 +189,7 @@ background-color: #e6b800;
                 <a data-toggle="modal" href="#add" class="btn btn-success rounded-pill">Add Division</a>
               </div>
               <br>
-
+  </div>
       <?php
         include("../connect.php");
 
@@ -199,9 +199,9 @@ background-color: #e6b800;
         echo "<table id='list' class='table table-bordered table-hover'>";
         
           echo "<tr>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>ID</th>";           
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Division</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Action</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 80px;'><h5>ID</h5></th>";           
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><h5>Division</h5></th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 80px;'><h5>Action</h5></th>";
             
           echo "</tr>";
           echo "<tbody id='usertable'>";
@@ -209,11 +209,11 @@ background-color: #e6b800;
         if(mysqli_num_rows($result)>0){
           while($row=mysqli_fetch_assoc($result)){
             echo "<tr id=".$row['id'] .">";
-              echo "<td style='padding: 10px;' id='tid'>".$row['id']."</td>";
-              echo "<td style='padding: 10px;' id='tdivision'>".$row['division']."</td>";
+              echo "<td style='padding: 10px; font-size: 20px;' id='tid'>".$row['id']."</td>";
+              echo "<td style='padding: 10px; font-size: 20px;' id='tdivision'>".$row['division']."</td>";
               ?>
 
-              <td><button class="btn btn-primary rounded-pill edit_user"  value="<?php echo $row['id']; ?>">
+              <td><button class="btn btn-warning rounded-pill edit_user"  value="<?php echo $row['id']; ?>">
                   <i class="bi bi-pencil-square">Edit</i>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -230,7 +230,7 @@ background-color: #e6b800;
     </div>
     </div>    
     </section>
-  </div>
+
    </div>
    </div>
 </div>
@@ -285,7 +285,7 @@ for (i = 0; i < dropdown.length; i++) {
 
   
 
- <!-- Modal Add User-->
+  <!-- Modal Add User-->
 <script type = "text/javascript">
 
   $(document).ready(function(){
@@ -304,28 +304,30 @@ event.preventDefault();
 
     //Add New
     $(document).on('click', '.btncreate', function(){
-      if ($('#adddivision').val()==""){
-        alert('Please input data first');
-         return false;
-      }
-      else{
+      
       $adddivision=$('#adddivision').val();
           
         $.ajax({
           type: "POST",
-          url: "",
+          url: "adddiv.php",
           data: {
             division: $adddivision,
             add: 1,
           },
           success: function(){
             //showUser();
-            $('#add').modal('hide');
-            alert("Division successfully saved");
-            window.location = "division.php";
+            $("#add").modal('hide');
+            $("#save").modal('hide');
+            Swal.fire({
+                  icon: 'success',
+                  title: 'New Division has been saved',
+                  showConfirmButton: true, 
+                }).then(function (){
+                  location.reload()
+                  });
           }
         });
-      }
+      
     });
 
     //Update
@@ -339,7 +341,7 @@ event.preventDefault();
       console.log($division);
         $.ajax({
           type: "POST",
-          url: "",
+          url: "updatediv.php",
           data: {
             id: $uid,
             division: $division,
@@ -347,8 +349,15 @@ event.preventDefault();
             edit: 1,
           },
           success: function(){
-            alert("User information successfully updated");
-            window.location = "division.php";
+            $("#edit").modal('hide');
+            $("#update").modal('hide');
+            Swal.fire({
+                  icon: 'success',
+                  title: 'Division has been updated!',
+                  showConfirmButton: true, 
+                }).then(function (){
+                  location.reload()
+                  });
           }
         });
     });
@@ -379,48 +388,8 @@ event.preventDefault();
 </script>
 
 
-
-<!--<script type="text/javascript">
-  
-//Disable button when fields is empty
-
-  $(".disableButton").keyup(function(){
-    console.log("TTTT");
-    var val = $(this).val();
-    if(val==""){
-      $("#updateButton").hide();
-      $("#submitButton").hide();
-      //alert("Please don't leave blank");
-    }else {
-        $('#updateButton').show();
-        $("#submitButton").show();
-    }
-  });
-  $(".addUserButton").click(function(){
-    console.log("TTTT");
-    var val = $(".disableButton").val();
-    if(val==""){
-      $("#submitButton").prop('disabled', true);
-    }else {
-        $("#submitButton").prop('disabled', false);
-    }
-  });
-    $("#adddivision").click(function(){
-    console.log("TTTT");
-    var val = $(this).val();
-    if(val==""){
-      $("#submitButton").prop('disabled', true);
-    }else {
-        $("#submitButton").prop('disabled', false);
-    }
-  });
-
-</script>-->
-
-
-
 <!--Add Modal-->
- <form class="" action="adddiv.php" method="POST">
+
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -438,7 +407,7 @@ event.preventDefault();
         
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> | 
-      <button class="btn btn-dark" id="submitButton">Save</button>
+      <button class="btn btn-primary" id="submitButton">Save</button>
     </div>
     </div>
   </div>
@@ -460,18 +429,18 @@ event.preventDefault();
 <h4>Are you sure you want to save this division?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md btncreate">
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md btncreate">
 </center>
 </div>        
        </div>
       </div>
     </div>
-   </form>
+   
 
 
 
  <!-- Edit Modal --> 
-<form class="" action="updatediv.php" method="POST">
+
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -515,14 +484,13 @@ event.preventDefault();
 <h4>Are you sure you want to update this Division?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md update_user">
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
 </center>
 </div>
          
        </div>
       </div>
     </div>
-</form>
 
 <!-- Logout Modal -->
  <form class="" action="../logout.php" method="POST">

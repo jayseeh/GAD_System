@@ -18,4 +18,4 @@ while ( $totalrows > 0) {
 	$totalrows= $totalrows-1; 	
 	$count++;
 }
-echo "<script>alert('Successfully Added'); window.location = 'personnels.php';</script>";
+echo "<script>window.location = 'personnels.php?attendees_uploaded';</script>";

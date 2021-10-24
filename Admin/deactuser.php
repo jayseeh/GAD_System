@@ -30,7 +30,7 @@ if(empty($_SESSION['ulvl'])){
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style type="text/css">
   
 /* The sidebar menu */
@@ -235,7 +235,7 @@ background-color: #e6b800;
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tlocation'>".$row['location']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tstatus'>".$row['status']."</td>";?>
 
-              <td><button class="btn btn-primary rounded-pill edit_user"  value="<?php echo $row['id']; ?>">
+              <td><button class="btn btn-warning rounded-pill edit_user"  value="<?php echo $row['id']; ?>">
                   <i class="bi bi-pencil-square">Edit</i>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -319,52 +319,10 @@ for (i = 0; i < dropdown.length; i++) {
 
   
 
-    
-
-
-  
-
  <!-- Modal Add User-->
 <script type = "text/javascript">
    $(document).ready(function(){
-    //Add New
-    $(document).on('click', '.btncreate', function(){
-      if ($('#addusername').val()=="" || $('#addpassword').val()=="" || $('#addlastname').val()=="" || $('#addfirstname').val()=="" || $('#addmiddlename').val()=="" || $('#adduserlevel').val()=="" || $('#addlocation').val()==""){
-        alert('Please input data first');
-         return false;
-      }
-      else{
-      $addusername=$('#addusername').val();
-      $addpassword=$('#addpassword').val();
-      $addlastname=$('#addlastname').val();
-      $addfirstname=$('#addfirstname').val();
-      $addmiddlename=$('#addmiddlename').val();
-      $adduserlevel=$('#adduserlevel').val();
-      $addlocation=$('#addlocation').val();
-      $addstatus=$('#addstatus').val();        
-        $.ajax({
-          type: "POST",
-          url: "",
-          data: {
-            username: $addusername,
-            password: $addpassword,
-            lastname: $addlastname,
-            firstname: $addfirstname,
-            middlename: $addmiddlename,
-            userlevel: $adduserlevel,
-            location: $addlocation,
-            status: $addstatus,
-            add: 1,
-          },
-          success: function(){
-            //showUser();
-            $('#add').modal('hide');
-            alert("User information successfully saved");
-            window.location = "user.php";
-          }
-        });
-      }
-    });
+
 
     //Update
     $(document).on('click', '.update_user', function(){
@@ -383,7 +341,7 @@ for (i = 0; i < dropdown.length; i++) {
       console.log($username);
         $.ajax({
           type: "POST",
-          url: "",
+          url: "update.php",
           data: {
             id: $uid,
             username: $username,
@@ -397,8 +355,16 @@ for (i = 0; i < dropdown.length; i++) {
             edit: 1,
           },
           success: function(){
-            alert("User information successfully updated");
-            window.location = "user.php";
+            $("#edit").modal('hide');
+            $("#update").modal('hide');
+            Swal.fire({
+                  icon: 'success',
+                  title: 'User successfully updated!',
+                  showConfirmButton: true, 
+                }).then(function (){
+                  location.reload()
+                  });
+            //window.location = "deactuser.php";
           }
         });
     });
@@ -422,6 +388,7 @@ for (i = 0; i < dropdown.length; i++) {
         console.log(id);
         console.log(username);
         console.log(userlevel);
+        console.log(location);
 
         
         $("#username").val(username);
@@ -479,105 +446,37 @@ for (i = 0; i < dropdown.length; i++) {
         $("#editstatus").modal('toggle');
    });
 
+
+   $(document).on('click', '.submit_status', function(){
+      $id=$("#uuid1").val();
+      $status1=$('#status1').val();
+              
+        $.ajax({
+          type: "POST",
+          url: "changestatus.php",
+          data: {
+            id: $id,
+            status: $status1,           
+            edit: 1,
+          },
+          success: function(){
+            $("#editstatus").modal('hide');
+            Swal.fire({
+                  icon: 'info',
+                  title: 'User successfully activated!',
+                  showConfirmButton: true, 
+                }).then(function (){
+                  location.reload()
+                  });           
+          }
+        });
+      
+    });
+
 </script>
 
-<!--Add Modal-->
-<form class="" action="create.php" method="POST">
-<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <div class = "modal-header">
-       <h3 class = "text-primary modal-title">Add User</h3>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    </div>
-    <div class="modal-body">
-      <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-sm-9">
-              <input type="text" name="username" class="form-control disableButton" id="addusername" placeholder="Username" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-              <input type="password" name="password" class="form-control disableButton" id="addpassword" placeholder="Password" required>
-            </div>
-        </div>
-         <div class="form-group">
-            <div class="col-sm-9">
-              <input type="text" name="lastname" class="form-control disableButton" id="addlastname" placeholder="Lastname" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-              <input type="text" name="firstname" class="form-control disableButton" id="addfirstname" placeholder="Firstname" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-              <input type="text" name="middlename" class="form-control disableButton" id="addmiddlename" placeholder="Middlename" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-3">Userlevel:</label>
-            <div class="col-sm-9">
-              <select class="form-control disableButton" name="userlevel" id="adduserlevel" required>
-                <option value=""></option>
-                <option value="Regional GAD Coordinator">Regional GAD Coordinator</option>
-                <option value="Division GAD Coordinator">Division GAD Coordinator</option>
-              </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-3">Location:</label>
-            <div class="col-sm-9">
-              <select class="form-control disableButton" name="location" id="addlocation" required>   
-              </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-              <input type="hidden" name="status" class="form-control" id="addstatus" value="ACTIVE" readonly>
-            </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> | 
-      <a data-toggle="modal" href="#save" class="btn btn-dark" id="submitButton">Save</a>
-
-    </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Save Verification Modal -->
- 
-<div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class = "modal-header">
-      <h3 class = "text-danger modal-title"></h3>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
-    </div>
-    <div class="modal-body">
-    <center>  
-<h4>Are you sure you want to save this user?</h4><br>
-
-<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md btncreate">
-</center>
-</div>        
-       </div>
-      </div>
-    </div>
-   </form>
-
-
-
  <!-- Edit Modal --> 
-<form class="" action="update.php" method="POST">
+
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -636,7 +535,7 @@ for (i = 0; i < dropdown.length; i++) {
         </div>
         <div class="form-group">
             <div class="col-sm-9">
-              <input type="hidden" name="status" class="form-control" id="status" value="ACTIVE" readonly>
+              <input type="hidden" name="status" class="form-control" id="status" value="<?php echo $rowprofile['status'];?>" readonly>
             </div>
         </div>
 
@@ -672,10 +571,10 @@ for (i = 0; i < dropdown.length; i++) {
        </div>
       </div>
     </div>    
-</form>
+
 
  <!-- DEACT Modal --> 
-<form class="" action="changestatus.php" method="POST">
+
 <div class="modal fade" id="editstatus" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -698,12 +597,12 @@ for (i = 0; i < dropdown.length; i++) {
         <input type="hidden" name="id" id="uuid1">
         <input type="hidden" name="status" id="status1">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
-         <input type="submit"  class="btn btn-primary" id="submit_status">      
+         <input type="submit"  class="btn btn-primary submit_status" id="submit_status">      
     </div>         
        </div>
       </div>
     </div>    
-</form>
+
 <!-- END MODAL FOR DEACTIVATE ACCOUNT Modal -->
 
 <!-- Logout Modal -->
@@ -899,7 +798,7 @@ for (i = 0; i < dropdown.length; i++) {
         </div>
     </div>
 </div>
-
+<br><br><br><br>
   <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">

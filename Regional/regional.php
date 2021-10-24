@@ -208,7 +208,7 @@ h1{
 
 
     //Update
-    $(document).on('click', '.update_user', function(){
+    $(document).on('click', '.update_info', function(){
       $uid=$("#uuidupdate").val();
       $usernameinfo=$('#usernameinfo').val();      
       $lastnameinfo=$('#lastnameinfo').val();
@@ -219,10 +219,10 @@ h1{
              
       //check ta nu maala na values bago ka ag ajaxstatus
       console.log($uid);
-      console.log($username);
+      console.log($usernameinfo);
         $.ajax({
           type: "POST",
-          url: "",
+          url: "updateinfo.php",
           data: {
             id: $uid,
             username: $usernameinfo,           
@@ -234,7 +234,16 @@ h1{
             edit: 1,
           },
           success: function(){
-            window.location = "../index.php";
+            $("#editprof").modal('hide');
+            $("#updateinfo").modal('hide');
+            Swal.fire({
+                  icon: 'success',
+                  title: 'User information successfully updated',
+                  showConfirmButton: true, 
+                }).then(function (){
+                  location.reload()
+                  });
+
            
           }
         });
@@ -251,13 +260,13 @@ h1{
 
 
  <!-- Updateinfo Modal --> 
-<form class="" action="updateinfo.php" method="POST">
+
 <div class="modal fade" id="editprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
-       <h3 class = "text-success modal-title">Update Profile</h3>
+       <h3 class = "text-primary modal-title">Update Profile</h3>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
      
     </div>
@@ -324,14 +333,13 @@ h1{
 <h4>Are you sure you want to save this update?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_info">
 </center>
 </div>
          
        </div>
       </div>
     </div>
-</form>
 
 
 
@@ -447,7 +455,7 @@ $passW = $('#confirm_pword').val();
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
-       <h3 class = "text-success modal-title">Update Password</h3>
+       <h3 class = "text-primary modal-title">Update Password</h3>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>     
     </div>
     <div class="modal-body">

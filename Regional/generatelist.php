@@ -37,6 +37,7 @@ $form_type = $_GET['id'];
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
       function generatePDF(){
         const element = document.getElementById('invoice');

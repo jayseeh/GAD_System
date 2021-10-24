@@ -28,12 +28,12 @@ if (isset($_POST['login'])){
 
       }else{    
           unset($_SESSION['ulvl']);
-          echo "<script>alert('Inactive User!'); window.location = 'index.php'; </script>";
+          echo "<script>window.location = 'index.php?inactive_credential'; </script>";
 }
 
       }else{    
           unset($_SESSION['ulvl']);
-          echo "<script>alert('Invalid User!'); window.location = 'index.php'; </script>";         
+          echo "<script>window.location = 'index.php?invalid_credential'; </script>";         
           
         }
       }
@@ -69,6 +69,8 @@ if (isset($_POST['login'])){
 
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style type="text/css">
   
@@ -140,6 +142,26 @@ background-color:white;
       </div>
         <input class="form-control form-rounded border border-info" id="username" name="username" type="text" placeholder="Username"><br>
         <input class="form-control form-rounded border border-info"id="password" name="password" type="password" placeholder="Password"><br>
+        <!--invalid cridential-->
+                <?php 
+                $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                if (strpos($fullUrl, "invalid_credential") == true){
+                  echo "<script>Swal.fire({
+                  icon: 'warning',
+                  title: 'Invalid User',
+                  text: 'Please check your username/password',
+                  showConfirmButton: true, 
+                })</script>";
+                }elseif (strpos($fullUrl, "inactive_credential") == true){
+                  echo "<script>Swal.fire({
+                  icon: 'warning',
+                  title: 'Inactive User',
+                  text: 'Your account is deactivated, please contact the admin to activate your account.',
+                  showConfirmButton: true, 
+                })</script>";
+                }
+                ?>
+                <!--end of invalid cridential-->
         <!--Buttons-->
         <input name="login" type="submit" value=" Login " class="btn btn-warning rounded-pill"> 
         &nbsp;

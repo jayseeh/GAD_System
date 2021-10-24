@@ -36,7 +36,7 @@ if(empty($_SESSION['ulvl'])){
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style type="text/css">
   
 /* The sidebar menu */
@@ -245,6 +245,23 @@ width: 1150px;
  </div>
 
 
+<!-- Swal -->
+<?php 
+  $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  if (strpos($fullUrl, "mandate_uploaded") == true){
+    echo "<script>Swal.fire({
+    icon: 'success',
+    title: 'Mandate successfully uploaded!',
+    showConfirmButton: true, 
+    }).then(function (){
+    window.location.href = 'mandates.php';
+    });</script>";
+  }
+  ?>
+
+
+
+
 <!-- update user info and password-->
 
         <!-- update user info -->
@@ -253,7 +270,7 @@ width: 1150px;
 
 
     //Update
-    $(document).on('click', '.update_user', function(){
+    $(document).on('click', '.update_info', function(){
       $uid=$("#uuidupdate").val();
       $usernameinfo=$('#usernameinfo').val();      
       $lastnameinfo=$('#lastnameinfo').val();
@@ -264,10 +281,10 @@ width: 1150px;
              
       //check ta nu maala na values bago ka ag ajaxstatus
       console.log($uid);
-      console.log($username);
+      console.log($usernameinfo);
         $.ajax({
           type: "POST",
-          url: "",
+          url: "updateinfo.php",
           data: {
             id: $uid,
             username: $usernameinfo,           
@@ -279,7 +296,16 @@ width: 1150px;
             edit: 1,
           },
           success: function(){
-            window.location = "../index.php";
+            $("#editprof").modal('hide');
+            $("#updateinfo").modal('hide');
+            Swal.fire({
+                  icon: 'success',
+                  title: 'User information successfully updated',
+                  showConfirmButton: true, 
+                }).then(function (){
+                  location.reload()
+                  });
+
            
           }
         });
@@ -296,7 +322,7 @@ width: 1150px;
 
 
  <!-- Updateinfo Modal --> 
-<form class="" action="updateinfo.php" method="POST">
+
 <div class="modal fade" id="editprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   
   <div class="modal-dialog" role="document">
@@ -369,14 +395,13 @@ width: 1150px;
 <h4>Are you sure you want to save this update?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_info">
 </center>
 </div>
          
        </div>
       </div>
     </div>
-</form>
 
 
 
