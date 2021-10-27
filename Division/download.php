@@ -191,7 +191,6 @@ width: 1150px;
  <br><br>   
         
  <!-- Template Table--> 
-  <div class="d-flex justify-content-center">
  
         <fieldset>
   <div class="row">
@@ -199,7 +198,7 @@ width: 1150px;
 
     <div class="row">
   <div class="col">
- <div class="card" style="width: 70rem;">
+ <div class="card" style="width: 71rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -222,11 +221,7 @@ width: 1150px;
       <form action="download.php" method="post" enctype="multipart/form-data">
                         
                   
-  <div class="d-flex justify-content-center">
 
-    <div class="card border-primary mb-3" style="width: 60rem;">
-  
-  <div class="card-body">
     <tr>
 
                   <?php
@@ -273,9 +268,7 @@ width: 1150px;
                    
 
            </tr>
-           </div>
-         </div>
-       </div>
+          
          </form>
   </div>
 </div>
@@ -284,7 +277,7 @@ width: 1150px;
    </div>
     </div>
      </fieldset>
-  </div> 
+
    </div>
    </div>
 </div>

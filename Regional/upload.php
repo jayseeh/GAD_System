@@ -17,7 +17,7 @@ include("timezone.php");
 
             if($run){
                 move_uploaded_file($fileTmpName,$path);
-                echo "<script>alert('Template Succesfully Uploaded!'); window.location = 'templates.php'; </script>";
+                echo "<script>window.location = 'templates.php?template_uploaded'; </script>";
             }
             else{
                 echo "error".mysqli_error($conn);

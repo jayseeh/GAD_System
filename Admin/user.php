@@ -661,7 +661,8 @@ for (i = 0; i < dropdown.length; i++) {
         <div class="form-group">
             <label class="control-label col-sm-3">Location:</label>
             <div class="col-sm-9">
-              <select class="form-control disableButton" name="location" id="location" >   
+              <select class="form-control disableButton" name="location" id="location" >
+              <label selected><?php echo $rowprofile['location'];?></label>   
               </select>
             </div>
         </div>

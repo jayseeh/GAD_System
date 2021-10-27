@@ -261,13 +261,13 @@ width: 1150px;
     <fieldset>
   <div class="row">
   <div class="col">
-    <div class="card border-primary mb-3" style=" width: 70rem;">
-  <h4 class="card-header">Upload your file here for mulitple personnels</h4 >
+    <div class="card mb-3" style=" width: 70rem;">
+  <h4>Upload your file here for mulitple personnels</h4 >
   <div class="card-body">
     
    <div class="mb-3">
 
-<label  class="col-sm-2 col-form-label">Division:</label><br>
+<label  class="col-form-label">Division:</label><br>
     <div class="col-sm-5">
       <input type="text" name="division" id="division" readonly class="form-select form-control form-control-lg"  value="<?php echo $loc; ?>">
     </div>

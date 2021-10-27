@@ -528,7 +528,7 @@ $passW = $('#confirm_pword').val();
     </div>
     </form>
   
-<br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
 
   <!-- Footer -->
     <footer class="py-5 bg-black">

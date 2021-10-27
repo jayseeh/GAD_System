@@ -248,6 +248,9 @@ width: 1150px;
       <li class="nav-item">
         <a class="nav-link" href="attendees.php">Attendees</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="templates.php">Upload Template</a>
+      </li>
     </ul>
   </div>
 

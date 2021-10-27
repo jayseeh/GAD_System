@@ -410,7 +410,7 @@ $(document).on('click', '.btnSubmit', function(){
 $uid = $('#uid').val();
 $passW = $('#confirm_pword').val();
 
-      if ($('.current_pw').val()=="" || $('#new_pword').val()=="" || $('#confirm_pword').val()==""){/*=========incomplte input */
+      if ($('.current_pw').val()=="" || $('#new_pword').val()=="" || $('#confirm_pword').val()==""){/*=========incomplete input */
       $("#updatepass").modal('hide');
       Swal.fire({
                   icon: 'warning',

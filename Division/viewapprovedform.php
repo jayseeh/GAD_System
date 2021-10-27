@@ -241,7 +241,7 @@ width: 1150px;
       <hr>
       <table class="table table-bordered col-sm-2"  id="table_gad">
         <tr>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th> 
+            <!--<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th>--> 
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender Issue/GAD Mandate</th>          
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Cause of the Gender Issue</th>
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Result Statement/GAD Objective</th>
@@ -260,7 +260,7 @@ width: 1150px;
           			
           	?>
 		          <tr>
-		            <td><input type="text" id="count_num"  name="number_rows" readonly value="<?php echo $row['row_number']; ?>" style="text-align: center;"></td>
+		            <!--<td><input type="text" id="count_num"  name="number_rows" readonly value="<?php echo $row['row_number']; ?>" style="text-align: center; size: 1px; width: 50px;"></td>-->
 		            <td style="width: 15px;"><?php echo $row['col1']; ?></td>
 		            <td><?php echo $row['col2']; ?></td>
 		            <td><?php echo $row['col3']; ?></td>

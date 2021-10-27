@@ -161,13 +161,8 @@ width: 1150px;
 
 <div class="container-fluid">
 
-  <h2>Mandates</h2>
   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
 <br><br>
-
-
-
-
 
 <div class="card " style="width: 70rem;">
   <div class="card-header">
@@ -562,7 +557,7 @@ $passW = $('#confirm_pword').val();
 
 
     
-<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
   <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">

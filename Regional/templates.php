@@ -10,7 +10,6 @@ if(empty($_SESSION['ulvl'])){
   $sqlprofile = mysqli_query($conn, $queryprofile);
   $rowprofile = mysqli_fetch_array($sqlprofile);
 
-$form_type = $_GET['id'];
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +28,6 @@ $form_type = $_GET['id'];
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--AJAX-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
@@ -38,17 +36,6 @@ $form_type = $_GET['id'];
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-      function generatePDF(){
-        const element = document.getElementById('invoice');
-        var opt = {
-          margin:       .5,
-          jsPDF:        {orientation: 'landscape' }
-        };
-
-        html2pdf().set(opt).from(element).save();
-      }
-    </script>
 <style type="text/css">
   
 /* The sidebar menu */
@@ -147,47 +134,37 @@ width: 1150px;
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
 
- <a data-toggle="modal" href="#editprof">Profile</a>
+  <a data-toggle="modal" href="#editprof">Profile</a>
 
   <a data-toggle="modal" href="#changepassword">Change password</a>
 
   <a href="divisionmanagement.php">Division User Management</a>
 
   <a href="mandates.php">DepEd Mandates</a>
-  <?php
-    if($form_type=='GPB'){
-      echo '<a href="reggpb.php" class="active">GPB</a><a href="reggadar.php">GAD AR</a>';
-    }else{
-      echo '<a href="reggpb.php" >GPB</a><a href="reggadar.php" class="active">GAD AR</a>';
-    }
-  ?>  
+
+  <a href="reggpb.php" >GPB</a>
+
+  <a href="reggadar.php" class="active">GAD AR</a>
 
   <a data-toggle="modal" href="#logout">Logout</a>
 
   <a href="#">Help</a>
 </div>
 
+
         <!-- Content -->
         <div class="main">
-
-<?php
-    if($form_type=='GPB'){
-      echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Plan And Budget</h2></center>';
-    }else{
-      echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>';
-    }
-  ?>
- <br> 
+       
+<center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>
+ <br>
+    
 
 <div class="container-fluid">
 
-   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
-   <button class="btn btn-warning rounded-pill" onclick="generatePDF()">Export as PDF</button>
+   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>  
   <br><br>
 <div class="d-flex justify-content-center">
     <fieldset>
-
-      
 
   <div class="row">
     <div class="container-fluid">
@@ -195,72 +172,106 @@ width: 1150px;
 <div class="card" style="width: 70rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
-      <?php echo ($form_type == 'GPB') ? '<li class="nav-item"><a class="nav-link" href="reggpb.php">Pending Forms</a></li><li class="nav-item"><a class="nav-link" href="approvedform.php">Approved GPB</a></li>' : '<li class="nav-item"><a class="nav-link" href="reggadar.php">Pending Forms</a></li><li class="nav-item"><a class="nav-link" href="approvedgad.php">Approved GAD AR</a></li>'; ?>
-       <li class="nav-item">
-        <?php echo ($form_type == 'GPB') ? '<a class="nav-link" href="generateform.php?id=GPB">Generate Report</a>' : '<li class="nav-item"><a class="nav-link " href="generateform.php?id=GAD">Generate Report</a></li>';?>
+      <li class="nav-item">
+        <a class="nav-link">Pending Forms</a>
       </li>
       <li class="nav-item">
-         <?php echo ($form_type == 'GPB') ? '<a class="nav-link active" href="generatelist.php?id=GPB">Generate List</a>' : '<li class="nav-item"><a class="nav-link active" href="generatelist.php?id=GAD">Generate List</a></li><li class="nav-item"><a class="nav-link" href="viewpersonnels.php">Trained Personnels</a></li><li class="nav-item"> <a class="nav-link" href="attendees.php">Attendees</a></li><li class="nav-item"><a class="nav-link" href="templates.php">Upload Template</a></li>';?>
+        <a class="nav-link" href="approvedgad.php">Approved GAD AR</a>
       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="generateform.php?id=GAD">Generate Report</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="generatelist.php?id=GAD">Generate List</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="viewpersonnels.php">Trained Personnels</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="attendees.php">Attendees</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true">Upload Template</a>
+      </li>     
     </ul>
   </div>
   <div class="card-body">
 
+         <form action="upload.php" method="post" enctype="multipart/form-data">
+    <fieldset>
 
-      <div class="col-sm-12" id="invoice">
-      <img src="imgreg/deped.png" style="width: 100px; height: 100px; display: block; margin-left: auto; margin-right: auto;">
-      <center><p style="font-family: Old English Text MT;"><b><text style="font-size: 12px;">Republic of the Philippines</text><br><text style="font-size: 18px;">Department of Education</text></b><br><text style="font-size: 11px; font-family: Times New Roman;">Region I</text></p></center>         
-      <?php
-        include("../connect.php");
-
-        $sql="SELECT * FROM gad_form INNER JOIN caps ON gad_form.approver_id=caps.id WHERE form_status='APPROVED' and form_number LIKE '%".$form_type."%' ORDER BY date_submitted";
-        $result=mysqli_query($conn, $sql);
-
-        echo "<table id='list' class='table table-bordered table-hover'>";
-        
-          echo "<tr>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Requestor Name</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Division</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Date Submitted</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Approver</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Date Approved</th>";
-          echo "</tr>";
-          echo "<tbody id='usertable'>";
-
-        if(mysqli_num_rows($result)>0){
-          while($row=mysqli_fetch_assoc($result)){
-            $req_user = $row['requestor_id'];
-            $sql_req_name = mysqli_query($conn,"SELECT * FROM caps WHERE id ='$req_user'");
-            $fetch_req_user = mysqli_fetch_assoc($sql_req_name);
-            echo "<tr>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$fetch_req_user['firstname']." ".$fetch_req_user['lastname']."</td>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$fetch_req_user['location']."</td>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$row['date_submitted']."</td>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['firstname']." ".$row['lastname']."</td>";
-              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['date_approved']."</td>";
-              ?>
-              <?php
-            echo "</tr>";
-          }
-        }
-        echo "</tbody>";
-        echo "</table";
-      ?>   
-    </section>
+  <div class="row">
+  <div class="col">
+    <div class="card border-primary mb-3" >
+  <h4 class="card-header">GAD multiple attendees template</h4 >
+  <div class="card-body">
+   <div class="mb-3">
+  <label for="formFile" class="form-label">Upload template here</label>
+  <input class="form-control" type="file" id="formFile" name="file[]" multiple=""><br>
+  
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <!--<button type="submit" name="submit" class="btn btn-primary">Upload</button>-->
+    <a data-toggle="modal" href="#upload_temp" data-dismiss="modal" class="btn btn-dark rounded-pill">Upload</a>
   </div>
+</div>
+  </div>
+</div>
+</div>
+</div>  
+  </fieldset>
+
+    <!-- Save Verification Modal -->
+ 
+<div class="modal fade" id="upload_temp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+      <h3 class = "text-danger modal-title"></h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to upload this template?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md">
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
+  </form>
+
   </div>
 </div>
   
    </div>
    </div>
- </fieldset>
+    </fieldset>
 </div>    
 </div>
-</div>
+</div> 
   </div> 
    </div>
 
    
+
+<!-- Swal -->
+<?php 
+  $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  if (strpos($fullUrl, "template_uploaded") == true){
+    echo "<script>Swal.fire({
+    icon: 'success',
+    title: 'Template successfully uploaded!',
+    showConfirmButton: true, 
+    }).then(function (){
+    window.location.href = 'templates.php';
+    });</script>";
+  }
+  ?>
+
+
 
 <!-- update user info and password-->
 
