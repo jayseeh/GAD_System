@@ -56,7 +56,7 @@ require('../connect.php');
       //ADD ROWS FUNCTION
       $("#add_rows").click(function(){
         $("#numberOfRows").val(number);
-        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center; width: 50px;'></td><td><textarea rows='4' cols='10' name='val1-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val2-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val3-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val4-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val5-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val6-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val7-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val8-"+number+"'></textarea></td><td><textarea rows='4' cols='10' name='val9-"+number+"'></textarea></td><td><select name='cat-"+number+"'><option value='CLIENT'>Client-Focused</option><option value='ORGANIZATION'>Organization-Focused</option></select></td></tr>";
+        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center; width: 30px;'></td><td><textarea rows='4' cols='8' name='val1-"+number+"'></textarea></td><td><textarea rows='4' cols='8' name='val2-"+number+"'></textarea></td><td><textarea rows='4' cols='8' name='val3-"+number+"'></textarea></td><td><textarea rows='4' cols='8' name='val4-"+number+"'></textarea></td><td><textarea rows='4' cols='8' name='val5-"+number+"'></textarea></td><td><textarea rows='4' cols='8' name='val6-"+number+"'></textarea></td><td><textarea rows='4' cols='8' name='val7-"+number+"'></textarea></td><td><textarea rows='4' cols='8' name='val8-"+number+"'></textarea></td><td><textarea rows='4' cols='8' name='val9-"+number+"'></textarea></td><td><select name='cat-"+number+"' style='width: 120px;'><option value='CLIENT'>Client-Focused</option><option value='ORGANIZATION'>Organization-Focused</option></select></td></tr>";
         console.log(table);
         $("#table_gad").html(table);
 
@@ -195,7 +195,7 @@ width: 1150px;
   <div class="row">
     <div class="container-fluid">
 
-<div class="card" style="width: 70rem;">
+<div class="card" style="width: 80rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -227,31 +227,31 @@ width: 1150px;
       <p>Please fill up below table.</p>
       <table class="table table-bordered col-sm-2"  id="table_gad">
         <tr>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th> 
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender Issue/GAD Mandate</th>          
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Cause of the Gender Issue</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Result Statement/GAD Objective</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Relevant Organization MFO/PAP</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Activity</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Output Performance Indicator/ Target</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Budget</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Source of Budget</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Responsible Unit/ Office</th>   
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Category</th>   
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>Number</th> 
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>Gender Issue/GAD Mandate</th>          
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>Cause of the Gender Issue</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>GAD Result Statement/GAD Objective</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>Relevant Organization MFO/PAP</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>GAD Activity</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>Output Performance Indicator/ Target</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>GAD Budget</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>Source of Budget</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>Responsible Unit/ Office</th>   
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>Category</th>   
           </tr>
           <tr>
-            <td><input type="text" id="count_num"  name="number_rows" readonly value="1" style="text-align: center; size: 1px; width: 50px;"></td>
-            <td><textarea rows="4" cols="10" name="val1-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val2-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val3-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val4-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val5-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val6-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val7-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val8-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="10" name="val9-1" placeholder="Add text here"></textarea></td>
+            <td><input type="text" id="count_num"  name="number_rows" readonly value="1" style="text-align: center; size: 1px; width: 30px;"></td>
+            <td><textarea rows="4" cols="8" name="val1-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="8" name="val2-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="8" name="val3-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="8" name="val4-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="8" name="val5-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="8" name="val6-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="8" name="val7-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="8" name="val8-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="8" name="val9-1" placeholder="Add text here"></textarea></td>
             <td>
-              <select name="cat-1">
+              <select name="cat-1" style="width: 120px;">
                 <option value="CLIENT">Client-Focused</option>
                 <option value="ORGANIZATION">Organization-Focused</option>
               </select>

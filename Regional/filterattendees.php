@@ -3,13 +3,17 @@ include "../connect.php";
 $position  = $_POST['position'];
 $count=1;
 $html = "<tr>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Name</th> 
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Position</th>          
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender</th>  
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Division</th>   
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;'>Number</th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;'>Name</th> 
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;'>Position</th>          
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;'>Gender</th>  
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;'>Division</th>   
           </tr>";
-$query = mysqli_query($conn,"SELECT * FROM attendees WHERE position='$position'");
+if($position=='All'){
+	$query = mysqli_query($conn,"SELECT * FROM attendees");
+}else{
+	$query = mysqli_query($conn,"SELECT * FROM attendees WHERE position='$position'");
+}
 while($row = mysqli_fetch_assoc($query)){
 	$html = $html . "<tr>
 	<td>".$count."</td>

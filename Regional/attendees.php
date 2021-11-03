@@ -10,6 +10,10 @@ if(empty($_SESSION['ulvl'])){
   $sqlprofile = mysqli_query($conn, $queryprofile);
   $rowprofile = mysqli_fetch_array($sqlprofile);
 
+//attendees functions 
+$query_at = mysqli_query($conn,"SELECT * FROM attendees ORDER BY id");
+$query_male = mysqli_query($conn,"SELECT * FROM attendees WHERE gender='Male'");
+$query_female = mysqli_query($conn,"SELECT * FROM attendees WHERE gender='Female'");
 ?>
 
 <!DOCTYPE html>
@@ -28,14 +32,66 @@ if(empty($_SESSION['ulvl'])){
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--AJAX-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+$(document).ready(function(){
+  $("#position").change(function(){
+    //alert($(this).val());
+    console.log($(this).val());
+    var pos = $(this).val();
+    $("#location").val("All");
+    $.post("filterattendees.php",
+    {
+      position: $(this).val()   
+    },
+    function(data){
+      console.log(data);
+      $("#table_gad").html(data);
+      var count = $("#total_count").val();
+      $("#view_pos").html("Total Number of <b>"+pos+"</b>: <b>"+count+"</b>");
+      //alert("Data: " + data + "\nStatus: " + status);
+    });
+  });
+  $("#location").change(function(){
+    //alert($(this).val());
+    console.log($(this).val());
+    var pos = $(this).val();
+    $("#position").val("All");
+    $.post("filterlocation.php",
+    {
+      position: $(this).val()   
+    },
+    function(data){
+      console.log(data);
+      $("#table_gad").html(data);
+      var count = $("#total_count").val();
+      $("#view_pos").html("Total Number of <b>"+pos+"</b>: <b>"+count+"</b>");
+      //alert("Data: " + data + "\nStatus: " + status);
+    });
+  });
+});
+</script>
+<script>
+      function generatePDF(){
+        const element = document.getElementById('invoice');
+        var opt = {
+          margin:       .5,
+          jsPDF:        {orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save();
+      }
+    </script>
+
 <style type="text/css">
   
 /* The sidebar menu */
@@ -116,7 +172,9 @@ width: 1150px;
 .navbar {
   color: black;
 }
-
+.fonts-fam{
+  font-family: Bookman Old Style;
+}
 
 </style>
 
@@ -127,14 +185,14 @@ width: 1150px;
     <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="sidenav">
-         <div class="d-flex justify-content-center">
+          <div class="d-flex justify-content-center">
           <img src="imgreg/01.png" style="max-width:90px;" alt="">
         </div><br>
 <center><h6 style="color: white;"><?php echo $_SESSION['full_name']; ?></h6></center>
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
 
- <a data-toggle="modal" href="#editprof">Profile</a>
+  <a data-toggle="modal" href="#editprof">Profile</a>
 
   <a data-toggle="modal" href="#changepassword">Change password</a>
 
@@ -153,23 +211,23 @@ width: 1150px;
 
         <!-- Content -->
         <div class="main">
-                
+       
  <center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>
  <br> 
+    
 
 <div class="container-fluid">
 
    <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+    <button class="btn btn-warning rounded-pill" onclick="generatePDF()">Export as PDF</button>
   <br><br>
 <div class="d-flex justify-content-center">
     <fieldset>
 
-      
-
   <div class="row">
     <div class="container-fluid">
 
-<div class="card text-center" style="width: 70rem;">
+<div class="card" style="width: 70rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -188,34 +246,103 @@ width: 1150px;
         <a class="nav-link" href="viewpersonnels.php">Trained Personnels</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Attendees</a>
+        <a class="nav-link active"  saria-current="true">Attendees</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="templates.php">Upload Template</a>
       </li>
     </ul>
   </div>
-  <div class="card-body">
 
 
-<h2>Attendees Lists</h2>
+    <br>
+    <div class="mb-3">
+  <label  class="col-sm-4 col-form-label">Select Division to Filter</label>
+              <select style="height: 30px; width: 220px;" name="location" id="location" >
+
+                 <option selected value="All">All</option>
+
+                  <?php
+
+                  $sqlOffice="SELECT DISTINCT division FROM division";
+                  $office=mysqli_query($conn, $sqlOffice);
+                  if(mysqli_num_rows($office)>0){
+                    while($divrow=mysqli_fetch_assoc($office)){
+                      if ( $divrow['division'] == $rowprofile['location']){?>
+                        <option value="<?php echo $divrow['division']; ?>" selected><?php echo $divrow['division']; ?></option>
+                      <?php }else{ ?>
+                        <option value="<?php echo $divrow['division']; ?>"><?php echo $divrow['division']; ?></option>
+                      <?php } 
+                      }
+                    }else{
+                    ?>
+                    <option value="" disabled>Add division first</option>
+                    <?php
+                  } 
+                  ?>
+              </select>
+
+    </div>
+ <hr style="height:2px;color:gray;background-color:gray">
+ 
+  <div class="card-body" id="invoice">
+<img src="imgreg/deped.png" style="width: 100px; height: 100px; display: block; margin-left: auto; margin-right: auto;">
+    <center><p style="font-family: Old English Text MT;"><b><text style="font-size: 12px;">Republic of the Philippines</text><br><text style="font-size: 18px;">Department of Education</text></b><br><text style="font-size: 11px; font-family: Times New Roman;">Region I</text></p>
+    <table class="table table-bordered col-sm-10"  id="table_gad">
+        <tr>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Number</th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Name</th> 
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Position</th>          
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Gender</th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Division</th>      
+          </tr>
+          <?php
+            $count=1;
+            while($row = mysqli_fetch_assoc($query_at)){
+              echo "<tr>";
+              echo "<td style='font-size: 15px' class='fonts-fam'>".$count."</td>";
+              echo "<td style='font-size: 15px' class='fonts-fam'>".$row['name']."</td>";
+              echo "<td style='font-size: 15px' class='fonts-fam'>".$row['position']."</td>";
+              echo "<td style='font-size: 15px' class='fonts-fam'>".$row['gender']."</td>";
+              echo "<td style='font-size: 15px' class='fonts-fam'>".$row['division']."</td>";  
+              echo "</tr>";
+              $count++;
+            }
+          ?>
+
+          <tr>
+            <td colspan="4" class="fonts-fam"><b>Total:</b></td>
+            <td class="fonts-fam"><b><?php echo mysqli_num_rows($query_at); ?></b></td>
+          </tr>
+          <tr>
+             <td colspan="4" class="fonts-fam"><b>Total Number of Male:</b></td>
+             <td class="fonts-fam"><b><?php echo mysqli_num_rows($query_male); ?></b></td>
+          </tr>
+           <tr>
+             <td colspan="4" class="fonts-fam"><b>Total Number of Female:</b></td>
+             <td class="fonts-fam"><b><?php echo mysqli_num_rows($query_female); ?></b></td>
+          </tr>
+      </table></center>
+
+  </div>
+ 
+    
 
 
   </div>
 </div>
   
    </div>
-   </div>
  </fieldset>
 </div>    
 </div>
-</div>
+</div> 
   </div> 
    </div>
 
    
 
- <!-- update user info and password-->
+<!-- update user info and password-->
 
         <!-- update user info -->
   <script type = "text/javascript">

@@ -446,12 +446,13 @@ for (i = 0; i < dropdown.length; i++) {
           
           $.ajax({
                 type: "POST",
-                url: "locationoption.php",
+                url: "locationoptionB.php",
                 data: {
-                  lvlselected: lvlselected
+                  location: location
                 },
                 success: function(data){
                   $('#location').html(data);
+                  console.log(data);
                 }
               });
           

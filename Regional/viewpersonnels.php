@@ -280,7 +280,7 @@ width: 1150px;
          <option value="Administrative Assistant I">Administrative Assistant I</option>
       </select>
     </div>
-    <div class="mb-3">
+    <!-- <div class="mb-3">
   <label  class="col-sm-4 col-form-label">Select Division to Filter</label>
               <select style="height: 30px; width: 220px;" name="location" id="location" >
 
@@ -306,7 +306,7 @@ width: 1150px;
                   ?>
               </select>
 
-    </div>
+    </div> -->
     <div class="mb-3">
       <label  class="col-sm-4 col-form-label" id="view_pos"></label>
     </div>
