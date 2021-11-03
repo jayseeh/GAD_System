@@ -204,7 +204,7 @@ width: 1150px;
         <!-- Content -->
         <div class="main">
                 
- <center><h2 style="color: black; background-color: #e6b800;">Trained GAD Personnels</h2></center>
+ <center><h2 style="color: black; background-color: #e6b800;">Trained GAD Personnel</h2></center>
  <br>     
 
 <div class="container-fluid">
@@ -226,13 +226,13 @@ width: 1150px;
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link" href="personnels.php">Add Attendees</a>
+        <a class="nav-link" href="personnels.php">Add Personnel</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="multipersonnel.php">Add Multiple Attendees</a>
+        <a class="nav-link" href="multipersonnel.php">Add Multiple Personnel</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="viewattendees.php" aria-current="true">View Attendees</a>
+        <a class="nav-link active" href="viewattendees.php" aria-current="true">View Personnel</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="download.php">Download Template</a>
@@ -241,7 +241,7 @@ width: 1150px;
   </div>
   <div class="card-body">
     <div class="mb-3">
-      <label  class="col-sm-4 col-form-label">Total Number of Attendees: <b><?php echo mysqli_num_rows($query_at); ?></b></label>
+      <label  class="col-sm-4 col-form-label">Total Number of Personnel: <b><?php echo mysqli_num_rows($query_at); ?></b></label>
     </div>
     <div class="mb-3">
       <label  class="col-sm-4 col-form-label">Total Number of Male: <b><?php echo mysqli_num_rows($query_male); ?></b></label>

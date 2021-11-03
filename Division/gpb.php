@@ -193,9 +193,9 @@ width: 1150px;
  <fieldset>
 
   <div class="row">
-    <div class="container-fluid">
+    
 
-<div class="card" style="width: 80rem;">
+<div class="card">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -213,19 +213,19 @@ width: 1150px;
 
  <form action="submitform.php" method="POST">
    <div class="mb-3">
-    <label  class="col-sm-2 col-form-label">Form Number:</label>
-    <div class="col-sm-5">
+    <label  class=" col-form-label">Form Number:</label>
+    <div class="col-sm-0">
       <input type="text" name="form_id" id="form_id" readonly class="form-select form-control form-control-lg">
     </div>
-    <label  class="col-sm-2 col-form-label">Division:</label><br>
-    <div class="col-sm-5">
+    <label  class=" col-form-label">Division:</label><br>
+    <div class="col-sm-0">
       <input type="text" name="division" id="division" readonly class="form-select form-control form-control-lg"  value="<?php echo $loc; ?>">
     </div>
-    <div class="col-sm-2">  
+    <div class="">  
       <br>
       
       <p>Please fill up below table.</p>
-      <table class="table table-bordered col-sm-2"  id="table_gad">
+      <table class="table table-bordered"  id="table_gad">
         <tr>
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>Number</th> 
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>Gender Issue/GAD Mandate</th>          
@@ -241,15 +241,15 @@ width: 1150px;
           </tr>
           <tr>
             <td><input type="text" id="count_num"  name="number_rows" readonly value="1" style="text-align: center; size: 1px; width: 30px;"></td>
-            <td><textarea rows="4" cols="8" name="val1-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="8" name="val2-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="8" name="val3-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="8" name="val4-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="8" name="val5-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="8" name="val6-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="8" name="val7-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="8" name="val8-1" placeholder="Add text here"></textarea></td>
-            <td><textarea rows="4" cols="8" name="val9-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="6" name="val1-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="6" name="val2-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="6" name="val3-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="6" name="val4-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="6" name="val5-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="6" name="val6-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="6" name="val7-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="6" name="val8-1" placeholder="Add text here"></textarea></td>
+            <td><textarea rows="4" cols="6" name="val9-1" placeholder="Add text here"></textarea></td>
             <td>
               <select name="cat-1" style="width: 120px;">
                 <option value="CLIENT">Client-Focused</option>
@@ -293,7 +293,7 @@ width: 1150px;
   </div>
 </div>
   
-   </div>
+   
    </div>
     </fieldset>
 </div>

@@ -191,13 +191,13 @@ width: 1150px;
 <div class="container-fluid">
 
   <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
-  <a href="personnels.php" class="btn btn-success rounded-pill">Add Attendees</a>   <br><br>      
+  <a href="personnels.php" class="btn btn-success rounded-pill">Add Personnel</a>   <br><br>      
 
   <div class="d-flex justify-content-center">
    <fieldset>
 
   <div class="row">
-    <div class="container-fluid">
+    
 
 <div class="card text-center" style="width: 70rem;">
   <div class="card-header">
@@ -269,7 +269,7 @@ width: 1150px;
     </section>
   </div>
    </div> 
-    </div>
+   
      </div>
       </fieldset>
        </div> 

@@ -181,7 +181,7 @@ width: 1150px;
         <!-- Content -->
         <div class="main">
 
-<center><h2 style="color: black; background-color: #e6b800;">Trained GAD Personnels</h2></center>
+<center><h2 style="color: black; background-color: #e6b800;">Trained GAD Personnel</h2></center>
  <br> 
 
 <div class="container-fluid">
@@ -203,13 +203,13 @@ width: 1150px;
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Add Attendees</a>
+        <a class="nav-link active" aria-current="true">Add Personnel</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="multipersonnel.php">Add Multiple Attendees</a>
+        <a class="nav-link" href="multipersonnel.php">Add Multiple Personnel</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="viewattendees.php">View Attendees</a>
+        <a class="nav-link" href="viewattendees.php">View Personnel</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="download.php">Download Template</a>

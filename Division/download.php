@@ -202,13 +202,13 @@ width: 1150px;
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link" href="personnels.php">Add Attendees</a>
+        <a class="nav-link" href="personnels.php">Add Personnel</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="multipersonnel.php">Add Multiple Attendees</a>
+        <a class="nav-link" href="multipersonnel.php">Add Multiple Personnel</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="viewattendees.php">View Attendees</a>
+        <a class="nav-link" href="viewattendees.php">View Personnel</a>
       </li>
       <li class="nav-item">
         <a class="nav-link active" aria-current="true">Download Template</a>

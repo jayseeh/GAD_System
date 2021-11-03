@@ -208,7 +208,8 @@ width: 1150px;
     }else{
       echo '<a href="reggadar.php" class="btn btn-success rounded-pill">Go Back</a>';
     }
-  ?> 
+  ?>
+  </div> 
   <br><br>
 <div class="d-flex justify-content-center">
     <fieldset>
@@ -223,36 +224,36 @@ width: 1150px;
 
     <form action="actionform.php" method="POST">
    <div class="mb-3">
-    <label  class="col-sm-2 col-form-label">Form Number:</label>
-    <div class="col-sm-5">
+    <label  class="col-sm-0 col-form-label">Form Number:</label>
+    <div class="col-sm-0">
       <input type="text" name="form_id" id="form_id" readonly class="form-select form-control form-control-lg" value="<?php echo $form_number; ?>">
     </div>
-    <label  class="col-sm-2 col-form-label">Division:</label><br>
-    <div class="col-sm-5">
+    <label  class="col-sm-0 col-form-label">Division:</label><br>
+    <div class="col-sm05">
       <input type="text" name="division" id="division" readonly class="form-select form-control form-control-lg"  value="<?php echo $fetch_form['location']; ?>">
     </div>
-    <label  class="col-sm-2 col-form-label">Submitted by:</label><br>
-    <div class="col-sm-5">
+    <label  class="col-sm-0 col-form-label">Submitted by:</label><br>
+    <div class="col-sm-0">
       <input type="text" name="division" id="division" readonly class="form-select form-control form-control-lg"  value="<?php echo $fetch_form['firstname'].' '.$fetch_form['lastname']; ?>">
     </div>
-    <div class="col-sm-2">  
+    <div class="col-sm-0">  
       <br>
       <hr>
       <table class="table table-bordered col-sm-2"  id="table_gad">
         <tr>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th> 
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender Issue/GAD Mandate</th>          
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Cause of the Gender Issue</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Result Statement/GAD Objective</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Relevant Organization MFO/PAP</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Activity</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Output Performance Indicator/ Target' : 'Performance Indicator'; ?></th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'GAD Budget' : 'Actual Result (Outputs/Outcomes)'; ?></th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Source of Budget' : 'Total Agency Approved Budget'; ?></th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Responsible Unit/ Office' : 'Actual Cost/ Expenditure'; ?></th>  
+            
+            <th style='padding: 4px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender Issue/GAD Mandate</th>          
+            <th style='padding: 4px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Cause of the Gender Issue</th>
+            <th style='padding: 4px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Result Statement/GAD Objective</th>
+            <th style='padding: 4px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Relevant Organization MFO/PAP</th>
+            <th style='padding: 4px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>GAD Activity</th>
+            <th style='padding: 4px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Output Performance Indicator/ Target' : 'Performance Indicator'; ?></th>
+            <th style='padding: 4px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'GAD Budget' : 'Actual Result (Outputs/Outcomes)'; ?></th>
+            <th style='padding: 4px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Source of Budget' : 'Total Agency Approved Budget'; ?></th>
+            <th style='padding: 4px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><?php echo ($form_type == 'GPB') ? 'Responsible Unit/ Office' : 'Actual Cost/ Expenditure'; ?></th>  
             <?php
               if($form_type=='GAD'){
-                echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Variance/ Remarks</th>";
+                echo "<th style='padding: 4px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Variance/ Remarks</th>";
               }
             ?>
             <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Category FOCUSED</th>   
@@ -265,7 +266,7 @@ width: 1150px;
           			
           	?>
 		          <tr>
-		            <td><input type="text" id="count_num"  name="number_rows" readonly value="<?php echo $row['row_number']; ?>" style="text-align: center;"></td>
+		            
 		            <td style="width: 15px;"><?php echo $row['col1']; ?></td>
 		            <td><?php echo $row['col2']; ?></td>
 		            <td><?php echo $row['col3']; ?></td>
@@ -347,7 +348,7 @@ width: 1150px;
   <!--container--> 
 
 
-   </div>
+   
    </div>
 </div>
  </div>

@@ -208,6 +208,7 @@ width: 1150px;
       echo '<a href="gadpendingform.php" class="btn btn-success rounded-pill">Go Back</a>';
     }
   ?>
+  </div>
    <br><br> 
          
 
@@ -218,42 +219,41 @@ width: 1150px;
 
   <div class="row">
   <div class="col">
-    <div class="card border-primary mb-3" >
+    <div class="card mb-3" >
   <h4 class="card-header">Submit Report</h4 >
   <div class="card-body">
 
     <form action="updatetablevalue.php" method="POST">
    <div class="mb-3">
-    <label  class="col-sm-2 col-form-label">Form Number:</label>
-    <div class="col-sm-5">
+    <label  class="col-form-label">Form Number:</label>
+    <div class="col-sm-0">
       <input type="text" name="form_id"  readonly class="form-select form-control form-control-lg" value="<?php echo $form_number; ?>">
     </div>
-    <label  class="col-sm-2 col-form-label">Division:</label><br>
-    <div class="col-sm-5">
+    <label  class="col-form-label">Division:</label><br>
+    <div class="col-sm-0">
       <input type="text" name="division" id="division" readonly class="form-select form-control form-control-lg"  value="<?php echo $loc; ?>">
     </div>
-    <div class="col-sm-2">  
+    <div class="col-sm-0">  
       <br>
       <hr>
       <p>Please fill up below table.</p>
-      <table class="table table-bordered col-sm-2"  id="table_gad">
+      <table class="table table-bordered"  id="table_gad">
           <tr>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">Gender Issue/GAD Mandate</th>          
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">Cause of the Gender Issue</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">GAD Result Statement/GAD Objective</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">Relevant Organization MFO/PAP</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">GAD Activity</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Output Performance Indicator/ Target' : 'Performance Indicator'; ?></th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'GAD Budget' : 'Actual Result (Outputs/Outcomes)'; ?></th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Source of Budget' : 'Total Agency Approved Budget'; ?></th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Responsible Unit/ Office' : 'Actual Cost/ Expenditure'; ?></th>   
+            <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;' class="fonts-fam">Gender Issue/GAD Mandate</th>          
+            <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;' class="fonts-fam">Cause of the Gender Issue</th>
+            <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;' class="fonts-fam">GAD Result Statement/GAD Objective</th>
+            <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;' class="fonts-fam">Relevant Organization MFO/PAP</th>
+            <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;' class="fonts-fam">GAD Activity</th>
+            <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Output Performance Indicator/ Target' : 'Performance Indicator'; ?></th>
+            <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'GAD Budget' : 'Actual Result (Outputs/Outcomes)'; ?></th>
+            <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Source of Budget' : 'Total Agency Approved Budget'; ?></th>
+            <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Responsible Unit/ Office' : 'Actual Cost/ Expenditure'; ?></th>   
             <?php
               if($form_type=='GAD'){
-                echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class='fonts-fam'>Variance/ Remarks</th>";
+                echo "<th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;' class='fonts-fam'>Variance/ Remarks</th>";
               }
             ?>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Category</th> 
+            <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 13px;'>Category</th> 
           </tr>
           <?php
           		$query = mysqli_query($conn,"SELECT * FROM gad_table_entry_value WHERE form_number = '$form_number' ORDER BY row_number");
@@ -264,20 +264,20 @@ width: 1150px;
           			
           	?>
 		          <tr>
-		            <td><input type="text" id="count_num"  name="number_rows" readonly value="<?php echo $row['row_number']; ?>" style="text-align: center;"></td>
-		            <td><textarea rows="4" cols="15" name="val1-<?php echo $row['row_number']; ?>"><?php echo $row['col1']; ?></textarea></td>
-		            <td><textarea rows="4" cols="15" name="val2-<?php echo $row['row_number']; ?>"><?php echo $row['col2']; ?></textarea></td>
-		            <td><textarea rows="4" cols="15" name="val3-<?php echo $row['row_number']; ?>"><?php echo $row['col3']; ?></textarea></td>
-		            <td><textarea rows="4" cols="15" name="val4-<?php echo $row['row_number']; ?>"><?php echo $row['col4']; ?></textarea></td>
-		            <td><textarea rows="4" cols="15" name="val5-<?php echo $row['row_number']; ?>"><?php echo $row['col5']; ?></textarea></td>
-		            <td><textarea rows="4" cols="15" name="val6-<?php echo $row['row_number']; ?>"><?php echo $row['col6']; ?></textarea></td>
-		            <td><textarea rows="4" cols="15" name="val7-<?php echo $row['row_number']; ?>"><?php echo $row['col7']; ?></textarea></td>
-		            <td><textarea rows="4" cols="15" name="val8-<?php echo $row['row_number']; ?>"><?php echo $row['col8']; ?></textarea></td>
-		            <td><textarea rows="4" cols="15" name="val9-<?php echo $row['row_number']; ?>"><?php echo $row['col9']; ?></textarea></td>
+		            
+		            <td><textarea rows="4" cols="6" name="val1-<?php echo $row['row_number']; ?>"><?php echo $row['col1']; ?></textarea></td>
+		            <td><textarea rows="4" cols="6" name="val2-<?php echo $row['row_number']; ?>"><?php echo $row['col2']; ?></textarea></td>
+		            <td><textarea rows="4" cols="6" name="val3-<?php echo $row['row_number']; ?>"><?php echo $row['col3']; ?></textarea></td>
+		            <td><textarea rows="4" cols="6" name="val4-<?php echo $row['row_number']; ?>"><?php echo $row['col4']; ?></textarea></td>
+		            <td><textarea rows="4" cols="6" name="val5-<?php echo $row['row_number']; ?>"><?php echo $row['col5']; ?></textarea></td>
+		            <td><textarea rows="4" cols="6" name="val6-<?php echo $row['row_number']; ?>"><?php echo $row['col6']; ?></textarea></td>
+		            <td><textarea rows="4" cols="6" name="val7-<?php echo $row['row_number']; ?>"><?php echo $row['col7']; ?></textarea></td>
+		            <td><textarea rows="4" cols="6" name="val8-<?php echo $row['row_number']; ?>"><?php echo $row['col8']; ?></textarea></td>
+		            <td><textarea rows="4" cols="6" name="val9-<?php echo $row['row_number']; ?>"><?php echo $row['col9']; ?></textarea></td>
                 <?php
                 if($form_type=='GAD'){
                   ?>
-                  <td><textarea rows="4" cols="15" name="val10-<?php echo $row['row_number']; ?>"><?php echo $row['col10']; ?></textarea></td>
+                  <td><textarea rows="4" cols="6" name="val10-<?php echo $row['row_number']; ?>"><?php echo $row['col10']; ?></textarea></td>
                   <?php
                 }
                 ?>
@@ -344,7 +344,7 @@ width: 1150px;
   <!--container--> 
 
 
-   </div>
+   
    </div>
 </div>
  </div>

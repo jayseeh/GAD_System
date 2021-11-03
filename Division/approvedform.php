@@ -192,9 +192,9 @@ width: 1150px;
  <fieldset>
 
   <div class="row">
-    <div class="container-fluid">
+    
 
-<div class="card text-center" style="width: 70rem;">
+<div class="card text-center" style="width: 72rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -265,7 +265,7 @@ width: 1150px;
   </div>
 </div>
   
-   </div>
+   
    </div>
     </fieldset>
 </div>
