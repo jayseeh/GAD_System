@@ -8,13 +8,15 @@ $status = $_POST['status'];
 $remarks = $_POST['remarks'];
 $user = $_SESSION['uid'];
 $form_type = $_POST['form_type'];
+$aaa="";
 
 if(mysqli_query($conn, "UPDATE gad_form SET form_status='$status', approver_id='$user', date_approved='$date', remarks='$remarks' WHERE form_number='$form'")){
-	if($form_type=='GAD'){
-		echo "<script>window.location = 'reggadar.php';</script>";
+	if($form_type!="GPB"){
+		$aaa = "reggadar.php";
 	}else{
-		echo "<script>window.location = 'reggpb.php';</script>";
+		$aaa = "reggpb.php";
 	}
+	echo "<script>window.location ='".$aaa."';</script>";
 }else{
 	echo "Error updating records!" . mysqli_error($conn);
 }

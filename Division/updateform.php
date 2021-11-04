@@ -306,6 +306,23 @@ width: 1150px;
       </table>
     </div>
     <br>
+    <hr>
+    <?php 
+      $query_form_status = mysqli_query($conn, "SELECT * FROM gad_form WHERE form_number='$form_number'");
+      $fetch_status = mysqli_fetch_assoc($query_form_status);
+      $stat = $fetch_status['form_status'];
+      if($fetch_status['form_status']=='ACTION REQUIRED'){
+        ?>
+        <div class="mb-3">
+          <label  class="col-form-label">ACTION NEEDED TO UPDATE:</label>
+          <div class="col-sm-0">
+            <textarea disabled><?php echo $fetch_status['remarks']; ?></textarea>
+        </div>
+    <?php
+      }
+    ?>
+    <br>
+    <input type="hidden" name="form_status" value="<?php echo $stat; ?>">
     <input type="hidden" name="date_sub" value="<?php echo $date; ?>">
     <input type="hidden" name="numberOfRows" value="<?php echo $numrows; ?>" id="numberOfRows">
     <input type="hidden" name="form_type" value="<?php echo $form_type; ?>">

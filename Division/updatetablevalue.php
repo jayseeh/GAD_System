@@ -3,12 +3,18 @@
 session_start();
 include "../connect.php";
 
+$form_status = $_POST['form_status'];
+
 $date_submitted = $_POST['date_sub'];
 $totalrows=$_POST['numberOfRows'];
 $user = $_SESSION['uid'];
 $form_id = $_POST['form_id'];
 $count=1;
 $form_type= $_POST['form_type'];
+
+if($form_status=='ACTION REQUIRED'){
+	mysqli_query($conn,"UPDATE gad_form SET form_status='PENDING', approver_id='', date_approved='',remarks='' WHERE form_number='$form_id'");
+}
 while ( $totalrows > 0) {
 
 	$col1= $_POST["val1-".$count];
@@ -35,6 +41,7 @@ while ( $totalrows > 0) {
 	$totalrows= $totalrows-1; 
 	$count++;
 }
+
 
 /*if(mysqli_query($conn, "INSERT INTO gad_form (form_number,requestor_id,form_status,date_submitted) VALUES ('$form_id','$user','PENDING','$date_submitted')")){
 	if($form_type=='GAD'){

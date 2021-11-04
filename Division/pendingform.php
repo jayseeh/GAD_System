@@ -220,7 +220,7 @@ width: 1150px;
       <?php
         include("../connect.php");
 
-        $sql="SELECT * FROM gad_form WHERE requestor_id='$user' and form_number LIKE 'GPB%' and form_status='PENDING' ORDER BY date_submitted";
+        $sql="SELECT * FROM gad_form WHERE requestor_id='$user' and form_number LIKE 'GPB%' and (form_status='PENDING' or form_status='ACTION REQUIRED') ORDER BY date_submitted";
         $result=mysqli_query($conn, $sql);
 
         echo "<table id='list' class='table table-hover'>";
@@ -239,7 +239,7 @@ width: 1150px;
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['form_number']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['form_status']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$row['date_submitted']."</td>";
-              if($row['form_status']!='PENDING'){
+              if($row['form_status']=='APPROVED'){
       
               ?>
                 <td style='padding: 10px;border-bottom: 1px solid black;'><a class="btn btn-primary edit_status"  href="viewapprovedform.php?id=<?php echo $row['form_number'] ?>">

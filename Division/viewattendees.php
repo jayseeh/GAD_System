@@ -4,7 +4,7 @@ include "../connect.php";
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
-$query_at = mysqli_query($conn,"SELECT * FROM attendees ORDER BY id");
+$query_at = mysqli_query($conn,"SELECT * FROM attendees WHERE division='$loc' ORDER BY id");
 $query_male = mysqli_query($conn,"SELECT * FROM attendees WHERE gender='Male'");
 $query_female = mysqli_query($conn,"SELECT * FROM attendees WHERE gender='Female'");
 if(empty($_SESSION['ulvl'])){

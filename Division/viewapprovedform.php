@@ -163,8 +163,8 @@ width: 1150px;
         </div><br>
 <center><h6 style="color: white;"><?php echo $_SESSION['full_name']; ?></h6></center>
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
-  <hr style="height:2px;color:gray;background-color:gray">
-  
+   <hr style="height:2px;color:gray;background-color:gray">
+
   <a data-toggle="modal" href="#editprof">Profile</a>
 
   <a data-toggle="modal" href="#changepassword">Change password</a>
@@ -187,27 +187,28 @@ width: 1150px;
         <!-- Content -->
         <div class="main">
                 
- <?php
+<?php
     if($form_type=='GPB'){
       echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Plan And Budget</h2></center>';
     }else{
       echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>';
     }
   ?>
+        <!-- Content -->
 
 <div class="container-fluid">
 
- <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+<a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
  
   <?php
     if($form_type=='GPB'){
-      echo '<a href="approvedform.php" class="btn btn-success rounded-pill">Go Back</a>';
+      echo '<a href="pendingform.php" class="btn btn-success rounded-pill">Go Back</a>';
     }else{
-      echo '<a href="gadapprovedform.php" class="btn btn-success rounded-pill">Go Back</a>';
+      echo '<a href="gadpendingform.php" class="btn btn-success rounded-pill">Go Back</a>';
     }
   ?>
   </div>
-   <br><br>         
+   <br><br> 
 
   <div class="d-flex justify-content-center">
     <fieldset>
@@ -216,7 +217,7 @@ width: 1150px;
 
   <div class="row">
   <div class="col">
-    <div class="card mb-3">
+    <div class="card border-primary mb-3" >
   <h4 class="card-header">Approved Form</h4 >
   <div class="card-body">
     <form action="actionform.php" method="POST">
@@ -242,16 +243,22 @@ width: 1150px;
       <hr>
       <table class="table table-bordered col-sm-2"  id="table_gad">
         <tr>
-            
-            <th style='background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 15px;'>Gender Issue/GAD Mandate</th>          
-            <th style='background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 15px;'>Cause of the Gender Issue</th>
-            <th style='background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 15px;'>GAD Result Statement/GAD Objective</th>
-            <th style='background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 15px;'>Relevant Organization MFO/PAP</th>
-            <th style='background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 15px;'>GAD Activity</th>
-            <th style='background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 15px;'>Output Performance Indicator/ Target</th>
-            <th style='background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 15px;'>GAD Budget</th>
-            <th style='background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 15px;'>Source of Budget</th>
-            <th style='background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 15px;'>Responsible Unit/ Office</th>   
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">Gender Issue/GAD Mandate</th>          
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">Cause of the Gender Issue</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">GAD Result Statement/GAD Objective</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">Relevant Organization MFO/PAP</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam">GAD Activity</th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Output Performance Indicator/ Target' : 'Performance Indicator'; ?></th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'GAD Budget' : 'Actual Result (Outputs/Outcomes)'; ?></th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Source of Budget' : 'Total Agency Approved Budget'; ?></th>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Responsible Unit/ Office' : 'Actual Cost/ Expenditure'; ?></th>   
+            <?php
+              if($form_type=='GAD'){
+                echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;' class='fonts-fam'>Variance/ Remarks</th>";
+              }
+            ?>
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Category</th> 
           </tr>
           <?php
           		$query = mysqli_query($conn,"SELECT * FROM gad_table_entry_value WHERE form_number = '$form_number' ORDER BY row_number");
@@ -261,16 +268,24 @@ width: 1150px;
           			
           	?>
 		          <tr>
-		            
-		            <td style="font-size: 15px;"><?php echo $row['col1']; ?></td>
-		            <td style="font-size: 15px;"><?php echo $row['col2']; ?></td>
-		            <td style="font-size: 15px;"><?php echo $row['col3']; ?></td>
-		            <td style="font-size: 15px;"><?php echo $row['col4']; ?></td>
-		            <td style="font-size: 15px;"><?php echo $row['col5']; ?></td>
-		            <td style="font-size: 15px;"><?php echo $row['col6']; ?></td>
-		            <td style="font-size: 15px;"><?php echo $row['col7']; ?></td>
-		            <td style="font-size: 15px;"><?php echo $row['col8']; ?></td>
-		            <td style="font-size: 15px;"><?php echo $row['col9']; ?></td>
+		            <td><input type="text" id="count_num"  name="number_rows" readonly value="<?php echo $row['row_number']; ?>" style="text-align: center;"></td>
+		            <td style="width: 15px;"><?php echo $row['col1']; ?></td>
+		            <td><?php echo $row['col2']; ?></td>
+		            <td><?php echo $row['col3']; ?></td>
+		            <td><?php echo $row['col4']; ?></td>
+		            <td><?php echo $row['col5']; ?></td>
+		            <td><?php echo $row['col6']; ?></td>
+		            <td><?php echo $row['col7']; ?></td>
+		            <td><?php echo $row['col8']; ?></td>
+		            <td><?php echo $row['col9']; ?></td>
+                <?php
+                if($form_type=='GAD'){
+                  ?>
+                  <td><?php echo $row['col10']; ?></td>
+                  <?php
+                }
+                ?>
+                <td><?php echo $row['category_focused']; ?></td>
 		          </tr>
           	<?php 
 		          	}
@@ -296,56 +311,50 @@ width: 1150px;
   <!--container--> 
 
 
-   
+   </div>
    </div>
 </div>
  </div>
 
 
 
-<!-- Update profile and password --> 
+    
+ <!-- update user info and password-->
 
-    <!-- update user info -->
+        <!-- update user info -->
   <script type = "text/javascript">
   $(document).ready(function(){
 
 
     //Update
     $(document).on('click', '.update_user', function(){
-      $uid=$("#uuid").val();
-      $username=$('#username').val();      
-      $lastname=$('#lastname').val();
-      $firstname=$('#firstname').val();
-      $middlename=$('#middlename').val();
-      $userlevel=$('#userlevel').val();
-      $location=$('#location').val();
+      $uid=$("#uuidupdate").val();
+      $usernameinfo=$('#usernameinfo').val();      
+      $lastnameinfo=$('#lastnameinfo').val();
+      $firstnameinfo=$('#firstnameinfo').val();
+      $middlenameinfo=$('#middlenameinfo').val();
+      $userlevelinfo=$('#userlevelinfo').val();
+      $locationinfo=$('#locationinfo').val();
              
       //check ta nu maala na values bago ka ag ajaxstatus
       console.log($uid);
       console.log($username);
         $.ajax({
           type: "POST",
-          url: "updateinfo.php",
+          url: "",
           data: {
             id: $uid,
-            username: $username,           
-            lastname: $lastname,
-            firstname: $firstname,
-            middlename: $middlename,
-            userlevel: $userlevel,
-            location: $location,   
+            username: $usernameinfo,           
+            lastname: $lastnameinfo,
+            firstname: $firstnameinfo,
+            middlename: $middlenameinfo,
+            userlevel: $userlevelinfo,
+            location: $locationinfo, 
             edit: 1,
           },
           success: function(){
-            $("#editprof").modal('hide');
-            $("#updateinfo").modal('hide');
-            Swal.fire({
-                  icon: 'success',
-                  title: 'User information successfully updated',
-                  showConfirmButton: true, 
-                }).then(function (){
-                  location.reload()
-                  });
+            window.location = "../index.php";
+           
           }
         });
     });
@@ -359,14 +368,15 @@ width: 1150px;
 </script>
 
 
- <!-- Updateinfo Modal --> 
 
+ <!-- Updateinfo Modal --> 
+<form class="" action="updateinfo.php" method="POST">
 <div class="modal fade" id="editprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
-       <h3 class = "text-primary modal-title">Update Info</h3>
+       <h3 class = "text-success modal-title">Update Profile</h3>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
      
     </div>
@@ -375,68 +385,44 @@ width: 1150px;
         <div class="form-group">
             <div class="col-sm-9">
               <label>Username:</label>
-                  <input type="text" class="form-control" type="text" name="username" id="username" value="<?php echo $rowprofile['username'];?>">
+                  <input type="text" class="form-control" type="text" name="username" id="usernameinfo" value="<?php echo $rowprofile['username'];?>">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Lastname:</label>
-                <input type="text" class="form-control" name="lastname" id="lastname" value="<?php echo $rowprofile['lastname'];?>"> 
+                <input type="text" class="form-control" name="lastname" id="lastnameinfo" value="<?php echo $rowprofile['lastname'];?>"> 
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Firstname:</label>
-                <input type="text" class="form-control" name="firstname" id="firstname" value="<?php echo $rowprofile['firstname'];?>">  
+                <input type="text" class="form-control" name="firstname" id="firstnameinfo" value="<?php echo $rowprofile['firstname'];?>">  
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Middlename:</label>
-                <input type="text" class="form-control" name="middlename" id="middlename" value="<?php echo $rowprofile['middlename'];?>">   
+                <input type="text" class="form-control" name="middlename" id="middlenameinfo" value="<?php echo $rowprofile['middlename'];?>">   
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Userlevel:</label>
-              <input type="text" class="form-control" name="userlevel" id="userlevel" value="Division GAD Coordinator" readonly>
+                <input type="text" class="form-control" name="userlevel" id="userlevelinfo" value="<?php echo $rowprofile['userlevel'];?>" readonly>   
             </div>
         </div>
-       <div class="form-group">
-            <label class="control-label col-sm-3">Location:</label>
+          <div class="form-group">
             <div class="col-sm-9">
-              <select class="form-control disableButton" name="location" id="location" >
-
-                 <label selected><?php echo $rowprofile['location'];?></label>
-
-                  <?php
-
-                  $sqlOffice="SELECT DISTINCT division FROM division";
-                  $office=mysqli_query($conn, $sqlOffice);
-                  if(mysqli_num_rows($office)>0){
-                    while($divrow=mysqli_fetch_assoc($office)){
-                      if ( $divrow['division'] == $rowprofile['location']){?>
-                        <option value="<?php echo $divrow['division']; ?>" selected><?php echo $divrow['division']; ?></option>
-                      <?php }else{ ?>
-                        <option value="<?php echo $divrow['division']; ?>"><?php echo $divrow['division']; ?></option>
-                      <?php } 
-                      }
-                    }else{
-                    ?>
-                    <option value="" disabled>Add division first</option>
-                    <?php
-                  } 
-                  ?>
-              </select>
+              <label>Location:</label>
+                <input type="text" class="form-control" name="location" id="locationinfo" value="<?php echo $rowprofile['location'];?>" readonly>   
             </div>
         </div>
-
-       
 <br>
  </div>
 </div>
 <div class="modal-footer">
-        <input type="hidden" name="id" id="uuid" value="<?php echo $rowprofile['id'];?>">
+        <input type="hidden" name="id" id="uuidupdate" value="<?php echo $rowprofile['id'];?>">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
         <a data-toggle="modal" name="Update" href="#updateinfo" class="btn btn-primary">Update</a>
 </div>
@@ -464,6 +450,7 @@ width: 1150px;
        </div>
       </div>
     </div>
+</form>
 
 
 
@@ -597,7 +584,8 @@ $passW = $('#confirm_pword').val();
   </div>
  </div>
 </div>
-</form>
+</form>   
+
   
 <!-- Logout Modal -->
  <form class="" action="../logout.php" method="POST">
