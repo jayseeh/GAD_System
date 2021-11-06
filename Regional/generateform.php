@@ -228,6 +228,7 @@ width: 1150px;
 <div class="container-fluid">
  <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
   <button class="btn btn-warning rounded-pill" onclick="generatePDF()">Download Report</button>
+  <button class="btn btn-warning rounded-pill">Print</button>
   <!--<button class="btn btn-warning rounded-pill" onclick="print()">Open as PDF</button>-->
   <br><br>
     <fieldset>
@@ -244,7 +245,7 @@ width: 1150px;
         <a class="nav-link active" aria-current="true">Generate Report</a>
       </li>
       <li class="nav-item">
-        <?php echo ($form_type == 'GPB') ? '<a class="nav-link" href="generatelist.php?id=GPB">Generate List</a>' : '<a class="nav-link " href="generatelist.php?id=GAD">Generate List</a><li class="nav-item"><a class="nav-link" href="viewpersonnels.php">All Personnel</a></li><li class="nav-item"> <a class="nav-link" href="attendees.php">List of Personnel</a></li><li class="nav-item"><a class="nav-link" href="templates.php">Upload Template</a></li>';?>
+        <?php echo ($form_type == 'GPB') ? '<a class="nav-link" href="generatelist.php?id=GPB">Generate List</a>' : '<a class="nav-link " href="generatelist.php?id=GAD">Generate List</a><li class="nav-item"><a class="nav-link" href="viewpersonnels.php">Trained Personnel</a></li><li class="nav-item"><a class="nav-link" href="templates.php">Upload Template</a></li>';?>
         
       </li>
       

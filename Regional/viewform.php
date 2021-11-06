@@ -210,7 +210,7 @@ width: 1150px;
     }
   ?>
   </div> 
-  <br><br>
+  <br>
 <div class="d-flex justify-content-center">
     <fieldset>
 
@@ -256,7 +256,7 @@ width: 1150px;
                 echo "<th style='padding: 4px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Variance/ Remarks</th>";
               }
             ?>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Category FOCUSED</th>   
+            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Category</th>   
           </tr>
           <?php
           		$query = mysqli_query($conn,"SELECT * FROM gad_table_entry_value WHERE form_number = '$form_number' ORDER BY row_number");

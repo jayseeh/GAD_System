@@ -199,17 +199,17 @@ width: 1150px;
   <div class="row">
     
 
-<div class="card text-center" style="width: 70rem;">
+<div class="card text-center" style="width: 72rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
         <a class="nav-link" href="gadar.php">Submit GAD AR</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="gadpendingform.php" >Pending GAD AR</a>
+        <a class="nav-link" href="gadpendingform.php">Pending GAD AR</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link active" aria-current="true" >Approved GAD AR</a>
+        <a class="nav-link active" aria-current="true">Approved GAD AR</a>
       </li>
     </ul>
   </div>

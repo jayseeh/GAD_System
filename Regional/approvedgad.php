@@ -185,10 +185,7 @@ width: 1150px;
         <a class="nav-link" href="generatelist.php?id=GAD">Generate List</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link" href="viewpersonnels.php">All Personnel</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="attendees.php">List of Personnel</a>
+        <a class="nav-link" href="viewpersonnels.php">Trained Personnel</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="templates.php">Upload Template</a>

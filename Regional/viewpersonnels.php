@@ -219,7 +219,8 @@ width: 1150px;
 <div class="container-fluid">
 
    <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
-    <button class="btn btn-warning rounded-pill" onclick="generatePDF()">Export as PDF</button>
+    <button class="btn btn-warning rounded-pill" onclick="generatePDF()">Download</button>
+    <button class="btn btn-warning rounded-pill">Print</button>
   <br><br>
 <div class="d-flex justify-content-center">
     <fieldset>
@@ -244,9 +245,6 @@ width: 1150px;
       </li>
        <li class="nav-item">
         <a class="nav-link active" aria-current="true">Trained Personnels</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="attendees.php">Attendees</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="templates.php">Upload Template</a>
