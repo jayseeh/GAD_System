@@ -48,10 +48,11 @@ $(document).ready(function(){
     //alert($(this).val());
     console.log($(this).val());
     var pos = $(this).val();
-    $("#location").val("All");
+    var loc = $("#location").val();
     $.post("filterattendees.php",
     {
-      position: $(this).val()   
+      position: $(this).val(),
+      location: $("#location").val()
     },
     function(data){
       console.log(data);
@@ -64,17 +65,18 @@ $(document).ready(function(){
   $("#location").change(function(){
     //alert($(this).val());
     console.log($(this).val());
-    var pos = $(this).val();
-    $("#position").val("All");
-    $.post("filterlocation.php",
+    var loc = $(this).val();
+    //$("#position").val("All");
+    $.post("filterattendees.php",
     {
-      position: $(this).val()   
+      location: $(this).val(),
+      position: $("#position").val()
     },
     function(data){
       console.log(data);
       $("#table_gad").html(data);
       var count = $("#total_count").val();
-      $("#view_pos").html("Total Number of <b>"+pos+"</b>: <b>"+count+"</b>");
+      $("#view_pos").html("Total Number of <b>"+loc+"</b>: <b>"+count+"</b>");
       //alert("Data: " + data + "\nStatus: " + status);
     });
   });
