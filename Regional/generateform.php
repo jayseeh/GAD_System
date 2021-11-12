@@ -228,7 +228,18 @@ width: 1150px;
 <div class="container-fluid">
  <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
   <button class="btn btn-warning rounded-pill" onclick="generatePDF()">Download Report</button>
-  <a class="btn btn-warning rounded-pill" href="print-pdf.php" target="_blank">Print</a>
+  <?php 
+  if($form_type=='GAD'){
+  ?>
+    <a class="btn btn-warning rounded-pill" href="print-pdf.php" target="_blank">Print</a>
+  <?php
+  }
+  else{
+    ?>
+    <a class="btn btn-warning rounded-pill" href="print-gpb.php" target="_blank">Print</a>
+    <?php
+  }
+  ?>
   <!--<button class="btn btn-warning rounded-pill" onclick="print()">Open as PDF</button>-->
   <br><br>
     <fieldset>
