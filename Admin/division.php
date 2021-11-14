@@ -227,7 +227,6 @@ background-color: #e6b800;
         echo "</tbody>";
         echo "</table";
       ?>
-    </div>
     </div>    
     </section>
 

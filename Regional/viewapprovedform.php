@@ -165,25 +165,27 @@ width: 1150px;
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
 
-  <a data-toggle="modal" href="#editprof">Profile</a>
+  <a data-toggle="modal" href="#editprof" style="font-size: 15px;">Profile</a>
 
-  <a data-toggle="modal" href="#changepassword">Change password</a>
+  <a data-toggle="modal" href="#changepassword" style="font-size: 15px;">Change password</a>
 
-  <a href="divisionmanagement.php">Division User Management</a>
+  <a href="divisionmanagement.php" style="font-size: 15px;">Division User Management</a>
 
-  <a href="mandates.php">DepEd Mandates</a>
+  <a href="fiscalyear.php" style="font-size: 15px;">Fiscal Year Setup</a>
+
+  <a href="mandates.php" style="font-size: 15px;">DepEd Mandates</a>
 
   <?php
     if($form_type=='GPB'){
-      echo '<a href="reggpb.php" class="active">GPB</a><a href="reggadar.php">GAD AR</a>';
+      echo '<a href="reggpb.php" class="active" style="font-size: 15px;">GPB</a><a href="reggadar.php" style="font-size: 15px;">GAD AR</a>';
     }else{
-      echo '<a href="reggpb.php" >GPB</a><a href="reggadar.php" class="active">GAD AR</a>';
+      echo '<a href="reggpb.php"  style="font-size: 15px;">GPB</a><a href="reggadar.php" class="active" style="font-size: 15px;">GAD AR</a>';
     }
   ?> 
 
-  <a data-toggle="modal" href="#logout">Logout</a>
+  <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#">Help</a>
+  <a href="#" style="font-size: 15px;">Help</a>
 </div>
 
         <!-- Content -->

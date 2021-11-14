@@ -1,18 +1,23 @@
-<?php session_start(); 
+<?php 
+  session_start();
+  include "../connect.php";
+  $user = $_SESSION['uid'];
+  $loc = $_SESSION['loc'];
+  $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
+  date_default_timezone_set("Asia/Singapore");
+  $date = date('Y-m-d H-i-s');
 
-if(empty($_SESSION['ulvl'])){
+   if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
-  require('../connect.php');
+
+require('../connect.php');
  $un = $_SESSION['uid'];
 
   $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
   $sqlprofile = mysqli_query($conn, $queryprofile);
   $rowprofile = mysqli_fetch_array($sqlprofile);
-
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +34,7 @@ if(empty($_SESSION['ulvl'])){
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--AJAX-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
@@ -36,7 +42,29 @@ if(empty($_SESSION['ulvl'])){
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    $(document).ready(function(){
+      var number;
+      var d = new Date();
+      var n = d.getTime();
+      //console.log(n);
+      $("#form_id").val("GAD-"+n);
+      var number = parseInt($("#count_num").val())+1;
+      console.log(number);
+
+      //ADD ROWS FUNCTION
+      $("#add_rows").click(function(){
+        $("#numberOfRows").val(number);
+        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center;'></td><td><textarea rows='4' cols='20' name='val1-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val2-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val3-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val4-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val5-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val6-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val7-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val8-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val9-"+number+"'></textarea></td></tr>";
+        console.log(table);
+        $("#table_gad").html(table);
+
+        number = number +1;
+      });
+    });
+    </script>
+    
 <style type="text/css">
   
 /* The sidebar menu */
@@ -125,175 +153,113 @@ width: 1150px;
 
   <body>
 
-    <div class="container-fluid">
+
+     <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="sidenav">
-          <div class="d-flex justify-content-center">
-          <img src="imgreg/01.png" style="max-width:90px;" alt="">
+         <div class="d-flex justify-content-center">
+          <img src="imgdiv/01.png" style="max-width:90px;" alt="">
         </div><br>
 <center><h6 style="color: white;"><?php echo $_SESSION['full_name']; ?></h6></center>
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
   
-  <a data-toggle="modal" href="#editprof" style="font-size: 15px;">Profile</a>
+  <a data-toggle="modal" href="#editprof">Profile</a>
 
-  <a data-toggle="modal" href="#changepassword" style="font-size: 15px;">Change password</a>
+  <a data-toggle="modal" href="#changepassword">Change password</a>
 
-  <a href="divisionmanagement.php" style="font-size: 15px;">Division User Management</a>
+  <a href="mandates.php">DepEd Mandates</a>
 
-  <a href="fiscalyear.php" style="font-size: 15px;">Fiscal Year Setup</a>
+  <a href="gpb.php" class="active">GPB</a>
 
-  <a href="mandates.php" class="active" style="font-size: 15px;">DepEd Mandates</a>
+  <a href="gadar.php">GAD AR</a>
 
-  <a href="reggpb.php" style="font-size: 15px;">GPB</a>
+  <a data-toggle="modal" href="#logout">Logout</a>
 
-  <a href="reggadar.php" style="font-size: 15px;">GAD AR</a>
-
-  <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
-
-  <a href="#" style="font-size: 15px;">Help</a>
+  <a href="#">Help</a>
 </div>
-
-
-
 
         <!-- Content -->
         <div class="main">
-<center><h2 style="color: black; background-color: #e6b800;">DepEd Mandates</h2></center>
+                
+<center><h2 style="color: black; background-color: #e6b800;">GAD Plan And Budget</h2></center>
  <br>
 
 <div class="container-fluid">
-
-  <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
-  <br><br>
+  <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+   <a class="btn btn-warning rounded-pill" >Print</a>
+  <br><br>       
   <div class="d-flex justify-content-center">
+ <fieldset>
 
-    <form action="uploadmandate.php" method="post">
-    <fieldset>
-<div class="row">
-  <div class="col">
- <div class="card text-center" style="width: 70rem;">
+  <div class="row">
+    
+
+<div class="card text-center" style="width: 72rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Upload Mandates</a>
+        <a class="nav-link" href="gpb.php">Submit GPB</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="listmandate.php">Mandates List</a>
+        <a class="nav-link">Pending GPB</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="approvedform.php">Approved GPB</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true">Generate Report</a>
       </li>
     </ul>
   </div>
   <div class="card-body">
 
 
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">DepEd Order No.:</th>
-      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">DepdEd Order Content:</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><input class="form-control form-control-lg" type="text" id="depedno" name="depedno" size="5px"></td>
-      <td><textarea class="form-control" id="depedcontent" name="depedcontent" rows="3"></textarea></td>
-    </tr>
-  </tbody>
-</table>
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <input name="clear" type="reset" value=" Clear" class="btn btn-light rounded-pill">&nbsp;
-        <a data-toggle="modal" href="#save" data-dismiss="modal" class="btn btn-dark rounded-pill">Upload</a>
-      </div>
-
   </div>
 </div>
-
-  </div>
-  <!--row-->
-</div>
-
   
-  </fieldset>
-  <!-- Save Verification Modal -->
- 
-<div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class = "modal-header">
-      <h3 class = "text-danger modal-title"></h3>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
-    </div>
-    <div class="modal-body">
-    <center>  
-<h4>Are you sure you want to upload this mandate?</h4><br>
-
-<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md btncreate">
-</center>
-</div>
-         
-       </div>
-      </div>
-    </div>
-  </form>
-  </div> 
-
-
-
-   </div><!--Container-->
+   
    </div>
+    </fieldset>
 </div>
- </div>
-
-
-<!-- Swal -->
-<?php 
-  $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-  if (strpos($fullUrl, "mandate_uploaded") == true){
-    echo "<script>Swal.fire({
-    icon: 'success',
-    title: 'Mandate successfully uploaded!',
-    showConfirmButton: true, 
-    }).then(function (){
-    window.location.href = 'mandates.php';
-    });</script>";
-  }
-  ?>
+  </div> 
+  </div>
+</div>
+</div>
 
 
 
+<!-- Update profile and password --> 
 
-<!-- update user info and password-->
-
-        <!-- update user info -->
+    <!-- update user info -->
   <script type = "text/javascript">
   $(document).ready(function(){
 
 
     //Update
-    $(document).on('click', '.update_info', function(){
-      $uid=$("#uuidupdate").val();
-      $usernameinfo=$('#usernameinfo').val();      
-      $lastnameinfo=$('#lastnameinfo').val();
-      $firstnameinfo=$('#firstnameinfo').val();
-      $middlenameinfo=$('#middlenameinfo').val();
-      $userlevelinfo=$('#userlevelinfo').val();
-      $locationinfo=$('#locationinfo').val();
+    $(document).on('click', '.update_user', function(){
+      $uid=$("#uuid").val();
+      $username=$('#username').val();      
+      $lastname=$('#lastname').val();
+      $firstname=$('#firstname').val();
+      $middlename=$('#middlename').val();
+      $userlevel=$('#userlevel').val();
+      $location=$('#location').val();
              
       //check ta nu maala na values bago ka ag ajaxstatus
       console.log($uid);
-      console.log($usernameinfo);
+      console.log($username);
         $.ajax({
           type: "POST",
           url: "updateinfo.php",
           data: {
             id: $uid,
-            username: $usernameinfo,           
-            lastname: $lastnameinfo,
-            firstname: $firstnameinfo,
-            middlename: $middlenameinfo,
-            userlevel: $userlevelinfo,
-            location: $locationinfo, 
+            username: $username,           
+            lastname: $lastname,
+            firstname: $firstname,
+            middlename: $middlename,
+            userlevel: $userlevel,
+            location: $location,   
             edit: 1,
           },
           success: function(){
@@ -306,8 +272,6 @@ width: 1150px;
                 }).then(function (){
                   location.reload()
                   });
-
-           
           }
         });
     });
@@ -321,7 +285,6 @@ width: 1150px;
 </script>
 
 
-
  <!-- Updateinfo Modal --> 
 
 <div class="modal fade" id="editprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -329,7 +292,7 @@ width: 1150px;
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
-       <h3 class = "text-success modal-title">Update Profile</h3>
+       <h3 class = "text-primary modal-title">Update Info</h3>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
      
     </div>
@@ -338,44 +301,68 @@ width: 1150px;
         <div class="form-group">
             <div class="col-sm-9">
               <label>Username:</label>
-                  <input type="text" class="form-control" type="text" name="username" id="usernameinfo" value="<?php echo $rowprofile['username'];?>">
+                  <input type="text" class="form-control" type="text" name="username" id="username" value="<?php echo $rowprofile['username'];?>">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Lastname:</label>
-                <input type="text" class="form-control" name="lastname" id="lastnameinfo" value="<?php echo $rowprofile['lastname'];?>"> 
+                <input type="text" class="form-control" name="lastname" id="lastname" value="<?php echo $rowprofile['lastname'];?>"> 
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Firstname:</label>
-                <input type="text" class="form-control" name="firstname" id="firstnameinfo" value="<?php echo $rowprofile['firstname'];?>">  
+                <input type="text" class="form-control" name="firstname" id="firstname" value="<?php echo $rowprofile['firstname'];?>">  
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Middlename:</label>
-                <input type="text" class="form-control" name="middlename" id="middlenameinfo" value="<?php echo $rowprofile['middlename'];?>">   
+                <input type="text" class="form-control" name="middlename" id="middlename" value="<?php echo $rowprofile['middlename'];?>">   
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
               <label>Userlevel:</label>
-                <input type="text" class="form-control" name="userlevel" id="userlevelinfo" value="<?php echo $rowprofile['userlevel'];?>" readonly>   
+              <input type="text" class="form-control" name="userlevel" id="userlevel" value="Division GAD Coordinator" readonly>
             </div>
         </div>
-          <div class="form-group">
+       <div class="form-group">
+            <label class="control-label col-sm-3">Location:</label>
             <div class="col-sm-9">
-              <label>Location:</label>
-                <input type="text" class="form-control" name="location" id="locationinfo" value="<?php echo $rowprofile['location'];?>" readonly>   
+              <select class="form-control disableButton" name="location" id="location" >
+
+                 <label selected><?php echo $rowprofile['location'];?></label>
+
+                  <?php
+
+                  $sqlOffice="SELECT DISTINCT division FROM division";
+                  $office=mysqli_query($conn, $sqlOffice);
+                  if(mysqli_num_rows($office)>0){
+                    while($divrow=mysqli_fetch_assoc($office)){
+                      if ( $divrow['division'] == $rowprofile['location']){?>
+                        <option value="<?php echo $divrow['division']; ?>" selected><?php echo $divrow['division']; ?></option>
+                      <?php }else{ ?>
+                        <option value="<?php echo $divrow['division']; ?>"><?php echo $divrow['division']; ?></option>
+                      <?php } 
+                      }
+                    }else{
+                    ?>
+                    <option value="" disabled>Add division first</option>
+                    <?php
+                  } 
+                  ?>
+              </select>
             </div>
         </div>
+
+       
 <br>
  </div>
 </div>
 <div class="modal-footer">
-        <input type="hidden" name="id" id="uuidupdate" value="<?php echo $rowprofile['id'];?>">
+        <input type="hidden" name="id" id="uuid" value="<?php echo $rowprofile['id'];?>">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> |
         <a data-toggle="modal" name="Update" href="#updateinfo" class="btn btn-primary">Update</a>
 </div>
@@ -396,7 +383,7 @@ width: 1150px;
 <h4>Are you sure you want to save this update?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_info">
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
 </center>
 </div>
          
@@ -537,9 +524,7 @@ $passW = $('#confirm_pword').val();
  </div>
 </div>
 </form>
-
-
-
+   
      
 <!-- Logout Modal -->
  <form class="" action="../logout.php" method="POST">
@@ -562,14 +547,11 @@ $passW = $('#confirm_pword').val();
 </center>
 </div>
          
-       </div>
-      </div>
     </div>
-    </form>
+  </div>
+</div>
+</form>
 
-
-    
-<br><br><br><br>
   <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">
@@ -585,4 +567,5 @@ $passW = $('#confirm_pword').val();
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

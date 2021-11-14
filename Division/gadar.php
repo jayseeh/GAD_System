@@ -189,7 +189,6 @@ width: 1150px;
 
 <div class="container-fluid">
   <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
-  <a href="personnels.php" class="btn btn-success rounded-pill">Add Personnel</a> 
   <br><br>
   <div class="d-flex justify-content-center">
    <fieldset>
@@ -197,7 +196,7 @@ width: 1150px;
   <div class="row">
     
 
-<div class="card" style="width: 72rem;">
+<div class="card" style="width: 81rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -208,6 +207,9 @@ width: 1150px;
       </li>
       <li class="nav-item">
         <a class="nav-link" href="gadapprovedform.php">Approved GAD AR</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="generateform.php">Generate Report</a>
       </li>
     </ul>
   </div>
@@ -240,7 +242,8 @@ width: 1150px;
             <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 11px;'>Total Agency Approved Budget</th>
             <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 11px;'>Actual Cost/ Expenditure</th>
             <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 11px;'>Variance/ Remarks</th>   
-            <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 11px;'>Category</th>   
+            <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 11px;'>Category</th>
+             <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 11px;'>Action</th>   
           </tr>
           <tr>
             <td><input type="text" id="count_num"  name="number_rows" readonly value="1" style="text-align: center; size: 1px; width: 30px;"></td>
@@ -260,6 +263,7 @@ width: 1150px;
                 <option value="ORGANIZATION">Organization-Focused</option>
               </select>
             </td>
+            <td><a href="personnels.php" class="btn btn-success rounded-pill">Add Personnel</a></td>
           </tr>
       </table>
     </div>

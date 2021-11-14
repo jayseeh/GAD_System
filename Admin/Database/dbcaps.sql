@@ -7,15 +7,21 @@ CREATE TABLE `attendees` (
   `gender` varchar(500) DEFAULT NULL,
   `division` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO attendees VALUES
-("12","Jorge","Principal","Male",""),
-("13","Rowel","Master Teacher II","Male",""),
-("14","Maricris","Teacher I","Female",""),
-("15","Mark","Teacher I","Male",""),
-("16","Leona","Administrative Assistant I","Female","");
+("17","Kobe","Principal","male","Ilocos Norte"),
+("18","Vannessa","Master Teacher II","female","Ilocos Norte"),
+("19","Leobron","Master Teacher I","male","Ilocos Norte"),
+("20","Jorge","Principal","Male","Ilocos Norte"),
+("21","Rowel","Master Teacher II","Male","Ilocos Norte"),
+("22","Maricris","Teacher I","Female","Ilocos Norte"),
+("23","Mark","Teacher I","Male","Ilocos Norte"),
+("24","Leona","Administrative Assistant I","Female","Ilocos Norte"),
+("25","Ako","Principal","male","San Fernando City"),
+("26","Ikaw","Master Teacher II","female","San Fernando City"),
+("27","Ako ulit","Master Teacher I","male","San Fernando City");
 
 
 
@@ -31,15 +37,14 @@ CREATE TABLE `caps` (
   `location` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=156 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO caps VALUES
 ("1","Jorge","jojo","Ojascastro","Jorge","Valdez","Regional GAD Coordinator","Region 1","ACTIVE"),
-("2","Leo","leo","Lana","Leo","Andrew","Division GAD Coordinator","Pangasinan I","ACTIVE"),
 ("3","admin","admin","","","","Admin","","ACTIVE"),
-("70","Rowel","roro","Dagooc","Rowel","Row","Division GAD Coordinator","Pangasinan II","ACTIVE"),
-("72","sdaa","adf","asdf","asdf","asdf","Division GAD Coordinator","Ilocos Norte","ACTIVE"),
+("70","Rowel","roro","Dagooc","Rowel","Row","Division GAD Coordinator","San Fernando City","ACTIVE"),
+("72","sdaa","adf","asdf","asdf","asdf","Division GAD Coordinator","Pangasinan I","ACTIVE"),
 ("73","gtferty","wert","wertwe","retw","wretwe","Regional GAD Coordinator","Region 1","ACTIVE"),
 ("74","sfds","asdf","asdf","gfh","fghf","Division GAD Coordinator","Dagupan City","ACTIVE"),
 ("75","sdfas","dfaf","dfasf","dfas","dfa","Division GAD Coordinator","Ilocos Sur","ACTIVE"),
@@ -48,7 +53,8 @@ INSERT INTO caps VALUES
 ("80","koko","asd","asf","fdg","dfg","Division GAD Coordinator","Candon City","ACTIVE"),
 ("82","fudge","ert","rey","ery","tyui","Division GAD Coordinator","Alaminos City","ACTIVE"),
 ("84","albert","albert","albert","albert","albert","Division GAD Coordinator","La Union","ACTIVE"),
-("155","wqer","ewrt","wert","werty","wert","Division GAD Coordinator","Batac City","ACTIVE");
+("155","wqer","ewrt","wert","wert","wert","Division GAD Coordinator","Laoag City","ACTIVE"),
+("156","Leo","leo","Lana","Leo","Andrew","Division GAD Coordinator","Pangasinan II","ACTIVE");
 
 
 
@@ -57,7 +63,7 @@ CREATE TABLE `division` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `division` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO division VALUES
@@ -92,20 +98,14 @@ CREATE TABLE `gad_form` (
 
 
 INSERT INTO gad_form VALUES
-("GAD-1632881179014","2","APPROVED","1","2021-10-05 17-25-08","2021-09-29 10-06-18",""),
-("GAD-1633423782940","2","APPROVED","1","2021-10-23 16-31-14","2021-10-05 16-49-42",""),
-("GAD-1633500380448","84","APPROVED","1","2021-10-23 15-46-01","2021-10-06 14-06-20",""),
-("GAD-1634973713935","2","APPROVED","1","2021-10-23 15-44-40","2021-10-23 15-21-53",""),
-("GAD-1634973784828","2","APPROVED","1","2021-10-23 16-11-17","2021-10-23 15-23-04",""),
-("GAD-1634978303993","2","APPROVED","1","2021-10-23 16-42-56","2021-10-23 16-38-23",""),
-("GAD-1634978638160","2","PENDING","","","2021-10-23 16-43-57",""),
-("GPB-1632634881319","2","APPROVED","1","2021-09-26 13-42-40","2021-09-26 13-41-21",""),
-("GPB-1632884474885","2","APPROVED","1","2021-10-05 17-14-07","2021-09-29 11-01-14",""),
-("GPB-1633424363561","2","APPROVED","1","2021-10-23 16-32-26","2021-10-05 16-59-23",""),
-("GPB-1633499950942","84","APPROVED","1","2021-10-06 14-02-32","2021-10-06 13-59-10",""),
-("GPB-1634971514242","2","APPROVED","1","2021-10-23 15-40-58","2021-10-23 14-45-14",""),
-("GPB-1634978520039","2","APPROVED","1","2021-10-23 16-42-42","2021-10-23 16-41-59",""),
-("GPB-1634978618004","2","PENDING","","","2021-10-23 16-43-37","");
+("GAD-1635921260389","156","DISAPPROVED","1","2021-11-12 13-14-51","2021-11-03 14-34-20",""),
+("GAD-1635921348063","156","APPROVED","1","2021-11-03 16-10-05","2021-11-03 14-35-47",""),
+("GAD-1635921409333","156","ACTION REQUIRED","1","2021-11-12 13-15-59","2021-11-03 14-36-49","goods"),
+("GPB-1635920630821","156","APPROVED","1","2021-11-03 14-38-59","2021-11-03 14-23-50",""),
+("GPB-1635920679422","156","APPROVED","1","2021-11-06 18-45-25","2021-11-03 14-24-39",""),
+("GPB-1635920693622","156","ACTION REQUIRED","1","2021-11-03 14-46-20","2021-11-03 14-24-53",""),
+("GPB-1635921290845","156","DISAPPROVED","1","2021-11-03 14-48-59","2021-11-03 14-34-50",""),
+("GPB-1635921303522","156","ACTION REQUIRED","1","2021-11-06 18-44-25","2021-11-03 14-35-03","asgdsd");
 
 
 
@@ -130,55 +130,33 @@ CREATE TABLE `gad_table_entry_value` (
 
 
 INSERT INTO gad_table_entry_value VALUES
-("GPB-1632634881319","gpb","gpb","gpb","gpb","gpb","gpb","10000","gpb","gpb","","2","2021-09-26 13-41-21","1","CLIENT"),
-("GAD-1632881179014","Lack of awareness and appreciation on gender equality and gender issues within DepEd","Need to initiate, coordinate and monitor gender mainstreaming at the regional level ","A gender audit establishes a baseline, identifies critical gaps and challenges, and recommends ways of addressing them, suggesting possible improvements and innovations. It also documents good practices towards the achievement of gender equality. ","MFO2-Basic Education Services","Gender Audit Training-Workshop with Orientation on Magna Carta of Women and DO 32 s. 2017 (Gender-Responsive Basic Education Policy)","Strengthened GAD mechanism in the region","100","197500","197500","The resource speaker is a member of PCW national Pool of Trainers/ GEDSI exper","2","2021-09-29 10-06-18","1","CLIENT"),
-("GPB-1632884474885","DepEd Order No. 32, s. 2017: DepEd Gender-Responsive Basic Education Policy and RA 92962: Anti-Violence Against Women and their Children Act of 2004","Minimal  opportunity for the Regional Office Personnel - especially the women - to participate in information-awareness campaigns  and be made aware of their rights and roles in the society","Maintained a VAWC-free workplace where male and female personnel enjoy human rights and empowerment, resulting to improved delivery of customer services and well-addressed/resolved issues, if not totally eliminated problems, in the workplace","MFO2-Basic Education Services","Advocacy Campaign for Women Equality and Empowerment (National Women’s Month, 18-Day Campaign to End VAW)","100% of ROI Personnel capacitated on empowering women, upholding respect for and protection of human rights, maintaining VAWC-free workplace and providing gender-responsive, quality basic customer services","110500","GAD Fund","Regional Office I","","2","2021-09-29 11-01-14","1","CLIENT"),
-("GAD-1633423782940","ar","ar","ar","ar","ar","ar","0","ar","ar","ar","2","2021-10-05 16-49-42","1","CLIENT"),
-("GAD-1633423782940","arr","arr","arr","arr","arr","arr","0","arr","arr","","2","2021-10-05 16-49-42","2","ORGANIZATION"),
-("GPB-1633424363561","aa","aa","aa","aa","aa","aa","0","aa","aa","","2","2021-10-05 16-59-23","1","CLIENT"),
-("GPB-1633424363561","aaa","aaa","aaa","aaa","aaa","aaa","0","aaa","aaa","","2","2021-10-05 16-59-23","2","ORGANIZATION"),
-("GPB-1633499950942","xx","xx","xxxx","xx","xx","xx","0","xx","xx","","84","2021-10-06 13-59-10","1","CLIENT"),
-("GAD-1633500380448","yy","yy","yy","yy","yy","yy","0","yy","yy","yy","84","2021-10-06 14-06-20","1","CLIENT"),
-("GPB-1634971514242","jo","j","j","j","j","j","0","j","j","","2","2021-10-23 14-45-14","1","CLIENT"),
-("GPB-1634971514242","oo","o","o","o","o","o","0","o","o","","2","2021-10-23 14-45-14","2","ORGANIZATION"),
-("GAD-1634973713935","g","g","g","g","g","g","0","g","g","g","2","2021-10-23 15-21-53","1","CLIENT"),
-("GAD-1634973713935","h","h","h","h","h","h","0","h","h","h","2","2021-10-23 15-21-53","2","ORGANIZATION"),
-("GAD-1634973784828","aa","a","a","a","a","a","0","a","a","a","2","2021-10-23 15-23-04","1","CLIENT"),
-("GAD-1634973784828","ss","s","s","s","s","s","0","s","s","s","2","2021-10-23 15-23-04","2","ORGANIZATION"),
-("GAD-1634978303993","d","d","d","d","d","d","0","d","d","d","2","2021-10-23 16-38-23","1","CLIENT"),
-("GPB-1634978520039","f","f","f","f","f","f","0","f","f","","2","2021-10-23 16-41-59","1","CLIENT"),
-("GPB-1634978618004","d","d","d","d","d","d","5","d","d","","2","2021-10-23 16-43-37","1","CLIENT"),
-("GAD-1634978638160","g","g","g","g","g","g","7","77","g","g","2","2021-10-23 16-43-57","1","CLIENT");
+("GPB-1635920630821","aa","a","a","a","a","a","0","a","a","","156","2021-11-03 14-23-50","1","CLIENT"),
+("GPB-1635920630821","b","b","b","b","b","b","0","b","b","","156","2021-11-03 14-23-50","2","ORGANIZATION"),
+("GPB-1635920679422","coo","c","c","c","c","c","0","c","c","","156","2021-11-03 14-24-39","1","CLIENT"),
+("GPB-1635920693622","d","d","d","d","d","d","0","d","d","","156","2021-11-03 14-24-53","1","CLIENT"),
+("GAD-1635921260389","s","s","s","s","s","s","0","s","s","s","156","2021-11-03 14-34-20","1","CLIENT"),
+("GAD-1635921260389","d","d","d","d","d","d","0","d","d","d","156","2021-11-03 14-34-20","2","ORGANIZATION"),
+("GPB-1635921290845","f","f","f","f","f","f","0","f","f","","156","2021-11-03 14-34-50","1","CLIENT"),
+("GPB-1635921303522","g","g","g","g","g","g","0","g","g","","156","2021-11-03 14-35-03","1","CLIENT"),
+("GPB-1635921303522","z","z","z","z","z","z","0","z","z","","156","2021-11-03 14-35-03","2","CLIENT"),
+("GAD-1635921348063","z","z","z","z","z","z","0","z","z","z","156","2021-11-03 14-35-47","1","CLIENT"),
+("GAD-1635921348063","x","x","x","x","x","x","0","x","x","t","156","2021-11-03 14-35-47","2","CLIENT"),
+("GAD-1635921409333","g","g","g","g","g","g","0","g","g","g","156","2021-11-03 14-36-49","1","CLIENT"),
+("GAD-1635921409333","g","g","g","g","g","g","0","g","g","g","156","2021-11-03 14-36-49","2","ORGANIZATION");
 
 
 
 
 CREATE TABLE `mandate` (
-  `depedno` varchar(250) DEFAULT '',
-  `depedcontent` varchar(500) DEFAULT NULL
+  `id` int(20) NOT NULL,
+  `depedno` varchar(250) NOT NULL DEFAULT '',
+  `depedcontent` varchar(500) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO mandate VALUES
-("32, s. 2017","DepEd Gender-Responsive Basic Education Policy and RA 92962: Anti-Violence Against Women and their Children Act of 2004"),
-("40, s. 2012","DepEd Child Protection Policy and RA 9710: The Magna Carta of Women and Public School Teacher"),
-("5645","Child labor"),
-("1234","Child Abuse"),
-("5678","Womens right"),
-("3333","Mens Right");
-
-
-
-
-CREATE TABLE `personnel` (
-  `id` int(200) NOT NULL AUTO_INCREMENT,
-  `division` varchar(500) DEFAULT NULL,
-  `filename` varchar(500) DEFAULT NULL,
-  `date_submitted` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
-
-
+("0","32, s. 2017: ","Gender-Responsive Basic Education Policy");
 
 
 
@@ -188,10 +166,10 @@ CREATE TABLE `template` (
   `filename` varchar(500) CHARACTER SET cp1256 DEFAULT '',
   `date_temp` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO template VALUES
-("10","GAD_AR_Trained_Personnel_Template.xlsx","2021-09-22 09:27:00");
+("14","GAD_AR_Trained_Personnel_Template.xlsx","2021-10-25 12:18:00");
 
 

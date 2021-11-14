@@ -147,24 +147,26 @@ width: 1150px;
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
 
- <a data-toggle="modal" href="#editprof">Profile</a>
+ <a data-toggle="modal" href="#editprof" style="font-size: 15px;">Profile</a>
 
-  <a data-toggle="modal" href="#changepassword">Change password</a>
+  <a data-toggle="modal" href="#changepassword" style="font-size: 15px;">Change password</a>
 
-  <a href="divisionmanagement.php">Division User Management</a>
+  <a href="divisionmanagement.php" style="font-size: 15px;">Division User Management</a>
 
-  <a href="mandates.php">DepEd Mandates</a>
+  <a href="fiscalyear.php" style="font-size: 15px;">Fiscal Year Setup</a>
+
+  <a href="mandates.php" style="font-size: 15px;">DepEd Mandates</a>
   <?php
     if($form_type=='GPB'){
-      echo '<a href="reggpb.php" class="active">GPB</a><a href="reggadar.php">GAD AR</a>';
+      echo '<a href="reggpb.php" class="active" style="font-size: 15px;">GPB</a><a href="reggadar.php" style="font-size: 15px;">GAD AR</a>';
     }else{
-      echo '<a href="reggpb.php" >GPB</a><a href="reggadar.php" class="active">GAD AR</a>';
+      echo '<a href="reggpb.php"  style="font-size: 15px;">GPB</a><a href="reggadar.php" class="active" style="font-size: 15px;">GAD AR</a>';
     }
   ?>  
 
-  <a data-toggle="modal" href="#logout">Logout</a>
+  <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#">Help</a>
+  <a href="#" style="font-size: 15px;">Help</a>
 </div>
 
         <!-- Content -->
@@ -182,7 +184,7 @@ width: 1150px;
 <div class="container-fluid">
 
    <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
-   <button class="btn btn-warning rounded-pill" onclick="generatePDF()">Download List</button>
+   <!--<button class="btn btn-warning rounded-pill" onclick="generatePDF()">Download List</button>-->
    <a class="btn btn-warning rounded-pill" href="print-attend.php" target="_blank">Print</a>
   <br><br>
 <div class="d-flex justify-content-center">
@@ -201,7 +203,7 @@ width: 1150px;
         <?php echo ($form_type == 'GPB') ? '<a class="nav-link" href="generateform.php?id=GPB">Generate Report</a>' : '<li class="nav-item"><a class="nav-link " href="generateform.php?id=GAD">Generate Report</a></li>';?>
       </li>
       <li class="nav-item">
-         <?php echo ($form_type == 'GPB') ? '<a class="nav-link active" href="generatelist.php?id=GPB">Generate List</a>' : '<li class="nav-item"><a class="nav-link active" href="generatelist.php?id=GAD">Generate List</a></li><li class="nav-item"><a class="nav-link" href="viewpersonnels.php">Trained Personnel</a></li><li class="nav-item"><a class="nav-link" href="templates.php">Upload Template</a></li>';?>
+         <?php echo ($form_type == 'GPB') ? '<a class="nav-link active" href="generatelist.php?id=GPB">Generate List</a><li class="nav-item"><a class="nav-link" href="gpbdue.php">Set GPB Due Date</a></li>' : '<li class="nav-item"><a class="nav-link active" href="generatelist.php?id=GAD">Generate List</a></li><li class="nav-item"><a class="nav-link" href="viewpersonnels.php">Trained Personnel</a></li><li class="nav-item"><a class="nav-link" href="templates.php">Upload Template</a></li><li class="nav-item"><a class="nav-link" href="gadardue.php">Set GAD AR Due Date</a></li>';?>
       </li>
     </ul>
   </div>

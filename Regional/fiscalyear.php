@@ -141,9 +141,9 @@ width: 1150px;
 
   <a href="divisionmanagement.php" style="font-size: 15px;">Division User Management</a>
 
-  <a href="fiscalyear.php" style="font-size: 15px;">Fiscal Year Setup</a>
+  <a href="fiscalyear.php" class="active" style="font-size: 15px;">Fiscal Year Setup</a>
 
-  <a href="mandates.php" class="active" style="font-size: 15px;">DepEd Mandates</a>
+  <a href="mandates.php" style="font-size: 15px;">DepEd Mandates</a>
 
   <a href="reggpb.php" style="font-size: 15px;">GPB</a>
 
@@ -159,7 +159,7 @@ width: 1150px;
 
         <!-- Content -->
         <div class="main">
-<center><h2 style="color: black; background-color: #e6b800;">DepEd Mandates</h2></center>
+<center><h2 style="color: black; background-color: #e6b800;">Fiscal Year Setup</h2></center>
  <br>
 
 <div class="container-fluid">
@@ -168,49 +168,36 @@ width: 1150px;
   <br><br>
   <div class="d-flex justify-content-center">
 
-    <form action="uploadmandate.php" method="post">
+    <form action="addfiscal.php" method="post">
     <fieldset>
 <div class="row">
-  <div class="col">
- <div class="card text-center" style="width: 70rem;">
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Upload Mandates</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="listmandate.php">Mandates List</a>
-      </li>
-    </ul>
-  </div>
-  <div class="card-body">
 
-
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">DepEd Order No.:</th>
-      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">DepdEd Order Content:</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><input class="form-control form-control-lg" type="text" id="depedno" name="depedno" size="5px"></td>
-      <td><textarea class="form-control" id="depedcontent" name="depedcontent" rows="3"></textarea></td>
-    </tr>
-  </tbody>
-</table>
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <input name="clear" type="reset" value=" Clear" class="btn btn-light rounded-pill">&nbsp;
-        <a data-toggle="modal" href="#save" data-dismiss="modal" class="btn btn-dark rounded-pill">Upload</a>
-      </div>
-
-  </div>
+<div class="col-3">
+  <label>Start Date</label>
+<input class="form-control form-control-lg" type="Date" id="start_date" name="start_date">
 </div>
 
-  </div>
-  <!--row-->
+<div class="col-3">
+  <label>End Date</label>
+<input class="form-control form-control-lg" type="Date" id="end_date" name="end_date">
 </div>
+
+<div class="col-3">
+  <label>Code</label>
+<input class="form-control form-control-lg" type="text" id="code" name="code">
+</div>
+
+<div class="col-3">
+  <br>
+<button class="btn btn-success rounded-pill " style="width: 100px;">Add</button>
+<input class="form-control form-control-lg" type="text" id="FYstatus" name="FYstatus" value="Active" hidden>
+</div>
+</div>
+
+<br>
+
+
+  
 
   
   </fieldset>
@@ -239,6 +226,51 @@ width: 1150px;
   </div> 
 
 
+   <div class="card text-center" style="width: 70rem;">
+
+  <div class="card-body">
+
+ <?php
+        include("../connect.php");
+
+        $sql="SELECT * FROM fiscal_year";
+        $result=mysqli_query($conn, $sql);
+
+        echo "<table id='list' class='table table-bordered table-hover'>";
+        
+          echo "<tr>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><h5>Start Date</h5></th>";           
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><h5>End Date</h5></th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><h5>Code</h5></th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><h5>Status</h5></th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 80px;'><h5>Action</h5></th>";
+            
+          echo "</tr>";
+          echo "<tbody id='usertable'>";
+
+        if(mysqli_num_rows($result)>0){
+          while($row=mysqli_fetch_assoc($result)){
+            echo "<tr id=".$row['id'] .">";
+              echo "<td style='padding: 10px; font-size: 20px;' id='tid'>".$row['start_date']."</td>";
+              echo "<td style='padding: 10px; font-size: 20px;' id='tdivision'>".$row['end_date']."</td>";
+              echo "<td style='padding: 10px; font-size: 20px;' id='tdivision'>".$row['code']."</td>";
+              echo "<td style='padding: 10px; font-size: 20px;' id='tdivision'>".$row['status']."</td>";
+              ?>
+
+              <td><button class="btn btn-primary edit_status"  value="">Deactivate</button>
+              </td>
+              <?php
+            echo "</tr>";
+          }
+        }
+        echo "</tbody>";
+        echo "</table";
+      ?>
+
+  </div>
+</div>
+
+
 
    </div><!--Container-->
    </div>
@@ -249,13 +281,13 @@ width: 1150px;
 <!-- Swal -->
 <?php 
   $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-  if (strpos($fullUrl, "mandate_uploaded") == true){
+  if (strpos($fullUrl, "FY_setup") == true){
     echo "<script>Swal.fire({
     icon: 'success',
-    title: 'Mandate successfully uploaded!',
+    title: 'Setup is Successful!',
     showConfirmButton: true, 
     }).then(function (){
-    window.location.href = 'mandates.php';
+    window.location.href = 'fiscalyear.php';
     });</script>";
   }
   ?>

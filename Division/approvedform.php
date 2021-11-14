@@ -206,6 +206,9 @@ width: 1150px;
       <li class="nav-item">
         <a class="nav-link active" aria-current="true" >Approved GPB</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="generateform.php">Generate Report</a>
+      </li>
     </ul>
   </div>
   <div class="card-body">

@@ -159,84 +159,171 @@ width: 1150px;
 
         <!-- Content -->
         <div class="main">
-<center><h2 style="color: black; background-color: #e6b800;">DepEd Mandates</h2></center>
+<center><h2 style="color: black; background-color: #e6b800;">Monitoring</h2></center>
  <br>
 
 <div class="container-fluid">
 
   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
   <br><br>
-  <div class="d-flex justify-content-center">
-
-    <form action="uploadmandate.php" method="post">
-    <fieldset>
-<div class="row">
-  <div class="col">
- <div class="card text-center" style="width: 70rem;">
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Upload Mandates</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="listmandate.php">Mandates List</a>
-      </li>
-    </ul>
-  </div>
+<div class="card text-center" style="width: 70rem;">
   <div class="card-body">
-
+<h5>List of Division Submission</h5>
+<label for="cars">Year</label>
+  <select name="year" id="year">
+    <option value="2021">2021</option>  
+  </select>
 
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">DepEd Order No.:</th>
-      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">DepdEd Order Content:</th>
+      <th scope="col"></th>
+      <th colspan="3">GAD Plan and Budget</th>
+      <th colspan="3">GAD Accomplishment Report</th>     
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><input class="form-control form-control-lg" type="text" id="depedno" name="depedno" size="5px"></td>
-      <td><textarea class="form-control" id="depedcontent" name="depedcontent" rows="3"></textarea></td>
+      <th scope="row">Division</th>
+      <th scope="row">Report Submitted</th>
+      <th scope="row">Date Submitted</th>
+      <th scope="row">Date Approved</th>
+      <th scope="row">Report Submitted</th>
+      <th scope="row">Date Submitted</th>
+      <th scope="row">Date Approved</th>
+    </tr>
+    <tr>
+      <th scope="row">Ilocon Norte</th>
+      <td>Yes/No</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Ilocos Sur</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">La Union</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Pangasinan I</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Pangasinan II</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Alaminos City</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Batac City</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Candon City</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Dagupan City</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Laoag City</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">San Carlos City</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">San Fernando City</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Urdaneta City</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Vigan City</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
     </tr>
   </tbody>
 </table>
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <input name="clear" type="reset" value=" Clear" class="btn btn-light rounded-pill">&nbsp;
-        <a data-toggle="modal" href="#save" data-dismiss="modal" class="btn btn-dark rounded-pill">Upload</a>
-      </div>
+
 
   </div>
 </div>
-
-  </div>
-  <!--row-->
-</div>
-
-  
-  </fieldset>
-  <!-- Save Verification Modal -->
- 
-<div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class = "modal-header">
-      <h3 class = "text-danger modal-title"></h3>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
-    </div>
-    <div class="modal-body">
-    <center>  
-<h4>Are you sure you want to upload this mandate?</h4><br>
-
-<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md btncreate">
-</center>
-</div>
-         
-       </div>
-      </div>
-    </div>
-  </form>
-  </div> 
 
 
 

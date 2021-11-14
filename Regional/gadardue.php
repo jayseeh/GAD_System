@@ -12,7 +12,6 @@ if(empty($_SESSION['ulvl'])){
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -134,7 +133,7 @@ width: 1150px;
 <center><h6 style="color: white;"><?php echo $_SESSION['full_name']; ?></h6></center>
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
-  
+
   <a data-toggle="modal" href="#editprof" style="font-size: 15px;">Profile</a>
 
   <a data-toggle="modal" href="#changepassword" style="font-size: 15px;">Change password</a>
@@ -143,11 +142,11 @@ width: 1150px;
 
   <a href="fiscalyear.php" style="font-size: 15px;">Fiscal Year Setup</a>
 
-  <a href="mandates.php" class="active" style="font-size: 15px;">DepEd Mandates</a>
+  <a href="mandates.php" style="font-size: 15px;">DepEd Mandates</a>
 
   <a href="reggpb.php" style="font-size: 15px;">GPB</a>
 
-  <a href="reggadar.php" style="font-size: 15px;">GAD AR</a>
+  <a href="reggadar.php" class="active" style="font-size: 15px;">GAD AR</a>
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
@@ -155,113 +154,68 @@ width: 1150px;
 </div>
 
 
-
-
         <!-- Content -->
         <div class="main">
-<center><h2 style="color: black; background-color: #e6b800;">DepEd Mandates</h2></center>
+       
+<center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>
  <br>
+    
 
 <div class="container-fluid">
 
-  <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>  
   <br><br>
-  <div class="d-flex justify-content-center">
-
-    <form action="uploadmandate.php" method="post">
+<div class="d-flex justify-content-center">
     <fieldset>
-<div class="row">
-  <div class="col">
- <div class="card text-center" style="width: 70rem;">
+
+  <div class="row">
+    <div class="container-fluid">
+
+<div class="card text-center" style="width: 70rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Upload Mandates</a>
+        <a class="nav-link active" aria-current="true">Pending Forms</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="listmandate.php">Mandates List</a>
+        <a class="nav-link" href="approvedgad.php">Approved GAD AR</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="generateform.php?id=GAD">Generate Report</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="generatelist.php?id=GAD">Generate List</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="viewpersonnels.php">Trained Personnel</a>
+      </li>     
+      <li class="nav-item">
+        <a class="nav-link" href="templates.php">Upload Template</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="gadardue.php">Set GAD AR Due Date</a>
       </li>
     </ul>
   </div>
   <div class="card-body">
 
-
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">DepEd Order No.:</th>
-      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">DepdEd Order Content:</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><input class="form-control form-control-lg" type="text" id="depedno" name="depedno" size="5px"></td>
-      <td><textarea class="form-control" id="depedcontent" name="depedcontent" rows="3"></textarea></td>
-    </tr>
-  </tbody>
-</table>
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <input name="clear" type="reset" value=" Clear" class="btn btn-light rounded-pill">&nbsp;
-        <a data-toggle="modal" href="#save" data-dismiss="modal" class="btn btn-dark rounded-pill">Upload</a>
-      </div>
+<input class="form-control form-control-lg" type="Date" id="gadar_due_date">
+<br>
+<button class="btn btn-dark" value="Set Date">Set Date</button>
 
   </div>
 </div>
-
-  </div>
-  <!--row-->
-</div>
-
   
-  </fieldset>
-  <!-- Save Verification Modal -->
- 
-<div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class = "modal-header">
-      <h3 class = "text-danger modal-title"></h3>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
-    </div>
-    <div class="modal-body">
-    <center>  
-<h4>Are you sure you want to upload this mandate?</h4><br>
-
-<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-primary btn-md btncreate">
-</center>
-</div>
-         
-       </div>
-      </div>
-    </div>
-  </form>
-  </div> 
-
-
-
-   </div><!--Container-->
    </div>
+   </div>
+    </fieldset>
+</div>    
 </div>
- </div>
+</div> 
+  </div> 
+   </div>
 
-
-<!-- Swal -->
-<?php 
-  $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-  if (strpos($fullUrl, "mandate_uploaded") == true){
-    echo "<script>Swal.fire({
-    icon: 'success',
-    title: 'Mandate successfully uploaded!',
-    showConfirmButton: true, 
-    }).then(function (){
-    window.location.href = 'mandates.php';
-    });</script>";
-  }
-  ?>
-
-
-
+   
 
 <!-- update user info and password-->
 
@@ -271,7 +225,7 @@ width: 1150px;
 
 
     //Update
-    $(document).on('click', '.update_info', function(){
+    $(document).on('click', '.update_user', function(){
       $uid=$("#uuidupdate").val();
       $usernameinfo=$('#usernameinfo').val();      
       $lastnameinfo=$('#lastnameinfo').val();
@@ -282,10 +236,10 @@ width: 1150px;
              
       //check ta nu maala na values bago ka ag ajaxstatus
       console.log($uid);
-      console.log($usernameinfo);
+      console.log($username);
         $.ajax({
           type: "POST",
-          url: "updateinfo.php",
+          url: "",
           data: {
             id: $uid,
             username: $usernameinfo,           
@@ -297,16 +251,7 @@ width: 1150px;
             edit: 1,
           },
           success: function(){
-            $("#editprof").modal('hide');
-            $("#updateinfo").modal('hide');
-            Swal.fire({
-                  icon: 'success',
-                  title: 'User information successfully updated',
-                  showConfirmButton: true, 
-                }).then(function (){
-                  location.reload()
-                  });
-
+            window.location = "../index.php";
            
           }
         });
@@ -323,7 +268,7 @@ width: 1150px;
 
 
  <!-- Updateinfo Modal --> 
-
+<form class="" action="updateinfo.php" method="POST">
 <div class="modal fade" id="editprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   
   <div class="modal-dialog" role="document">
@@ -396,13 +341,14 @@ width: 1150px;
 <h4>Are you sure you want to save this update?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_info">
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
 </center>
 </div>
          
        </div>
       </div>
     </div>
+</form>
 
 
 
@@ -538,8 +484,6 @@ $passW = $('#confirm_pword').val();
 </div>
 </form>
 
-
-
      
 <!-- Logout Modal -->
  <form class="" action="../logout.php" method="POST">
@@ -569,7 +513,7 @@ $passW = $('#confirm_pword').val();
 
 
     
-<br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
   <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">
