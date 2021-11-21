@@ -1,5 +1,6 @@
 <?php session_start(); 
-
+date_default_timezone_set("Asia/Singapore");
+$date = date('Y-m-d H:i:s');
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
@@ -198,11 +199,17 @@ width: 1150px;
     </ul>
   </div>
   <div class="card-body">
-
-<input class="form-control form-control-lg" type="Date" id="gadar_due_date">
+<form method="POST" action="gadardue.php">
+<input class="form-control form-control-lg" type="Date" id="gpb_due_date" name="due_date">
 <br>
-<button class="btn btn-dark" value="Set Date">Set Date</button>
-
+<input type="submit" class="btn btn-dark" name="submitDate" value="Set Date">
+</form>
+<?php
+  if(isset($_POST['submitDate'])){
+    $due_date = $_POST['due_date'];
+    $date_query = mysqli_query($conn, "INSERT INTO due_dates(due_date,form_type,date_submitted,status) VALUES ('$due_date','GAD','$date','ACTIVE')");
+  }
+?>
   </div>
 </div>
   

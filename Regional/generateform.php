@@ -8,7 +8,7 @@
   $query_form = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED'");
   $fetch_form = mysqli_fetch_assoc($query_form);
   date_default_timezone_set("Asia/Singapore");
-  $date = date('Y-m-d H-i-s');
+  $date = date('Y-m-d H:i:s');
   $total_budget=0;
   $form_type = $_GET['id'];
   

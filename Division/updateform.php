@@ -8,7 +8,7 @@
   $form_type=$str[0];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
   date_default_timezone_set("Asia/Singapore");
-  $date = date('Y-m-d H-i-s');
+  $date = date('Y-m-d H:i:s');
 
   require('../connect.php');
  $un = $_SESSION['uid'];

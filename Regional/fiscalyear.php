@@ -172,22 +172,17 @@ width: 1150px;
     <fieldset>
 <div class="row">
 
-<div class="col-3">
+<div class="col-5">
   <label>Start Date</label>
-<input class="form-control form-control-lg" type="Date" id="start_date" name="start_date">
+<input class="form-control form-control-lg" type="Date" id="start_date" name="start_date" required>
 </div>
 
-<div class="col-3">
+<div class="col-5">
   <label>End Date</label>
-<input class="form-control form-control-lg" type="Date" id="end_date" name="end_date">
+<input class="form-control form-control-lg" type="Date" id="end_date" name="end_date" required>
 </div>
 
-<div class="col-3">
-  <label>Code</label>
-<input class="form-control form-control-lg" type="text" id="code" name="code">
-</div>
-
-<div class="col-3">
+<div class="col-2">
   <br>
 <button class="btn btn-success rounded-pill " style="width: 100px;">Add</button>
 <input class="form-control form-control-lg" type="text" id="FYstatus" name="FYstatus" value="Active" hidden>
@@ -244,22 +239,32 @@ width: 1150px;
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><h5>Code</h5></th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><h5>Status</h5></th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 80px;'><h5>Action</h5></th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 80px;'><h5>Action</h5></th>";
             
           echo "</tr>";
           echo "<tbody id='usertable'>";
 
         if(mysqli_num_rows($result)>0){
           while($row=mysqli_fetch_assoc($result)){
-            echo "<tr id=".$row['id'] .">";
+            echo "<tr id=".$row['code'] .">";
               echo "<td style='padding: 10px; font-size: 20px;' id='tid'>".$row['start_date']."</td>";
               echo "<td style='padding: 10px; font-size: 20px;' id='tdivision'>".$row['end_date']."</td>";
               echo "<td style='padding: 10px; font-size: 20px;' id='tdivision'>".$row['code']."</td>";
               echo "<td style='padding: 10px; font-size: 20px;' id='tdivision'>".$row['status']."</td>";
+              if($row['status']=='ACTIVE'){
               ?>
-
-              <td><button class="btn btn-primary edit_status"  value="">Deactivate</button>
-              </td>
+                <td><button class="btn btn-primary edit_status"  value="">&nbsp;</button>
               <?php
+              }else{
+              ?>
+                <td><button class="btn btn-primary edit_status"  value="">Activate</button>
+              <?php
+              }
+              ?>
+                <td><button class="btn btn-primary edit_status"  value="">Update</button>
+                </td>
+              <?php
+              
             echo "</tr>";
           }
         }

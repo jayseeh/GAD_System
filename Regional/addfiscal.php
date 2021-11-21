@@ -6,10 +6,17 @@
 		include("../connect.php");
 		
 		// get form value
+		date_default_timezone_set("Asia/Singapore");
+		$date = date('Y');
 		$start_date = $_POST['start_date'];
 		$end_date = $_POST['end_date'];
-		$code = $_POST['code'];
-		$FYstatus = $_POST['FYstatus'];
+		$str = explode("-", $start_date);
+    	$code=$str[0];
+    	if($date==$code){
+			$FYstatus = 'ACTIVE';
+    	}else{
+    		$FYstatus = 'INACTIVE';
+    	}
 		
 		
 

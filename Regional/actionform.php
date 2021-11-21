@@ -2,7 +2,7 @@
 session_start();
 include "../connect.php";
 date_default_timezone_set("Asia/Singapore");
-$date = date('Y-m-d H-i-s');
+$date = date('Y-m-d H:i:s');
 $form = $_POST['form_id'];
 $status = $_POST['status'];
 $remarks = $_POST['remarks'];

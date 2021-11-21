@@ -210,7 +210,7 @@ h1{
         <!-- update user info -->
   <script type = "text/javascript">
   $(document).ready(function(){
-
+    $("#fiscalyearModal").modal('show');
 
     //Update
     $(document).on('click', '.update_info', function(){
@@ -345,6 +345,39 @@ h1{
        </div>
       </div>
     </div>
+
+
+     <!-- Update Fiscal Year Modal -->
+ 
+<div class="modal fade" id="fiscalyearModal" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">   
+      <label><b>Note!</b></label>
+    </div>
+    <div class="modal-body">
+    <center>  
+      <?php
+        $queryFiscal = mysqli_query($conn,"SELECT * FROM fiscal_year WHERE status='ACTIVE'");
+        if(mysqli_num_rows($queryFiscal)>0){
+          $row = mysqli_fetch_assoc($queryFiscal);
+
+          echo "<h4>ACTIVE FISCAL YEAR IS ".$row['code']."</h4><br>";
+          echo '<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>';
+        }else{
+          echo "<h4>No active Fiscal Year. Please click Ok to set-up fiscal year.</h4><br>";
+          echo '<a href="fiscalyear.php" class="btn btn-default btn-md">&nbsp;&nbsp;OK&nbsp;&nbsp;</a>';      
+        }
+      ?>
+    
+
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
+
 
 
 
