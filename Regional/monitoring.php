@@ -192,132 +192,43 @@ width: 1150px;
       <th scope="row">Date Submitted</th>
       <th scope="row">Date Approved</th>
     </tr>
-    <tr>
-      <th scope="row">Ilocon Norte</th>
-      <td>Yes/No</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">Ilocos Sur</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">La Union</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">Pangasinan I</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">Pangasinan II</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">Alaminos City</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">Batac City</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">Candon City</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">Dagupan City</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">Laoag City</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">San Carlos City</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">San Fernando City</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">Urdaneta City</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">Vigan City</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
+    <?php
+      $query_division = mysqli_query($conn,"SELECT * FROM division ORDER BY id");
+      while($row=mysqli_fetch_assoc($query_division)){
+        $loc = $row['division'];
+        echo "<tr>";
+        echo "  <th scope='row'>".$row['division']."</th>";
+        $validateGPB = mysqli_query($conn,"SELECT * FROM gad_form a INNER JOIN caps b ON a.requestor_id=b.id WHERE a.form_number LIKE '%GPB%' and b.location='$loc' ORDER BY date_submitted");
+        $validateGAD = mysqli_query($conn,"SELECT * FROM gad_form a INNER JOIN caps b ON a.requestor_id=b.id WHERE a.form_number LIKE '%GAD%' and b.location='$loc' ORDER BY date_submitted");
+        if(mysqli_num_rows($validateGPB) > 0){
+          echo "  <td>Yes</td>";  
+          while($fetchGPB = mysqli_fetch_assoc($validateGPB)){
+            echo "  <td>".$fetchGPB['date_submitted']."</td>";  
+            echo "  <td>".$fetchGPB['date_approved']."</td>";
+            break;
+          }
+        }else{
+          echo "  <td>No</td>";
+          echo "  <td>N/A</td>";
+          echo "  <td>N/A</td>";
+        }
+        if(mysqli_num_rows($validateGAD) > 0){
+          echo "  <td>Yes</td>";  
+          while($fetchGAD = mysqli_fetch_assoc($validateGAD)){
+            echo "  <td>".$fetchGAD['date_submitted']."</td>";  
+            echo "  <td>".$fetchGAD['date_approved']."</td>";
+            break;
+          }
+        }else{
+          echo "  <td>No</td>";
+          echo "  <td>N/A</td>";
+          echo "  <td>N/A</td>";
+        }
+
+        
+        echo "</tr>";
+      }
+    ?>
   </tbody>
 </table>
 

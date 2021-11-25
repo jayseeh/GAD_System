@@ -1,5 +1,11 @@
 <?php session_start(); 
-
+date_default_timezone_set("Asia/Singapore");
+if(isset($_SESSION['code'])){
+  $code = $_SESSION['code'];
+}else{
+  $code = date('Y');
+}
+$nowYear = date('Y');
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
@@ -200,10 +206,23 @@ width: 1150px;
     </tr>
   </tbody>
 </table>
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+<?php
+  if($nowYear==$code){
+    ?>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <input name="clear" type="reset" value=" Clear" class="btn btn-light rounded-pill">&nbsp;
         <a data-toggle="modal" href="#save" data-dismiss="modal" class="btn btn-dark rounded-pill">Upload</a>
       </div>
+    <?php
+  }else{
+    ?>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <label>You can't upload file since the active fiscal year is not the same with the current year.</label>
+      </div>
+    <?php
+  }
+?>
+
 
   </div>
 </div>

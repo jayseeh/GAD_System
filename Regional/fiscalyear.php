@@ -253,11 +253,11 @@ width: 1150px;
               echo "<td style='padding: 10px; font-size: 20px;' id='tdivision'>".$row['status']."</td>";
               if($row['status']=='ACTIVE'){
               ?>
-                <td><button class="btn btn-primary edit_status"  value="">&nbsp;</button>
+                <td><button class="btn btn-primary edit_status"  value="">Active Fiscal</button>
               <?php
               }else{
               ?>
-                <td><button class="btn btn-primary edit_status"  value="">Activate</button>
+                <td><button class="btn btn-primary edit_status"  value="" data-toggle="modal" href="#activate-<?php echo $row['code']; ?>">Activate</button>
               <?php
               }
               ?>
@@ -266,6 +266,26 @@ width: 1150px;
               <?php
               
             echo "</tr>";
+            ?>
+            <div class="modal fade" id="activate-<?php echo $row['code']; ?>" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class = "modal-header">   
+                  </div>
+                  <div class="modal-body">
+                    <center>  
+                    <h4>Are you sure you want to activate this as fiscal year?</h4><br>
+                    <form action="activefiscal.php" method="POST">
+                      <input type="hidden" name="thecode" value="<?php echo $row['code']; ?>">
+                      <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+                      <input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_info">
+                    </form>
+                    </center>
+                </div>     
+               </div>
+              </div>
+            </div>
+            <?php
           }
         }
         echo "</tbody>";
