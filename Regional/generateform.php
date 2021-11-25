@@ -1,11 +1,20 @@
 <?php 
   session_start();
   include "../connect.php";
+  if(isset($_SESSION['code'])){
+    $code = $_SESSION['code'];
+  }else{
+    $code = date('Y');
+  }
+  $nowYear = date('Y');
+  $fetch_fiscal = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM fiscal_year WHERE code='$code'"));
+  $fiscal_start = $fetch_fiscal['start_date'];
+  $fiscal_end = $fetch_fiscal['end_date'];
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
   //$form_number = $_GET['id'];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
-  $query_form = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED'");
+  $query_form = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED' AND gad_form.date_submitted >= '$fiscal_start' and gad_form.date_submitted <= '$fiscal_end'");
   $fetch_form = mysqli_fetch_assoc($query_form);
   date_default_timezone_set("Asia/Singapore");
   $date = date('Y-m-d H:i:s');
@@ -21,6 +30,8 @@
   $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
   $sqlprofile = mysqli_query($conn, $queryprofile);
   $rowprofile = mysqli_fetch_array($sqlprofile);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -310,7 +321,7 @@ width: 1150px;
             <td colspan="10" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>CLIENT-FOCUSED</b></td>
           </tr>
           <?php
-              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED' AND gad_table_entry_value.category_focused='CLIENT' AND gad_form.form_number LIKE '%".$form_type."%' ORDER BY gad_form.form_number");
+              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED' AND gad_table_entry_value.category_focused='CLIENT' AND gad_form.form_number LIKE '%".$form_type."%' AND gad_form.date_submitted >= '$fiscal_start' and gad_form.date_submitted <= '$fiscal_end' ORDER BY gad_form.form_number");
 
               if(mysqli_num_rows($query)>0){
                 while($row=mysqli_fetch_assoc($query)){
@@ -348,7 +359,7 @@ width: 1150px;
             <td colspan="10" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>ORGANIZATION-FOCUSED</b></td>
           </tr>
           <?php
-              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED' AND gad_table_entry_value.category_focused='ORGANIZATION' AND gad_form.form_number LIKE '%".$form_type."%' ORDER BY gad_form.form_number");
+              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.form_status='APPROVED' AND gad_table_entry_value.category_focused='ORGANIZATION' AND gad_form.form_number LIKE '%".$form_type."%' AND gad_form.date_submitted >= '$fiscal_start' and gad_form.date_submitted <= '$fiscal_end' ORDER BY gad_form.form_number");
 
               if(mysqli_num_rows($query)>0){
                 while($row=mysqli_fetch_assoc($query)){

@@ -1,9 +1,18 @@
 <?php session_start(); 
+require('../connect.php');
+date_default_timezone_set("Asia/Singapore");
+if(isset($_SESSION['code'])){
+  $code = $_SESSION['code'];
+}else{
+  $code = date('Y');
+}
+$nowYear = date('Y');
+$fetch_fiscal = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM fiscal_year WHERE code='$code'"));
+$fiscal_start = $fetch_fiscal['start_date'];
+$fiscal_end = $fetch_fiscal['end_date'];
 
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
-
-  require('../connect.php');
  $un = $_SESSION['uid'];
 
   $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
@@ -204,7 +213,7 @@ width: 1150px;
       <?php
         include("../connect.php");
 
-        $sql="SELECT * FROM gad_form INNER JOIN caps ON gad_form.requestor_id=caps.id WHERE form_status='PENDING' and form_number LIKE '%GPB%' ORDER BY date_submitted";
+        $sql="SELECT * FROM gad_form INNER JOIN caps ON gad_form.requestor_id=caps.id WHERE form_status='PENDING' and form_number LIKE '%GPB%' AND date_submitted >= '$fiscal_start' and date_submitted <= '$fiscal_end' ORDER BY date_submitted";
         $result=mysqli_query($conn, $sql);
 
         echo "<table id='list' class='table table-hover'>";
