@@ -1,6 +1,13 @@
 <?php 
   session_start();
   include "../connect.php";
+  date_default_timezone_set("Asia/Singapore");
+  $nowYear = date('Y');
+  $fetch_fiscal = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM fiscal_year WHERE status='ACTIVE'"));
+  $code = $fetch_fiscal['code'];
+  $fiscal_start = $fetch_fiscal['start_date'];
+  $fiscal_end = $fetch_fiscal['end_date'];
+
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
@@ -223,7 +230,7 @@ width: 1150px;
       <?php
         include("../connect.php");
 
-        $sql="SELECT * FROM gad_form WHERE requestor_id='$user' and form_number LIKE 'GPB%' and (form_status='PENDING' or form_status='ACTION REQUIRED') ORDER BY date_submitted";
+        $sql="SELECT * FROM gad_form WHERE requestor_id='$user' and form_number LIKE 'GPB%' and (form_status='PENDING' or form_status='ACTION REQUIRED') AND date_submitted >= '$fiscal_start' and date_submitted <= '$fiscal_end' ORDER BY date_submitted";
         $result=mysqli_query($conn, $sql);
 
         echo "<table id='list' class='table table-hover'>";

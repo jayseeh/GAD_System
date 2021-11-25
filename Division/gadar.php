@@ -1,6 +1,12 @@
 <?php 
   session_start();
   include "../connect.php";
+  date_default_timezone_set("Asia/Singapore");
+  $nowYear = date('Y');
+  $fetch_fiscal = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM fiscal_year WHERE status='ACTIVE'"));
+  $code = $fetch_fiscal['code'];
+  $fiscal_start = $fetch_fiscal['start_date'];
+  $fiscal_end = $fetch_fiscal['end_date'];
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
@@ -271,10 +277,21 @@ width: 1150px;
     <input type="hidden" name="form_type" value="GAD">
     <input type="hidden" name="date_sub" value="<?php echo $date; ?>">
     <input type="hidden" name="numberOfRows" value="1" id="numberOfRows">
-    <input type="button" name="add_rows" value="Add Row" id="add_rows" class="btn rounded-pill">
-    <!--<input type="Submit" name="submit" value="Submit">-->
-  <a data-toggle="modal" href="#submit_gadar" class="btn btn-dark rounded-pill">Submit</a>
-
+    <?php
+    if($nowYear==$code){
+    ?>
+      <input type="button" name="add_rows" value="Add Row" id="add_rows" class="btn rounded-pill">
+      <!--<input type="Submit" name="submit" value="Submit">-->
+    <a data-toggle="modal" href="#submit_gadar" class="btn btn-dark rounded-pill">Submit</a>
+    <?php
+      }else{
+    ?>
+    <div class="d-grid gap-2 d-md-flex justify-content-md">
+        <label>You can't submit form since the active fiscal year is not the same with the current year.</label>
+      </div>
+    <?php
+  }
+  ?>
 </div>
 
 
