@@ -1,9 +1,19 @@
 <?php session_start(); 
-
+require('../connect.php');
+date_default_timezone_set("Asia/Singapore");
+if(isset($_SESSION['code'])){
+  $code = $_SESSION['code'];
+}else{
+  $code = date('Y');
+}
+$nowYear = date('Y');
+$fetch_fiscal = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM fiscal_year WHERE code='$code'"));
+$fiscal_start = $fetch_fiscal['start_date'];
+$fiscal_end = $fetch_fiscal['end_date'];
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
-  require('../connect.php');
+  
  $un = $_SESSION['uid'];
 
   $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
@@ -169,9 +179,7 @@ width: 1150px;
 <div class="card text-center" style="width: 70rem;">
   <div class="card-body">
 <h5>List of Division Submission</h5>
-<label for="cars">Year</label>
-  <select name="year" id="year">
-    <option value="2021">2021</option>  
+<label for="cars">Year <?php echo $code; ?></label> 
   </select>
 
 <table class="table table-bordered">
@@ -198,15 +206,13 @@ width: 1150px;
         $loc = $row['division'];
         echo "<tr>";
         echo "  <th scope='row'>".$row['division']."</th>";
-        $validateGPB = mysqli_query($conn,"SELECT * FROM gad_form a INNER JOIN caps b ON a.requestor_id=b.id WHERE a.form_number LIKE '%GPB%' and b.location='$loc' ORDER BY date_submitted");
-        $validateGAD = mysqli_query($conn,"SELECT * FROM gad_form a INNER JOIN caps b ON a.requestor_id=b.id WHERE a.form_number LIKE '%GAD%' and b.location='$loc' ORDER BY date_submitted");
+        $validateGPB = mysqli_query($conn,"SELECT * FROM gad_form a INNER JOIN caps b ON a.requestor_id=b.id WHERE a.form_number LIKE '%GPB%' and b.location='$loc' and a.date_submitted >= '$fiscal_start' and a.date_submitted <= '$fiscal_end' ORDER BY a.date_submitted");
+        $validateGAD = mysqli_query($conn,"SELECT * FROM gad_form a INNER JOIN caps b ON a.requestor_id=b.id WHERE a.form_number LIKE '%GAD%' and b.location='$loc' and a.date_submitted >= '$fiscal_start' and a.date_submitted <= '$fiscal_end' ORDER BY a.date_submitted");
         if(mysqli_num_rows($validateGPB) > 0){
           echo "  <td>Yes</td>";  
-          while($fetchGPB = mysqli_fetch_assoc($validateGPB)){
-            echo "  <td>".$fetchGPB['date_submitted']."</td>";  
-            echo "  <td>".$fetchGPB['date_approved']."</td>";
-            break;
-          }
+          $fetchGPB = mysqli_fetch_assoc($validateGPB);
+          echo "  <td>".$fetchGPB['date_submitted']."</td>";  
+          echo "  <td>".$fetchGPB['date_approved']."</td>";
         }else{
           echo "  <td>No</td>";
           echo "  <td>N/A</td>";
@@ -214,18 +220,14 @@ width: 1150px;
         }
         if(mysqli_num_rows($validateGAD) > 0){
           echo "  <td>Yes</td>";  
-          while($fetchGAD = mysqli_fetch_assoc($validateGAD)){
-            echo "  <td>".$fetchGAD['date_submitted']."</td>";  
-            echo "  <td>".$fetchGAD['date_approved']."</td>";
-            break;
-          }
+          $fetchGAD = mysqli_fetch_assoc($validateGAD);
+          echo "  <td>".$fetchGAD['date_submitted']."</td>";  
+          echo "  <td>".$fetchGAD['date_approved']."</td>";
         }else{
           echo "  <td>No</td>";
           echo "  <td>N/A</td>";
           echo "  <td>N/A</td>";
         }
-
-        
         echo "</tr>";
       }
     ?>
