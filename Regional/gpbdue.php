@@ -203,7 +203,27 @@ width: 1150px;
     $date_query = mysqli_query($conn, "INSERT INTO due_dates(due_date,form_type,date_submitted,status) VALUES ('$due_date','GPB','$date','ACTIVE')");
   }
 ?>
-
+<br>
+<table class='table table-bordered table-hover'>
+  <tr>
+    <td><b>Due Date</b></td>
+    <td><b>Date Edited</b></td>
+    <td><b>Status</b></td>
+    <td><b>Action</b></td>
+  </tr>
+  <?php
+  $query = mysqli_query($conn,"SELECT * FROM due_dates WHERE form_type='GPB' ORDER BY id");
+  if(mysqli_num_rows($query) > 0){
+    while($row=mysqli_fetch_assoc($query)){
+      echo "<tr>";
+      echo "<td>".$row['due_date']."</td>";
+      echo "<td>".$row['date_submitted']."</td>";
+      echo "<td>".$row['status']."</td>";
+      echo "<td>Edit</td>";
+    }
+  }
+  ?>
+</table>
   </div>
 </div>
   

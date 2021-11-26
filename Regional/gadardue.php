@@ -176,7 +176,7 @@ width: 1150px;
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Pending Forms</a>
+        <a class="nav-link"  href="reggadar.php">Pending Forms</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="approvedgad.php">Approved GAD AR</a>
@@ -194,7 +194,7 @@ width: 1150px;
         <a class="nav-link" href="templates.php">Upload Template</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="gadardue.php">Set GAD AR Due Date</a>
+        <a class="nav-link active" aria-current="true">Set GAD AR Due Date</a>
       </li>
     </ul>
   </div>
@@ -210,6 +210,27 @@ width: 1150px;
     $date_query = mysqli_query($conn, "INSERT INTO due_dates(due_date,form_type,date_submitted,status) VALUES ('$due_date','GAD','$date','ACTIVE')");
   }
 ?>
+<br>
+<table class='table table-bordered table-hover'>
+  <tr>
+    <td><b>Due Date</b></td>
+    <td><b>Date Edited</b></td>
+    <td><b>Status</b></td>
+    <td><b>Action</b></td>
+  </tr>
+  <?php
+  $query = mysqli_query($conn,"SELECT * FROM due_dates WHERE form_type='GPB' ORDER BY id");
+  if(mysqli_num_rows($query) > 0){
+    while($row=mysqli_fetch_assoc($query)){
+      echo "<tr>";
+      echo "<td>".$row['due_date']."</td>";
+      echo "<td>".$row['date_submitted']."</td>";
+      echo "<td>".$row['status']."</td>";
+      echo "<td>Edit</td>";
+    }
+  }
+  ?>
+</table>
   </div>
 </div>
   
