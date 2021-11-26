@@ -64,6 +64,7 @@
             console.log(data);
             if(data!='N'){
               $("#print_due").html("The due date is: "+data);
+              $("#modal_due").modal({backdrop: 'static', keyboard: false})  
               $("#modal_due").modal('show');
             }else{
 
@@ -537,7 +538,7 @@ width: 1150px;
     <center>  
 <h4>Sorry! You can't submit form since its already out of due date</h4>
 <label id="print_due"></label><br><br>
-<button type="button" class="btn btn-default btn-md" id="dismiss_due">&nbsp;&nbsp;OK&nbsp;&nbsp;</button> 
+<button type="button" class="btn btn-default btn-md" id="dismiss_due" >&nbsp;&nbsp;OK&nbsp;&nbsp;</button> 
 </center>
 </div>
          
