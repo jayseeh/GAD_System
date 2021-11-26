@@ -49,6 +49,31 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
     $(document).ready(function(){
+      //setTimeout(function(){
+        start_f = $("#start_d").val();
+        end_f = $("#end_d").val();
+        console.log(start_f);
+        console.log(end_f);
+        $.ajax({
+          type: "POST",
+          url: "getduedate.php",
+          data: {
+            form_type: 'GPB'
+          },
+          success: function(data){
+            console.log(data);
+            if(data!='N'){
+              $("#print_due").html("The due date is: "+data);
+              $("#modal_due").modal('show');
+            }else{
+
+            }
+          }
+        });
+      //},1000);
+      $("#dismiss_due").click(function(){
+        window.location.href='pendingform.php';
+      });
       var number;
       var d = new Date();
       var n = d.getTime();
@@ -268,6 +293,8 @@ width: 1150px;
     </div>
     <br>
     <input type="hidden" name="form_type" value="GPB">
+    <input type="hidden" id="start_d" value="<?php echo $fiscal_start; ?>">
+    <input type="hidden" id="end_d" value="<?php echo $fiscal_end; ?>">
     <input type="hidden" name="date_sub" value="<?php echo $date; ?>">
     <input type="hidden" name="numberOfRows" value="1" id="numberOfRows">
     <?php
@@ -492,6 +519,25 @@ width: 1150px;
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
 <input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
+
+<!-- MODAL OUT OF DUE DATE -->
+    <div class="modal fade" id="modal_due" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+    <label>Notice!</label>   
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Sorry! You can't submit form since its already out of due date</h4>
+<label id="print_due"></label><br><br>
+<button type="button" class="btn btn-default btn-md" id="dismiss_due">&nbsp;&nbsp;OK&nbsp;&nbsp;</button> 
 </center>
 </div>
          

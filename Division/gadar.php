@@ -51,6 +51,31 @@ require('../connect.php');
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
     $(document).ready(function(){
+      //setTimeout(function(){
+        start_f = $("#start_d").val();
+        end_f = $("#end_d").val();
+        console.log(start_f);
+        console.log(end_f);
+        $.ajax({
+          type: "POST",
+          url: "getduedate.php",
+          data: {
+            form_type: 'GAD'
+          },
+          success: function(data){
+            console.log(data);
+            if(data!='N'){
+              $("#print_due").html("The due date is: "+data);
+              $("#modal_due").modal('show');
+            }else{
+
+            }
+          }
+        });
+      //},1000);
+      $("#dismiss_due").click(function(){
+        window.location.href='gadpendingform.php';
+      });
       var number;
       var d = new Date();
       var n = d.getTime();
@@ -504,7 +529,24 @@ width: 1150px;
     </div>
 
 
-
+<!-- MODAL OUT OF DUE DATE -->
+    <div class="modal fade" id="modal_due" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+    <label>Notice!</label>   
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Sorry! You can't submit form since its already out of due date</h4>
+<label id="print_due"></label><br><br>
+<button type="button" class="btn btn-default btn-md" id="dismiss_due">&nbsp;&nbsp;OK&nbsp;&nbsp;</button> 
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
 
 <script type="text/javascript">
 
