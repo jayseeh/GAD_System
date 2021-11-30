@@ -1,10 +1,19 @@
 <?php session_start(); 
+require('../connect.php');
 date_default_timezone_set("Asia/Singapore");
 $date = date('Y-m-d H:i:s');
+$nowYear = date('Y');
+$fetch_fiscal = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM fiscal_year WHERE status='ACTIVE'"));
+$code = $fetch_fiscal['code'];
+$fetch_ac_due = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM due_dates WHERE status='ACTIVE' and form_type='GPB'"));
+if($fetch_ac_due['code']!=$code){
+  mysqli_query($conn,"UPDATE due_dates SET status='INACTIVE' WHERE code!='$code'");
+  mysqli_query($conn,"UPDATE due_dates SET status='ACTIVE' WHERE code='$code'");
+}
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
-  require('../connect.php');
+  
  $un = $_SESSION['uid'];
 
   $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
@@ -192,15 +201,27 @@ width: 1150px;
     </ul>
   </div>
   <div class="card-body">
+    <label><b>Note: Active due date will be set according to the active fiscal year.</b></label>
 <form method="POST" action="gpbdue.php">
 <input class="form-control form-control-lg" type="Date" id="gpb_due_date" name="due_date">
 <br>
-<input type="submit" class="btn btn-dark" name="submitDate" value="Set Date">
+<input type="submit" class="btn btn-dark" name="submitDate" value="Set Date" required>
 </form>
 <?php
   if(isset($_POST['submitDate'])){
     $due_date = $_POST['due_date'];
-    $date_query = mysqli_query($conn, "INSERT INTO due_dates(due_date,form_type,date_submitted,status) VALUES ('$due_date','GPB','$date','ACTIVE')");
+    $str = explode("-", $due_date);
+    $code = $str[0];
+    if($code == $nowYear){
+      $status = 'ACTIVE';
+    }else{
+      $status = 'INACTIVE';
+    }
+    if(mysqli_num_rows(mysqli_query($conn,"SELECT * FROM due_dates WHERE code='$code' and form_type='GPB'"))==0){
+      $date_query = mysqli_query($conn, "INSERT INTO due_dates(due_date,form_type,date_submitted,status,code) VALUES ('$due_date','GPB','$date','$status','$code')");
+    }else{
+      echo "<script>alert('Already added due date in this year');window.location = 'gpbdue.php';</script>";
+    }
   }
 ?>
 <br>
@@ -209,7 +230,6 @@ width: 1150px;
     <td><b>Due Date</b></td>
     <td><b>Date Edited</b></td>
     <td><b>Status</b></td>
-    <td><b>Action</b></td>
   </tr>
   <?php
   $query = mysqli_query($conn,"SELECT * FROM due_dates WHERE form_type='GPB' ORDER BY id");
@@ -219,7 +239,6 @@ width: 1150px;
       echo "<td>".$row['due_date']."</td>";
       echo "<td>".$row['date_submitted']."</td>";
       echo "<td>".$row['status']."</td>";
-      echo "<td>Edit</td>";
     }
   }
   ?>
