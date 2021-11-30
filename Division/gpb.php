@@ -66,8 +66,6 @@
               $("#print_due").html("The due date is: "+data);
               $("#modal_due").modal({backdrop: 'static', keyboard: false}); 
               $("#modal_due").modal('show');
-            }else{
-
             }
           }
         });

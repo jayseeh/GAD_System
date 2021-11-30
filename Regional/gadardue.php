@@ -1,6 +1,14 @@
 <?php session_start(); 
 date_default_timezone_set("Asia/Singapore");
 $date = date('Y-m-d H:i:s');
+$nowYear = date('Y');
+$fetch_fiscal = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM fiscal_year WHERE status='ACTIVE'"));
+$code = $fetch_fiscal['code'];
+$fetch_ac_due = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM due_dates WHERE status='ACTIVE' and form_type='GAD'"));
+if($fetch_ac_due['code']!=$code){
+  mysqli_query($conn,"UPDATE due_dates SET status='INACTIVE' WHERE code!='$code' and form_type='GAD'");
+  mysqli_query($conn,"UPDATE due_dates SET status='ACTIVE' WHERE code='$code' and form_type='GAD'");
+}
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
@@ -207,7 +215,18 @@ width: 1150px;
 <?php
   if(isset($_POST['submitDate'])){
     $due_date = $_POST['due_date'];
-    $date_query = mysqli_query($conn, "INSERT INTO due_dates(due_date,form_type,date_submitted,status) VALUES ('$due_date','GAD','$date','ACTIVE')");
+    $str = explode("-", $due_date);
+    $code = $str[0];
+    if($code == $nowYear){
+      $status = 'ACTIVE';
+    }else{
+      $status = 'INACTIVE';
+    }
+    if(mysqli_num_rows(mysqli_query($conn,"SELECT * FROM due_dates WHERE code='$code' and form_type='GAD'"))==0){
+      $date_query = mysqli_query($conn, "INSERT INTO due_dates(due_date,form_type,date_submitted,status,code) VALUES ('$due_date','GAD','$date','$status','$code')");
+    }else{
+      echo "<script>alert('Already added due date in this year');window.location = 'gadardue.php';</script>";
+    }
   }
 ?>
 <br>
@@ -216,17 +235,15 @@ width: 1150px;
     <td><b>Due Date</b></td>
     <td><b>Date Edited</b></td>
     <td><b>Status</b></td>
-    <td><b>Action</b></td>
   </tr>
   <?php
-  $query = mysqli_query($conn,"SELECT * FROM due_dates WHERE form_type='GPB' ORDER BY id");
+  $query = mysqli_query($conn,"SELECT * FROM due_dates WHERE form_type='GAD' ORDER BY id");
   if(mysqli_num_rows($query) > 0){
     while($row=mysqli_fetch_assoc($query)){
       echo "<tr>";
       echo "<td>".$row['due_date']."</td>";
       echo "<td>".$row['date_submitted']."</td>";
       echo "<td>".$row['status']."</td>";
-      echo "<td>Edit</td>";
     }
   }
   ?>
