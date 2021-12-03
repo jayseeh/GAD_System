@@ -1,4 +1,5 @@
 <?php session_start(); 
+require('../connect.php');
 date_default_timezone_set("Asia/Singapore");
 $date = date('Y-m-d H:i:s');
 $nowYear = date('Y');
@@ -12,7 +13,7 @@ if($fetch_ac_due['code']!=$code){
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
-  require('../connect.php');
+  
  $un = $_SESSION['uid'];
 
   $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
