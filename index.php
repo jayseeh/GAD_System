@@ -58,7 +58,7 @@ if (isset($_POST['login'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>GAD Monitoring and Mainstreaming System</title>
+    <title>GAD Mainstreaming and Monitoring System</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
