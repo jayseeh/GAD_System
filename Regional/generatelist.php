@@ -167,9 +167,9 @@ width: 1150px;
   <a href="mandates.php" style="font-size: 15px;">DepEd Mandates</a>
   <?php
     if($form_type=='GPB'){
-      echo '<a href="reggpb.php" class="active" style="font-size: 15px;">GPB</a><a href="reggadar.php" style="font-size: 15px;">GAD AR</a>';
+      echo '<a href="reggpb.php" class="active" style="font-size: 15px;">GPB</a><a href="reggadar.php" style="font-size: 15px;">GAD AR</a><a href="monitoring.php" style="font-size: 15px;">Monitoring</a>';
     }else{
-      echo '<a href="reggpb.php"  style="font-size: 15px;">GPB</a><a href="reggadar.php" class="active" style="font-size: 15px;">GAD AR</a>';
+      echo '<a href="reggpb.php"  style="font-size: 15px;">GPB</a><a href="reggadar.php" class="active" style="font-size: 15px;">GAD AR</a><a href="monitoring.php" style="font-size: 15px;">Monitoring</a>';
     }
   ?>  
 

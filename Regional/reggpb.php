@@ -157,6 +157,8 @@ width: 1150px;
 
   <a href="reggadar.php" style="font-size: 15px;">GAD AR</a>
 
+  <a href="monitoring.php" style="font-size: 15px;">Monitoring</a>
+
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
   <a href="#" style="font-size: 15px;">Help</a>

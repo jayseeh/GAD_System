@@ -153,11 +153,13 @@ width: 1150px;
 
   <a href="fiscalyear.php" style="font-size: 15px;">Fiscal Year Setup</a>
 
-  <a href="mandates.php" class="active" style="font-size: 15px;">DepEd Mandates</a>
+  <a href="mandates.php" style="font-size: 15px;">DepEd Mandates</a>
 
   <a href="reggpb.php" style="font-size: 15px;">GPB</a>
 
   <a href="reggadar.php" style="font-size: 15px;">GAD AR</a>
+
+  <a href="monitoring.php" class="active" style="font-size: 15px;">Monitoring</a>
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
