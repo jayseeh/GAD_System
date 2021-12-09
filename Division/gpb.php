@@ -69,6 +69,21 @@
             }
           }
         });
+        $.ajax({
+          type: "POST",
+          url: "due_date_notif.php",
+          data: {
+            form_type: 'GPB'
+          },
+          success: function(data){
+            console.log(data);
+            if(data!='N'){
+              $("#print_due_notif").html(data);
+              //$("#modal_due_notif").modal({backdrop: 'static', keyboard: false}); 
+              $("#modal_due_notif").modal('show');
+            }
+          }
+        });
       //},1000);
       $("#dismiss_due").click(function(){
         window.location.href='pendingform.php';
@@ -537,6 +552,24 @@ width: 1150px;
 <h4>Sorry! You can't submit form since its already out of due date</h4>
 <label id="print_due"></label><br><br>
 <button type="button" class="btn btn-default btn-md" id="dismiss_due" >&nbsp;&nbsp;OK&nbsp;&nbsp;</button> 
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
+    <!-- MODAL OUT OF DUE DATE NOTIF-->
+    <div class="modal fade" id="modal_due_notif" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+    <label><b>Be inform!</b></label>   
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4 id="print_due_notif"></h4>
+<!-- <label id="print_due_notif"></label> --><br><br>
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;OK&nbsp;&nbsp;</button> 
 </center>
 </div>
          

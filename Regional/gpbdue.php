@@ -232,6 +232,7 @@ width: 1150px;
     <td><b>Due Date</b></td>
     <td><b>Date Edited</b></td>
     <td><b>Status</b></td>
+    <td><b>ACTION</b></td>
   </tr>
   <?php
   $query = mysqli_query($conn,"SELECT * FROM due_dates WHERE form_type='GPB' ORDER BY id");
@@ -241,6 +242,8 @@ width: 1150px;
       echo "<td>".$row['due_date']."</td>";
       echo "<td>".$row['date_submitted']."</td>";
       echo "<td>".$row['status']."</td>";
+      echo "<td>EDIT</td>";
+      echo "</tr>";
     }
   }
   ?>

@@ -1,5 +1,11 @@
 <?php session_start(); 
-
+date_default_timezone_set("Asia/Singapore");
+if(isset($_SESSION['code'])){
+  $code = $_SESSION['code'];
+}else{
+  $code = date('Y');
+}
+$nowYear = date('Y');
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
@@ -212,11 +218,22 @@ width: 1150px;
    <div class="mb-3">
   <label for="formFile" class="form-label">Upload template here</label>
   <input class="form-control" type="file" id="formFile" name="file[]" multiple=""><br>
-  
-  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <!--<button type="submit" name="submit" class="btn btn-primary">Upload</button>-->
-    <a data-toggle="modal" href="#upload_temp" data-dismiss="modal" class="btn btn-dark rounded-pill">Upload</a>
-  </div>
+  <?php
+  if($nowYear==$code){
+    ?>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <!--<button type="submit" name="submit" class="btn btn-primary">Upload</button>-->
+        <a data-toggle="modal" href="#upload_temp" data-dismiss="modal" class="btn btn-dark rounded-pill">Upload</a>
+      </div>
+      <?php
+  }else{
+    ?>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <label>You can't upload file since the active fiscal year is not the same with the current year.</label>
+      </div>
+    <?php
+  }
+?>
 </div>
   </div>
 </div>
