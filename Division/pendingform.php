@@ -214,7 +214,7 @@ width: 1150px;
         <a class="nav-link" href="approvedform.php">Approved GPB</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="generateform.php">Generate Report</a>
+        <a class="nav-link" href="generateform.php?id=GPB">Generate Report</a>
       </li>
     </ul>
   </div>

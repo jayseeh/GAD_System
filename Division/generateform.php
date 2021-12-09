@@ -1,9 +1,22 @@
 <?php 
   session_start();
   include "../connect.php";
+  date_default_timezone_set("Asia/Singapore");
+  $nowYear = date('Y');
+  $fetch_fiscal = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM fiscal_year WHERE status='ACTIVE'"));
+  $code = $fetch_fiscal['code'];
+  $fiscal_start = $fetch_fiscal['start_date'];
+  $fiscal_end = $fetch_fiscal['end_date'];
+
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
+  $query_form = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_form.date_submitted >= '$fiscal_start' and gad_form.date_submitted <= '$fiscal_end'");
+  $fetch_form = mysqli_fetch_assoc($query_form);
+  date_default_timezone_set("Asia/Singapore");
+  $date = date('Y-m-d H:i:s');
+  $total_budget=0;
+  $form_type = $_GET['id'];
   date_default_timezone_set("Asia/Singapore");
   $date = date('Y-m-d H:i:s');
 
@@ -169,11 +182,13 @@ width: 1150px;
   <a data-toggle="modal" href="#changepassword">Change password</a>
 
   <a href="mandates.php">DepEd Mandates</a>
-
-  <a href="gpb.php" class="active">GPB</a>
-
-  <a href="gadar.php">GAD AR</a>
-
+  <?php
+    if($form_type=='GPB'){
+      echo '<a href="gpb.php" class="active" >GPB</a><a href="gadar.php">GAD AR</a>';
+    }else{
+      echo '<a href="gpb.php"  >GPB</a><a href="gadar.php" class="active">GAD AR</a>';
+    }
+  ?>  
   <a data-toggle="modal" href="#logout">Logout</a>
 
   <a href="#">Help</a>
@@ -187,8 +202,20 @@ width: 1150px;
 
 <div class="container-fluid">
   <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
-   <a class="btn btn-warning rounded-pill">Print</a>
-  <br><br>       
+     
+  <?php 
+  if($form_type=='GAD'){
+  ?>
+    <a class="btn btn-warning rounded-pill" href="../Regional/print-pdf.php" target="_blank">Print</a>
+  <?php
+  }
+  else{
+    ?>
+    <a class="btn btn-warning rounded-pill" href="../Regional/print-gpb.php" target="_blank">Print</a>
+    <?php
+  }
+  ?>
+    <br><br>  
   <div class="d-flex justify-content-center">
  <fieldset>
 
@@ -202,7 +229,7 @@ width: 1150px;
         <a class="nav-link" href="gpb.php">Submit GPB</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link">Pending GPB</a>
+        <a class="nav-link" href="pendingform.php">Pending GPB</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="approvedform.php">Approved GPB</a>
@@ -213,8 +240,133 @@ width: 1150px;
     </ul>
   </div>
   <div class="card-body">
+<h2><center>All <?php echo $form_type; ?> FORMS</center></h2>
 
 
+    <div class="col-sm-12" id="invoice">  
+      <img src="imgreg/deped.png" style="width: 100px; height: 100px; display: block; margin-left: auto; margin-right: auto;">
+      <center><p style="font-family: Old English Text MT;"><b><text style="font-size: 12px;">Republic of the Philippines</text><br><text style="font-size: 18px;">Department of Education</text></b><br><text style="font-size: 11px; font-family: Times New Roman;">Region I</text></p>
+      <p style="font-family: Bookman Old Style;"><b><?php echo ($form_type == 'GPB') ? 'ANNUAL GENDER AND DEVELOPMENT (GAD) PLAN AND BUDGET' : 'ANNUAL GENDER AND DEVELOPMENT (GAD) ACCOMPLISHMENT REPORT'; ?></b></p></center>
+      <table class="table" style="font-family: Bookman Old Style;">
+        <tr>
+          <td style="line-height: 1px; font-family: Bookman Old Style; font-size: 11px;">Agency: Department of Education - Region 1</td>
+          <td style="line-height: 1px; font-family: Bookman Old Style; font-size: 11px; text-align: right;">Department (Central Office): Department of Education</td>
+        </tr>
+        <?php
+          if($form_type=='GPB'){
+        ?>
+        <tr>
+          <td style="line-height: 1px; font-family: Bookman Old Style; font-size: 11px;" id="viewtotal"></td>
+          <td></td>
+        </tr>
+        <?php
+          }
+        ?>
+      </table>
+      <table class="table table-bordered"  id="table_gad" CELLSPACING='0'>
+        <tr>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Gender Issue/GAD Mandate</th>          
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Cause of the Gender Issue</th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">GAD Result Statement/GAD Objective</th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">Relevant Organization MFO/PAP</th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">GAD Activity</th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Output Performance Indicator/ Target' : 'Performance Indicator'; ?></th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'GAD Budget' : 'Actual Result (Outputs/Outcomes)'; ?></th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Source of Budget' : 'Total Agency Approved Budget'; ?></th>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam"><?php echo ($form_type == 'GPB') ? 'Responsible Unit/ Office' : 'Actual Cost/ Expenditure'; ?></th>   
+            <?php
+              if($form_type=='GAD'){
+                echo "<th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class='fonts-fam'>Variance/ Remarks</th>";
+              }
+            ?>
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 11px;' class="fonts-fam">FORM STATUS</th>
+          </tr>
+          <tr>
+            <td colspan="10" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>CLIENT-FOCUSED</b></td>
+          </tr>
+          <?php
+              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_table_entry_value.category_focused='CLIENT' AND gad_form.form_number LIKE '%".$form_type."%' AND gad_form.date_submitted >= '$fiscal_start' and gad_form.date_submitted <= '$fiscal_end' ORDER BY gad_form.form_number");
+
+              if(mysqli_num_rows($query)>0){
+                while($row=mysqli_fetch_assoc($query)){
+                if($form_type=='GPB'){
+                   $total_budget = $total_budget + $row['col7'];
+                }
+            ?>
+              <tr>
+                <!-- class="html2pdf__page-break" -->
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col1']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col2']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col3']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col4']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col5']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col6']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col7']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col8']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col9']; ?></td>
+                <?php
+                if($form_type=='GAD'){
+                  ?>
+                  <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col10']; ?></td>
+                  <?php
+                }
+                ?>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['form_status']; ?></td>
+              </tr>
+            <?php 
+                }
+              }else{
+                echo "<tr><td colspan='10' style='font-size: 10px' class='fonts-fam'>None</td></tr>";
+              }
+            ?>
+
+          <tr>
+            <td colspan="10" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>ORGANIZATION-FOCUSED</b></td>
+          </tr>
+          <?php
+              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_table_entry_value.category_focused='ORGANIZATION' AND gad_form.form_number LIKE '%".$form_type."%' AND gad_form.date_submitted >= '$fiscal_start' and gad_form.date_submitted <= '$fiscal_end' ORDER BY gad_form.form_number");
+
+              if(mysqli_num_rows($query)>0){
+                while($row=mysqli_fetch_assoc($query)){
+                  if($form_type=='GPB'){
+                   $total_budget = $total_budget + $row['col7'];
+                  }
+                
+            ?>
+              <tr>
+                <!-- class="html2pdf__page-break" -->
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col1']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col2']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col3']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col4']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col5']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col6']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col7']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col8']; ?></td>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col9']; ?></td>
+                <?php
+                if($form_type=='GAD'){
+                  ?>
+                  <td style="font-size: 10px" class="fonts-fam"><?php echo $row['col10']; ?></td>
+                  <?php
+                }
+                ?>
+                <td style="font-size: 10px" class="fonts-fam"><?php echo $row['form_status']; ?></td>
+              </tr>
+              <input type="hidden" name="total_budget" id="total_budget" value="<?php echo $total_budget; ?>">
+            <?php 
+                }
+            }else{
+                echo "<tr><td colspan='10' style='font-size: 10px' class='fonts-fam'>None</td></tr>";
+              }
+            ?>
+
+            
+      </table>
+    </div>
+
+  </div>
+</div>
   </div>
 </div>
   

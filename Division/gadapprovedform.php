@@ -218,7 +218,7 @@ width: 1150px;
         <a class="nav-link active" aria-current="true">Approved GAD AR</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="generateform.php">Generate Report</a>
+        <a class="nav-link" href="generateform.php?id=GAD">Generate Report</a>
       </li>
     </ul>
   </div>
