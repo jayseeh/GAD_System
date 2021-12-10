@@ -86,7 +86,7 @@ require('../connect.php');
       //ADD ROWS FUNCTION
       $("#add_rows").click(function(){
         $("#numberOfRows").val(number);
-        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center; width: 30px;'></td><td><textarea rows='4' cols='5' name='val1-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val2-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val3-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val4-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val5-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val6-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val7-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val8-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val9-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val10-"+number+"'></textarea></td><td><select name='cat-"+number+"' style='width: 120px;'><option value='CLIENT'>Client-Focused</option><option value='ORGANIZATION'>Organization-Focused</option></select></td></tr>";
+        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center; width: 30px;'></td><td><textarea rows='4' cols='5' name='val1-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val2-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val3-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val4-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val5-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val6-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val7-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val8-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val9-"+number+"'></textarea></td><td><textarea rows='4' cols='5' name='val10-"+number+"'></textarea></td><td><select name='cat-"+number+"' style='width: 120px;'><option value='CLIENT'>Client-Focused</option><option value='ORGANIZATION'>Organization-Focused</option></select></td><td><input type='file' name='addpersonnel-"+number+"'></td></tr>";
         console.log(table);
         $("#table_gad").html(table);
 
@@ -245,7 +245,7 @@ width: 1150px;
   </div>
   <div class="card-body">
 
-<form action="submitform.php" method="POST">
+<form action="submitform.php" method="POST" enctype="multipart/form-data">
    <div class="mb-3">
     <label  class=" col-form-label">Form Number:</label>
     <div class="col-sm-0">
@@ -273,7 +273,7 @@ width: 1150px;
             <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 11px;'>Actual Cost/ Expenditure</th>
             <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 11px;'>Variance/ Remarks</th>   
             <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 11px;'>Category</th>
-             <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 11px;'>Action</th>   
+             <th style='padding: 5px; background-color: #3366ff; color: white; border-bottom: 2px solid black; font-size: 11px;'>Add personnel (must be excel file)</th>   
           </tr>
           <tr>
             <td><input type="text" id="count_num"  name="number_rows" readonly value="1" style="text-align: center; size: 1px; width: 30px;"></td>
@@ -293,7 +293,7 @@ width: 1150px;
                 <option value="ORGANIZATION">Organization-Focused</option>
               </select>
             </td>
-            <td><a href="personnels.php" class="btn btn-success rounded-pill">Add Personnel</a></td>
+            <td><input type="file" name="addpersonnel-1" ></td>
           </tr>
       </table>
     </div>
