@@ -208,6 +208,7 @@ width: 1150px;
     </ul>
   </div>
   <div class="card-body">
+    <label><b>Note: Active due date will be set according to the active fiscal year.</b></label>
 <form method="POST" action="gadardue.php">
 <input class="form-control form-control-lg" type="Date" id="gpb_due_date" name="due_date">
 <br>
@@ -234,8 +235,10 @@ width: 1150px;
 <table class='table table-bordered table-hover'>
   <tr>
     <td><b>Due Date</b></td>
+    <td><b>YEAR</b></td>
     <td><b>Date Edited</b></td>
     <td><b>Status</b></td>
+    <td><b>ACTION</b></td>
   </tr>
   <?php
   $query = mysqli_query($conn,"SELECT * FROM due_dates WHERE form_type='GAD' ORDER BY id");
@@ -243,8 +246,33 @@ width: 1150px;
     while($row=mysqli_fetch_assoc($query)){
       echo "<tr>";
       echo "<td>".$row['due_date']."</td>";
+      echo "<td>".$row['code']."</td>";
       echo "<td>".$row['date_submitted']."</td>";
       echo "<td>".$row['status']."</td>";
+      echo "<td><button class='btn btn-primary edit_status' data-toggle='modal' href='#dueid-".$row['id']."'>Update</button>";
+      echo "</tr>";
+      ?>
+      <div class="modal fade" id="dueid-<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class = "modal-header">   
+                    <label><b>Adjust due date</b></label>
+                  </div>
+                  <div class="modal-body">
+                    <center>  
+                    <form action="updDueDate.php?type=GAD" method="POST">
+                      <label>Due date: </label>
+                      <input type="date" name="due_date" value="<?php echo $row['due_date']; ?>"><br><br>
+                      <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                      <input type="submit" name="submit" value="&nbsp;&nbsp;Save&nbsp;&nbsp;" class="btn btn-dark btn-md update_info"> |
+                      <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;Cancel&nbsp;&nbsp;</button> 
+                    </form>
+                    </center>
+                </div>     
+               </div>
+              </div>
+            </div>
+      <?php
     }
   }
   ?>
