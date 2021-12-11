@@ -328,7 +328,8 @@ width: 1150px;
             <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Name</th> 
             <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Position</th>          
             <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Gender</th>
-            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Division</th>      
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Division</th>  
+            <th style='padding: 10px; border-bottom: 2px solid black; font-size: 20px;' class="fonts-fam">Mandate</th>     
           </tr>
           <?php
             $count=1;
@@ -339,6 +340,7 @@ width: 1150px;
               echo "<td style='font-size: 15px' class='fonts-fam'>".$row['position']."</td>";
               echo "<td style='font-size: 15px' class='fonts-fam'>".$row['gender']."</td>";
               echo "<td style='font-size: 15px' class='fonts-fam'>".$row['division']."</td>";  
+              echo "<td style='font-size: 15px' class='fonts-fam'>".$row['mandate']."</td>";  
               echo "</tr>";
               $count++;
             }

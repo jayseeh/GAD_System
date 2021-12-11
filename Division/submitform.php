@@ -1,12 +1,13 @@
 <?php
 session_start();
 include "../connect.php";
-
+include('PHPExcel/Classes/PHPExcel/IOFactory.php');
 $date_submitted = $_POST['date_sub'];
 $totalrows=$_POST['numberOfRows'];
 $user = $_SESSION['uid'];
 $form_id = $_POST['form_id'];
 $count=1;
+$loc = $_SESSION['loc'];
 $form_type= $_POST['form_type'];
 while ( $totalrows > 0) {
 
@@ -24,7 +25,7 @@ while ( $totalrows > 0) {
 		$col10= $_POST["val10-".$count];
 		mysqli_query($conn, "INSERT INTO gad_table_entry_value (form_number,col1,col2,col3,col4,col5,col6,col7,col8,col9,col10,requestor_id,date_requested,row_number,category_focused) VALUES ('$form_id','$col1','$col2','$col3','$col4','$col5','$col6','$col7','$col8','$col9','$col10','$user','$date_submitted','$count','$category')");	
 
-		include('PHPExcel/Classes/PHPExcel/IOFactory.php');
+		
 		//TO READ EXCEL FILES
 		  $html = "Successfully added";
 		  $filen = date('YmdHis');
