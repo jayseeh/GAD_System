@@ -15,6 +15,30 @@ function SetWidths($w){
     $this->widths=$w;
 }
 
+function header(){
+    $this->Image('imgreg/deped.png',135,5,25,25);
+    $this->Ln(20);
+    $this->SetFont('Times','B',12);
+    $this->Cell(276,5,'Republic of the Philippines',0,0,'C');
+    $this->Ln(5);
+    $this->SetFont('Times','B',15);
+    $this->Cell(276,10,'Department of Education',0,0,'C');
+    $this->Ln(5);
+    $this->SetFont('Times','B',10);
+    $this->Cell(276,10,'Region I',0,0,'C');
+    $this->Ln(10);
+    $this->SetFont('Times','B',15);
+    $this->Cell(276,10,'ANNUAL GENDER AND DEVELOPMENT (GAD) ACCOMPLISHMENT REPORT',0,0,'C');
+    $this->Ln(20);
+}
+
+function footer(){
+    $this->SetY(-15);
+    $this->SetFont('Times','',8);
+    $this->Cell(0,10,'Page'.$this->PageNo(),0,0,'C');
+}
+
+
 //Set the array of column alignments
 function SetAligns($a){
     $this->aligns=$a;

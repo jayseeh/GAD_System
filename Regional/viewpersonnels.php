@@ -347,15 +347,15 @@ width: 1150px;
           ?>
 
           <tr>
-            <td colspan="4" class="fonts-fam"><b>Total:</b></td>
+            <td colspan="5" class="fonts-fam"><b>Total:</b></td>
             <td class="fonts-fam"><b><?php echo mysqli_num_rows($query_at); ?></b></td>
           </tr>
           <tr>
-             <td colspan="4" class="fonts-fam"><b>Total Number of Male:</b></td>
+             <td colspan="5" class="fonts-fam"><b>Total Number of Male:</b></td>
              <td class="fonts-fam"><b><?php echo mysqli_num_rows($query_male); ?></b></td>
           </tr>
            <tr>
-             <td colspan="4" class="fonts-fam"><b>Total Number of Female:</b></td>
+             <td colspan="5" class="fonts-fam"><b>Total Number of Female:</b></td>
              <td class="fonts-fam"><b><?php echo mysqli_num_rows($query_female); ?></b></td>
           </tr>
       </table></center>
