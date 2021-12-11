@@ -197,7 +197,13 @@ width: 1150px;
         <!-- Content -->
         <div class="main">
                 
-<center><h2 style="color: black; background-color: #e6b800;">GAD Plan And Budget</h2></center>
+<?php
+    if($form_type=='GPB'){
+      echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Plan And Budget</h2></center>';
+    }else{
+      echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>';
+    }
+  ?>
  <br>
 
 <div class="container-fluid">
@@ -225,18 +231,14 @@ width: 1150px;
 <div class="card text-center" style="width: 72rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link" href="gpb.php">Submit GPB</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="pendingform.php">Pending GPB</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="approvedform.php">Approved GPB</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Generate Report</a>
-      </li>
+
+
+      <?php echo ($form_type == 'GPB') ? '<li class="nav-item"><a class="nav-link" href="gpb.php">Submit GPB</a></li><li class="nav-item"><a class="nav-link" href="pendingform.php">Pending GPB</a></li><li class="nav-item"><a class="nav-link"href="approvedform.php">Approved GPB</a></li>' : '<li class="nav-item"><a class="nav-link" href="gadar.php">Submit GAD AR</a></li><li class="nav-item"><a class="nav-link" href="gadpendingform.php">Pending GAD AR</a></li><li class="nav-item"><a class="nav-link" href="gadapprovedform.php">Approved GAD AR</a></li>'; ?>
+
+
+
+      <?php echo ($form_type == 'GPB') ? '<li class="nav-item"><a class="nav-link active" aria-current="true">Generate Report</a></li>' : '<li class="nav-item"><a class="nav-link active" aria-current="true">Generate Report</a></li><li class="nav-item"><a class="nav-link" href="viewattendees.php">Trained Personnel</a></li><li class="nav-item"><a class="nav-link" href="download.php">Templates</a></li>'; ?>
+
     </ul>
   </div>
   <div class="card-body">

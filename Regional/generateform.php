@@ -244,7 +244,7 @@ width: 1150px;
   <?php 
   if($form_type=='GAD'){
   ?>
-    <a class="btn btn-warning rounded-pill" href="print-pdf.php" target="_blank">Print</a>
+    <a class="btn btn-warning rounded-pill" href="trial-pdf.php" target="_blank">Print</a>
   <?php
   }
   else{

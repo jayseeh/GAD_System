@@ -154,6 +154,8 @@ background-color: #e6b800;
 
   <a href="division.php">Division Management</a>
 
+  <a href="position.php">Position Management</a>
+
   <button class="dropdown-btn dropdown-toggle">Database
     
   </button>

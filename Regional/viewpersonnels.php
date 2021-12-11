@@ -273,19 +273,29 @@ width: 1150px;
     </div>
     <div class="mb-3">
       <label  class="col-sm-4 col-form-label">Select Position to Filter</label>
-      <select  name="position-1" style="height: 30px; width: 220px;" id="position">
-         <option value="All">All</option>
-         <option value="Principal">Principal</option>
-         <option value="Master Teacher II">Master Teacher II</option>
-         <option value="Master Teacher I">Master Teacher I</option>
-         <option value="Department Head">Department Head</option>
-         <option value="Teacher III">Teacher III</option>
-         <option value="Teacher II">Teacher II</option>
-         <option value="Teacher I">Teacher I</option>
-         <option value="Administrative Assistant III">Administrative Assistant III</option>
-         <option value="Administrative Assistant II">Administrative Assistant II</option>
-         <option value="Administrative Assistant I">Administrative Assistant I</option>
-      </select>
+      <select style="height: 30px; width: 520px;" name="position" id="position" >
+
+                 <option selected>All</option>
+
+                  <?php
+
+                  $sqlOffice="SELECT DISTINCT position FROM position";
+                  $office=mysqli_query($conn, $sqlOffice);
+                  if(mysqli_num_rows($office)>0){
+                    while($divrow=mysqli_fetch_assoc($office)){
+                      if ( $divrow['position'] == $rowprofile['position']){?>
+                        <option value="<?php echo $divrow['position']; ?>" selected><?php echo $divrow['position']; ?></option>
+                      <?php }else{ ?>
+                        <option value="<?php echo $divrow['position']; ?>"><?php echo $divrow['position']; ?></option>
+                      <?php } 
+                      }
+                    }else{
+                    ?>
+                    <option value="" disabled>Add position first</option>
+                    <?php
+                  } 
+                  ?>
+              </select>
     </div>
     <div class="mb-3">
   <label  class="col-sm-4 col-form-label">Select Division to Filter</label>

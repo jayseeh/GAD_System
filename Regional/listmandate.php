@@ -185,7 +185,7 @@ width: 1150px;
         <a class="nav-link"  href="mandates.php">Upload Mandates</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Mandate List</a>
+        <a class="nav-link active" aria-current="true">Mandates List</a>
       </li>
     </ul>
   </div>

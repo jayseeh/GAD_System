@@ -241,6 +241,12 @@ width: 1150px;
       <li class="nav-item">
         <a class="nav-link" href="generateform.php?id=GAD">Generate Report</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="viewattendees.php">Trained Personnel</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="download.php">Templates</a>
+      </li>
     </ul>
   </div>
   <div class="card-body">

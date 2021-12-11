@@ -197,7 +197,7 @@ width: 1150px;
 <div class="container-fluid">
 
   <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
-  <a href="personnels.php" class="btn btn-success rounded-pill">Add Personnel</a>   <br><br>      
+   <br><br>      
 
   <div class="d-flex justify-content-center">
    <fieldset>
@@ -219,6 +219,12 @@ width: 1150px;
       </li>
       <li class="nav-item">
         <a class="nav-link" href="generateform.php?id=GAD">Generate Report</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="viewattendees.php">Trained Personnel</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="download.php">Templates</a>
       </li>
     </ul>
   </div>

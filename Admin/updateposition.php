@@ -4,13 +4,13 @@
 		include("../connect.php");
 		
 		// get form value
-		$division = $_POST['division'];
+		$position = $_POST['position'];
 		$id= $_POST['id'];		
 		// query
-		$sql="UPDATE division SET division='$division' WHERE id='$id'";
+		$sql="UPDATE position SET position='$position' WHERE id='$id'";
 
 		if(mysqli_query($conn,$sql)){
-			echo "<script>alert('Division successfully updated'); window.location = 'division.php';</script>";
+			echo "<script>alert('Position successfully updated'); window.location = 'position.php';</script>";
 		}else{
 			echo "Error updating records!" . mysqli_error($conn);
 		}

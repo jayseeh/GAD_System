@@ -181,37 +181,42 @@ width: 1150px;
         <!-- Content -->
         <div class="main">
                 
-<center><h2 style="color: black; background-color: #e6b800;">Trained GAD Personnels</h2></center>
+<center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>
  <br>    
 
 <div class="container-fluid">
 
  <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
- <a href="gadar.php" class="btn btn-success rounded-pill">Submit GAD AR</a>
  <br><br>   
         
  <!-- Template Table--> 
  
         <fieldset>
   <div class="row">
-    <div class="container-fluid">
+    
 
     <div class="row">
   <div class="col">
- <div class="card" style="width: 71rem;">
+ <div class="card" style="width: 72rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link" href="personnels.php">Add Personnel</a>
+        <a class="nav-link" href="gadar.php">Submit GAD AR</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="multipersonnel.php">Add Multiple Personnel</a>
+        <a class="nav-link" href="gadpendingform.php">Pending GAD AR</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="viewattendees.php">View Personnel</a>
+        <a class="nav-link" href="gadapprovedform.php">Approved GAD AR</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Download Template</a>
+        <a class="nav-link" href="generateform.php?id=GAD">Generate Report</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="viewattendees.php">Trained Personnel</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true">Templates</a>
       </li>
     </ul>
   </div>
@@ -274,7 +279,7 @@ width: 1150px;
 </div>
  </div>
   </div>  
-   </div>
+  
     </div>
      </fieldset>
 
