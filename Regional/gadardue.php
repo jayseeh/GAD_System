@@ -6,9 +6,11 @@ $nowYear = date('Y');
 $fetch_fiscal = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM fiscal_year WHERE status='ACTIVE'"));
 $code = $fetch_fiscal['code'];
 $fetch_ac_due = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM due_dates WHERE status='ACTIVE' and form_type='GAD'"));
-if($fetch_ac_due['code']!=$code){
-  mysqli_query($conn,"UPDATE due_dates SET status='INACTIVE' WHERE code!='$code' and form_type='GAD'");
-  mysqli_query($conn,"UPDATE due_dates SET status='ACTIVE' WHERE code='$code' and form_type='GAD'");
+if($fetch_ac_due>0){
+  if($fetch_ac_due['code']!=$code){
+    mysqli_query($conn,"UPDATE due_dates SET status='INACTIVE' WHERE code!='$code' and form_type='GAD'");
+    mysqli_query($conn,"UPDATE due_dates SET status='ACTIVE' WHERE code='$code' and form_type='GAD'");
+  }
 }
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
