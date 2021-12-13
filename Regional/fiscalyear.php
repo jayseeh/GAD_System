@@ -248,6 +248,8 @@ width: 1150px;
 
         if(mysqli_num_rows($result)>0){
           while($row=mysqli_fetch_assoc($result)){
+            $minD = $row['code']."-01-01";
+            $maxD = $row['code']."-12-31";
             echo "<tr id=".$row['code'] .">";
               echo "<td style='padding: 10px; font-size: 20px;' id='tid'>".$row['start_date']."</td>";
               echo "<td style='padding: 10px; font-size: 20px;' id='tdivision'>".$row['end_date']."</td>";
@@ -263,7 +265,7 @@ width: 1150px;
               <?php
               }
               ?>
-                <td><button class="btn btn-primary edit_status"  value="">Update</button>
+                <td><button class="btn btn-primary edit_status"  value="" data-toggle="modal" href="#updateF-<?php echo $row['code']; ?>">Update</button>
                 </td>
               <?php
               
@@ -281,6 +283,28 @@ width: 1150px;
                       <input type="hidden" name="thecode" value="<?php echo $row['code']; ?>">
                       <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
                       <input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_info">
+                    </form>
+                    </center>
+                </div>     
+               </div>
+              </div>
+            </div>
+            <div class="modal fade" id="updateF-<?php echo $row['code']; ?>" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class = "modal-header"> 
+                  <label>To update fiscal dates</label>  
+                  </div>
+                  <div class="modal-body">
+                    <center>  
+                    <form action="updateDueDate.php" method="POST">
+                      <input type="hidden" name="thecode" value="<?php echo $row['code']; ?>" >
+                      <label>Start Date: </label>
+                      <input type="date" name="start_date" value="<?php echo $row['start_date']; ?>" min="<?php echo $minD; ?>" max="<?php echo $maxD; ?>"><br>
+                      <label>End Date: </label>
+                      <input type="date" name="end_date" value="<?php echo $row['end_date']; ?>" min="<?php echo $minD; ?>" max="<?php echo $maxD; ?>"><BR>
+                      <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;Cancel&nbsp;&nbsp;</button> |
+                      <input type="submit" name="submit" value="&nbsp;&nbsp;Submit&nbsp;&nbsp;" class="btn btn-dark btn-md update_info">
                     </form>
                     </center>
                 </div>     
