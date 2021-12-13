@@ -212,12 +212,12 @@ width: 1150px;
   <?php 
   if($form_type=='GAD'){
   ?>
-    <a class="btn btn-warning rounded-pill" href="../Regional/print-pdf.php" target="_blank">Print</a>
+    <a class="btn btn-warning rounded-pill" href="print-gad.php" target="_blank">Print</a>
   <?php
   }
   else{
     ?>
-    <a class="btn btn-warning rounded-pill" href="../Regional/print-gpb.php" target="_blank">Print</a>
+    <a class="btn btn-warning rounded-pill" href="print-gpb.php" target="_blank">Print</a>
     <?php
   }
   ?>
@@ -287,7 +287,7 @@ width: 1150px;
             <td colspan="10" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>CLIENT-FOCUSED</b></td>
           </tr>
           <?php
-              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_table_entry_value.category_focused='CLIENT' AND gad_form.form_number LIKE '%".$form_type."%' AND gad_form.date_submitted >= '$fiscal_start' and gad_form.date_submitted <= '$fiscal_end' ORDER BY gad_form.form_number");
+              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_table_entry_value.category_focused='CLIENT' AND gad_form.form_number LIKE '%".$form_type."%' AND gad_form.date_submitted >= '$fiscal_start' and gad_form.date_submitted <= '$fiscal_end' and gad_form.requestor_id='$user' ORDER BY gad_form.form_number");
 
               if(mysqli_num_rows($query)>0){
                 while($row=mysqli_fetch_assoc($query)){
@@ -326,7 +326,7 @@ width: 1150px;
             <td colspan="10" style="line-height: 1px; font-size: 11px;" class="fonts-fam"><b>ORGANIZATION-FOCUSED</b></td>
           </tr>
           <?php
-              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_table_entry_value.category_focused='ORGANIZATION' AND gad_form.form_number LIKE '%".$form_type."%' AND gad_form.date_submitted >= '$fiscal_start' and gad_form.date_submitted <= '$fiscal_end' ORDER BY gad_form.form_number");
+              $query = mysqli_query($conn,"SELECT * FROM gad_form INNER JOIN gad_table_entry_value ON gad_form.form_number=gad_table_entry_value.form_number WHERE gad_table_entry_value.category_focused='ORGANIZATION' AND gad_form.form_number LIKE '%".$form_type."%' AND gad_form.date_submitted >= '$fiscal_start' and gad_form.date_submitted <= '$fiscal_end' and gad_form.requestor_id='$user' ORDER BY gad_form.form_number");
 
               if(mysqli_num_rows($query)>0){
                 while($row=mysqli_fetch_assoc($query)){

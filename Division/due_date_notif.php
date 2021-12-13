@@ -15,8 +15,8 @@ $datetime2 = date_create($due_date);
 // Calculates the difference between DateTime objects
 $interval = date_diff($datetime1, $datetime2);
 $compare =  $interval->format('%d');
-if($compare <= 7 and $compare !=0){
-	echo $compare." day/s left to submit a form.";
+if($compare <= 7){
+	echo ((int)$compare+1)." day/s left to submit a form.";
 }else{
 	echo 'N';
 }

@@ -226,7 +226,7 @@ width: 1150px;
 
    <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
     <button class="btn btn-warning rounded-pill" onclick="generatePDF()">Download</button>
-    <button class="btn btn-warning rounded-pill">Print</button>
+    <a class="btn btn-warning rounded-pill" href="print-personnel.php" target="_blank">Print</a>
   <br><br>
 <div class="d-flex justify-content-center">
     <fieldset>
