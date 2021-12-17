@@ -183,9 +183,9 @@ width: 1150px;
     }
   ?> 
 
-  <a data-toggle="modal" href="#logout">Logout</a>
+  <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#">Help</a>
+  <a href="#" style="font-size: 15px;">Help</a>
 </div>
 
         <!-- Content -->

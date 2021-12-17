@@ -282,7 +282,7 @@ width: 1150px;
                     <form action="activefiscal.php" method="POST">
                       <input type="hidden" name="thecode" value="<?php echo $row['code']; ?>">
                       <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-                      <input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_info">
+                      <input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md">
                     </form>
                     </center>
                 </div>     
@@ -329,13 +329,43 @@ width: 1150px;
  </div>
 
 
-<!-- Swal -->
+<!-- Swal fiscal-->
 <?php 
   $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
   if (strpos($fullUrl, "FY_setup") == true){
     echo "<script>Swal.fire({
     icon: 'success',
     title: 'Setup is Successful!',
+    showConfirmButton: true, 
+    }).then(function (){
+    window.location.href = 'fiscalyear.php';
+    });</script>";
+  }
+  ?>
+
+
+<!-- Swal update fiscal -->
+<?php 
+  $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  if (strpos($fullUrl, "update_fiscal") == true){
+    echo "<script>Swal.fire({
+    icon: 'success',
+    title: 'Updated Succesfully!',
+    showConfirmButton: true, 
+    }).then(function (){
+    window.location.href = 'fiscalyear.php';
+    });</script>";
+  }
+  ?>
+
+
+<!-- Swal activate fiscal -->
+<?php 
+  $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  if (strpos($fullUrl, "activate_fiscal") == true){
+    echo "<script>Swal.fire({
+    icon: 'success',
+    title: 'Activated!',
     showConfirmButton: true, 
     }).then(function (){
     window.location.href = 'fiscalyear.php';

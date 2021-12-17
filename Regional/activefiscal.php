@@ -12,7 +12,7 @@ $queryac = mysqli_query($conn,"UPDATE fiscal_year SET status='ACTIVE' WHERE code
 $_SESSION['code'] = $code;
 
 if($queryac){
-	echo "<script>window.location ='fiscalyear.php';</script>";
+	echo "<script>window.location ='fiscalyear.php?activate_fiscal';</script>";
 }else{
 	echo "Error updating records!" . mysqli_error($conn);
 }

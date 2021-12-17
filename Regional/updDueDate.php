@@ -11,8 +11,8 @@ $query = mysqli_query($conn,"UPDATE due_dates SET due_date='$due_date' WHERE id=
 
 if($query){
 	if($type=='GPB'){
-		echo "<script>alert('Success!');window.location ='gpbdue.php';</script>";
+		echo "<script>window.location ='gpbdue.php?gpb_update_due';</script>";
 	}else{
-		echo "<script>alert('Success!');window.location ='gadardue.php';</script>";
+		echo "<script>window.location ='gadardue.php?gadar_update_due';</script>";
 	}
 }

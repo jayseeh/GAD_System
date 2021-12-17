@@ -230,8 +230,9 @@ width: 1150px;
     }
     if(mysqli_num_rows(mysqli_query($conn,"SELECT * FROM due_dates WHERE code='$code' and form_type='GAD'"))==0){
       $date_query = mysqli_query($conn, "INSERT INTO due_dates(due_date,form_type,date_submitted,status,code) VALUES ('$due_date','GAD','$date','$status','$code')");
+      echo "<script>window.location = 'gadardue.php?Add_due';</script>";
     }else{
-      echo "<script>alert('Already added due date in this year');window.location = 'gadardue.php';</script>";
+      echo "<script>window.location = 'gadardue.php?Already_added';</script>";
     }
   }
 ?>
@@ -268,8 +269,8 @@ width: 1150px;
                       <label>Due date: </label>
                       <input type="date" name="due_date" value="<?php echo $row['due_date']; ?>"><br><br>
                       <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                      <input type="submit" name="submit" value="&nbsp;&nbsp;Save&nbsp;&nbsp;" class="btn btn-dark btn-md update_info"> |
-                      <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;Cancel&nbsp;&nbsp;</button> 
+                      <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;Cancel&nbsp;&nbsp;</button>|
+                      <input type="submit" name="submit" value="&nbsp;&nbsp;Save&nbsp;&nbsp;" class="btn btn-dark btn-md">                      
                     </form>
                     </center>
                 </div>     
@@ -292,6 +293,53 @@ width: 1150px;
 </div> 
   </div> 
    </div>
+
+
+
+<!-- Swal add due date -->
+<?php 
+  $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  if (strpos($fullUrl, "Add_due") == true){
+    echo "<script>Swal.fire({
+    icon: 'success',
+    title: 'Due Date Added!',
+    showConfirmButton: true, 
+    }).then(function (){
+    window.location.href = 'gadardue.php';
+    });</script>";
+  }
+  ?>
+
+<!-- Swal already added -->
+<?php 
+  $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  if (strpos($fullUrl, "Already_added") == true){
+    echo "<script>Swal.fire({
+    icon: 'info',
+    title: 'Already added due date in this year!',
+    showConfirmButton: true, 
+    }).then(function (){
+    window.location.href = 'gadardue.php';
+    });</script>";
+  }
+  ?>
+
+
+<!-- Swal update due date -->
+<?php 
+  $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  if (strpos($fullUrl, "gadar_update_due") == true){
+    echo "<script>Swal.fire({
+    icon: 'success',
+    title: 'Due Date Updated!',
+    showConfirmButton: true, 
+    }).then(function (){
+    window.location.href = 'gadardue.php';
+    });</script>";
+  }
+  ?>
+
+
 
    
 

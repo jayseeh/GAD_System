@@ -151,22 +151,22 @@ h1{
   <center><h6 style="color: white;"><?php echo $_SESSION['ulvl']; ?></h6></center>
   <hr style="height:2px;color:gray;background-color:gray">
 
-  <a href="user.php">User Management</a>
+  <a href="user.php" style="font-size: 15px;">User Management</a>
 
-  <a href="division.php">Division Management</a>
+  <a href="division.php" style="font-size: 15px;">Division Management</a>
 
-  <a href="position.php">Position Management</a>
+  <a href="position.php" style="font-size: 15px;">Position Management</a>
 
-  <button class="dropdown-btn dropdown-toggle">Database
+  <button class="dropdown-btn dropdown-toggle" style="font-size: 15px;">Database
     
   </button>
   <div class="dropdown-container">
-    <a class="dropdown-item" href="backup.php">Backup</a>
-    <a class="dropdown-item" href="restore.php">Restore</a>
+    <a class="dropdown-item" href="backup.php" style="font-size: 15px;">Backup</a>
+    <a class="dropdown-item" href="restore.php" style="font-size: 15px;">Restore</a>
   </div>
 
-  <a data-toggle="modal" href="#logout">Logout</a>
-  <a href="#">Help</a>
+  <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
+  <a href="#" style="font-size: 15px;">Help</a>
 </div>
 
 
