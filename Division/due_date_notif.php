@@ -14,7 +14,7 @@ $due_date = $row['due_date'];
 // Calculates the difference between DateTime objects
 if($date==$due_date){
 	echo 'N';
-}else{
+}elseif ($date<$due_date) {
 	$datetime1 = date_create($date);
 	$datetime2 = date_create($due_date);
 	$interval = date_diff($datetime1, $datetime2);
@@ -25,5 +25,6 @@ if($date==$due_date){
 	else{
 		echo 'N';
 	}
-	
+}else{
+	echo 'N';
 }
