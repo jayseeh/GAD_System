@@ -11,6 +11,8 @@ if($fetch_ac_due>0){
     mysqli_query($conn,"UPDATE due_dates SET status='INACTIVE' WHERE code!='$code' and form_type='GAD'");
     mysqli_query($conn,"UPDATE due_dates SET status='ACTIVE' WHERE code='$code' and form_type='GAD'");
   }
+}else{
+  mysqli_query($conn,"UPDATE due_dates SET status='ACTIVE' WHERE code='$code' and form_type='GAD'");
 }
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
