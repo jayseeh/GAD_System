@@ -257,7 +257,7 @@ width: 1150px;
               echo "<td style='padding: 10px; font-size: 20px;' id='tdivision'>".$row['status']."</td>";
               if($row['status']=='ACTIVE'){
               ?>
-                <td><button class="btn btn-primary edit_status"  value="">Active Fiscal</button>
+                <td><button class="btn btn-primary edit_status"  value="" data-toggle="modal" href="#deact-<?php echo $row['code']; ?>">Deactivate</button>
               <?php
               }else{
               ?>
@@ -271,6 +271,34 @@ width: 1150px;
               
             echo "</tr>";
             ?>
+            <div class="modal fade" id="deact-<?php echo $row['code']; ?>" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class = "modal-header">   
+                  </div>
+                  <div class="modal-body">
+                    <center>  
+                    <h4>Are you sure you want to change the current fiscal year?</h4><br>
+                    <form action="activefiscal.php" method="POST">
+                      <label>Select Fiscal Year to Activate</label><br>
+                      <select name="thecode">
+                        <?php
+                        $cod = $row['code'];
+                          $q = mysqli_query($conn,"SELECT * FROM fiscal_year WHERE status!='ACTIVE'");
+                          while($x=mysqli_fetch_assoc($q)){
+                            echo "<option value='".$x['code']."'>".$x['code']."</option>";
+                          }
+                        ?>                        
+                      </select>
+                      <br><br>
+                      <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+                      <input type="submit" name="submit" value="&nbsp;&nbsp;Change&nbsp;&nbsp;" class="btn btn-dark btn-md">
+                    </form>
+                    </center>
+                </div>     
+               </div>
+              </div>
+            </div>
             <div class="modal fade" id="activate-<?php echo $row['code']; ?>" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">

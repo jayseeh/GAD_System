@@ -171,6 +171,8 @@ width: 1150px;
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
 
+  <a data-toggle='modal'  href='' style='font-size: 15px;'>ACTIVE FISCAL YEAR:<b><?php echo $_SESSION['code']; ?></b></a>
+
   <a data-toggle="modal" href="#editprof" style="font-size: 15px;">Profile</a>
 
   <a data-toggle="modal" href="#changepassword" style="font-size: 15px;">Change password</a>

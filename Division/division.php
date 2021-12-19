@@ -161,6 +161,17 @@ h1{
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
 
+  <?php
+    $queryFiscal = mysqli_query($conn,"SELECT * FROM fiscal_year WHERE status='ACTIVE'");
+    if(mysqli_num_rows($queryFiscal)>0){
+      $row = mysqli_fetch_assoc($queryFiscal);
+      //$_SESSION['code'] = $row['code'];
+      //echo "<h4>ACTIVE FISCAL YEAR SET BY REGIONAL IS ".$row['code']."</h4><br>";
+      echo "<a data-toggle='modal'  href='' style='font-size: 15px;'>ACTIVE FISCAL YEAR:<b> ".$row['code']."</b></a>";
+    }
+  ?>
+  
+
   <a data-toggle="modal" href="#editprof" style="font-size: 15px;">Profile</a>
 
   <a data-toggle="modal" href="#changepassword" style="font-size: 15px;">Change password</a>
@@ -398,9 +409,6 @@ h1{
           $_SESSION['code'] = $row['code'];
           echo "<h4>ACTIVE FISCAL YEAR SET BY REGIONAL IS ".$row['code']."</h4><br>";
           echo '<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>';
-        }else{
-          echo "<h4>No active Fiscal Year. Please click Ok to set-up fiscal year.</h4><br>";
-          echo '<a href="fiscalyear.php" class="btn btn-default btn-md">&nbsp;&nbsp;OK&nbsp;&nbsp;</a>';      
         }
       ?>
     

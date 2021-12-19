@@ -20,7 +20,7 @@ if($date==$due_date){
 	$interval = date_diff($datetime1, $datetime2);
 	$compare =  (int)$interval->format('%a');
 	if($compare <= 7 and $compare>=1){
-		echo $compare." day/s left to submit a form. <br> Due date: ".$due_date;
+		echo $compare." day/s left to submit a ".$form_type." details. <br> Due date: ".$due_date;
 	}
 	else{
 		echo 'N';
