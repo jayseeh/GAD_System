@@ -161,15 +161,7 @@ h1{
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
 
-  <?php
-    $queryFiscal = mysqli_query($conn,"SELECT * FROM fiscal_year WHERE status='ACTIVE'");
-    if(mysqli_num_rows($queryFiscal)>0){
-      $row = mysqli_fetch_assoc($queryFiscal);
-      //$_SESSION['code'] = $row['code'];
-      //echo "<h4>ACTIVE FISCAL YEAR SET BY REGIONAL IS ".$row['code']."</h4><br>";
-      echo "<a data-toggle='modal'  href='' style='font-size: 15px;'>ACTIVE FISCAL YEAR:<b> ".$row['code']."</b></a>";
-    }
-  ?>
+  
   
 
   <a data-toggle="modal" href="#editprof" style="font-size: 15px;">Profile</a>
@@ -193,15 +185,26 @@ h1{
         <!-- Content -->
         <div class="main">
                 
-<nav class="navbar navbar-custom navbar-expand-lg border-bottom" style=" padding: 20px 15px 28px 15px;"> 
+<nav class="navbar navbar-custom navbar-expand-lg border-bottom" style=" padding: 15px 15px 2px 15px;"> 
     <ul class="navbar-nav">
       <li class="nav-item">
       <h1>Online Gender And Development Monitoring and Mainstreaming System</h1>
       <hr style="height:2px;color:gray;background-color:gray">
       <h2>Department of Education</h2>
       <h3>Regional Office I</h3>
+
+      <?php
+    $queryFiscal = mysqli_query($conn,"SELECT * FROM fiscal_year WHERE status='ACTIVE'");
+    if(mysqli_num_rows($queryFiscal)>0){
+      $row = mysqli_fetch_assoc($queryFiscal);
+      //$_SESSION['code'] = $row['code'];
+      //echo "<h4>ACTIVE FISCAL YEAR SET BY REGIONAL IS ".$row['code']."</h4><br>";
+    echo "<h2 style='font-size: 20px;'>ACTIVE FISCAL YEAR:<b> ".$row['code']."</h2>";
+    }
+  ?>
       </li>
-    </ul>    
+    </ul>
+
  </nav>
 
 <div class="container-fluid">

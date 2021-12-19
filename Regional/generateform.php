@@ -229,6 +229,8 @@ width: 1150px;
 
         <!-- Content -->
         <div class="main">
+
+<div class="container-fluid" style="background-color: #e6b800;"> 
  <?php
     if($form_type=='GPB'){
       echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Plan And Budget</h2></center>';
@@ -236,6 +238,8 @@ width: 1150px;
       echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>';
     }
   ?>
+  <center><h2><p style="font-size: 20px; line-height: .4; padding-bottom: 8px;">ACTIVE FISCAL YEAR:&nbsp;<?php echo $_SESSION['code']; ?></p></h2></center>
+</div>
  <br>  
 
 <div class="container-fluid">

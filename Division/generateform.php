@@ -176,8 +176,6 @@ width: 1150px;
 <center><h6 style="color: white;"><?php echo $_SESSION['full_name']; ?></h6></center>
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
-
-  <a data-toggle='modal'  href='' style='font-size: 15px;'>ACTIVE FISCAL YEAR:<b><?php echo $_SESSION['code']; ?></b></a>
   
   <a data-toggle="modal" href="#editprof" style="font-size: 15px;">Profile</a>
 
@@ -186,9 +184,9 @@ width: 1150px;
   <a href="mandates.php" style="font-size: 15px;">DepEd Mandates</a>
   <?php
     if($form_type=='GPB'){
-      echo '<a href="gpb.php" class="active" >GPB</a><a href="gadar.php" style="font-size: 15px;">GAD AR</a>';
+      echo '<a href="gpb.php" class="active" style="font-size: 15px;">GPB</a><a href="gadar.php" style="font-size: 15px;">GAD AR</a>';
     }else{
-      echo '<a href="gpb.php"  >GPB</a><a href="gadar.php" class="active" style="font-size: 15px;">GAD AR</a>';
+      echo '<a href="gpb.php" style="font-size: 15px;">GPB</a><a href="gadar.php" class="active" style="font-size: 15px;">GAD AR</a>';
     }
   ?>  
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
@@ -198,7 +196,7 @@ width: 1150px;
 
         <!-- Content -->
         <div class="main">
-                
+<div class="container-fluid" style="background-color: #e6b800;">               
 <?php
     if($form_type=='GPB'){
       echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Plan And Budget</h2></center>';
@@ -206,6 +204,9 @@ width: 1150px;
       echo '<center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>';
     }
   ?>
+<center><h2><p style="font-size: 20px; line-height: .4; padding-bottom: 8px;">ACTIVE FISCAL YEAR:&nbsp;<?php echo $_SESSION['code']; ?></p></h2></center>
+</div>
+
  <br>
 
 <div class="container-fluid">

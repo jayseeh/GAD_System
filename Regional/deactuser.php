@@ -162,8 +162,8 @@ background-color: #e6b800;
         <!-- Content -->
         <div class="main">
 
- <center><h2 style="color: black; background-color: #e6b800;">Division Management</h2></center>
- <br>
+ <center><h2 style="color: black; background-color: #e6b800;">Division Management <br> <p style="font-size: 20px;">ACTIVE FISCAL YEAR:&nbsp;<?php echo $_SESSION['code']; ?></p></h2></center>
+ <br> 
 <div class="container-fluid">
 
  

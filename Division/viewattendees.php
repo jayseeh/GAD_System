@@ -193,7 +193,6 @@ width: 1150px;
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
 
-  <a data-toggle='modal'  href='' style='font-size: 15px;'>ACTIVE FISCAL YEAR:<b><?php echo $_SESSION['code']; ?></b></a>
   
    <a data-toggle="modal" href="#editprof" style="font-size: 15px;">Profile</a>
 
@@ -214,7 +213,7 @@ width: 1150px;
         <!-- Content -->
         <div class="main">
                 
-<center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report</h2></center>
+<center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report <br> <p style="font-size: 20px;">ACTIVE FISCAL YEAR:&nbsp;<?php echo $_SESSION['code']; ?></p></h2></center>
  <br>     
 
 <div class="container-fluid">
