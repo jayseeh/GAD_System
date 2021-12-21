@@ -301,7 +301,7 @@ width: 1150px;
     <br>
     <hr>
     <input type="hidden" name="date_sub" value="<?php echo $date; ?>">
-    <input type="hidden" name="form_type" value="<?php echo $form_type; ?>">
+    <input type="hidden" name="form_types" value="<?php echo $form_type; ?>">
     <input type="hidden" name="numberOfRows" value="1" id="numberOfRows">
     <center><label  class="col-sm-2 col-form-label">Action</label><br>
     <div class="col-sm-5">

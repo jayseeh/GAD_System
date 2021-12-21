@@ -194,7 +194,7 @@ h1{
     $queryFiscal = mysqli_query($conn,"SELECT * FROM fiscal_year WHERE status='ACTIVE'");
     if(mysqli_num_rows($queryFiscal)>0){
       $row = mysqli_fetch_assoc($queryFiscal);
-      //$_SESSION['code'] = $row['code'];
+      $_SESSION['code'] = $row['code'];
       //echo "<h4>ACTIVE FISCAL YEAR SET BY REGIONAL IS ".$row['code']."</h4><br>";
     echo "<h2 style='font-size: 20px;'>ACTIVE FISCAL YEAR:<b> ".$row['code']."</h2>";
     }
