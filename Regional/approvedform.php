@@ -162,7 +162,7 @@ width: 1150px;
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#" style="font-size: 15px;">Help</a>
+  <a href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
 </div>
 
         <!-- Content -->
@@ -228,7 +228,7 @@ width: 1150px;
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Requestor Name</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Division</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Date Submitted</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Approver</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Approving Officer</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Date Approved</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; text-align: center;'>ACTION</th>";
           echo "</tr>";

@@ -184,7 +184,7 @@ width: 1150px;
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#" style="font-size: 15px;">Help</a>
+  <a href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
 </div>
 
         <!-- Content -->
@@ -212,6 +212,9 @@ width: 1150px;
         <a class="nav-link active" aria-current="true">Pending GPB</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="action_required.php">Action Required</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="approvedform.php">Approved GPB</a>
       </li>
       <li class="nav-item">
@@ -231,7 +234,7 @@ width: 1150px;
       <?php
         include("../connect.php");
 
-        $sql="SELECT * FROM gad_form WHERE requestor_id='$user' and form_number LIKE 'GPB%' and (form_status='PENDING' or form_status='ACTION REQUIRED') AND date_submitted >= '$fiscal_start' and date_submitted <= '$fiscal_end' ORDER BY date_submitted";
+        $sql="SELECT * FROM gad_form WHERE requestor_id='$user' and form_number LIKE 'GPB%' and (form_status='PENDING') AND date_submitted >= '$fiscal_start' and date_submitted <= '$fiscal_end' ORDER BY date_submitted";
         $result=mysqli_query($conn, $sql);
 
         echo "<table id='list' class='table table-hover'>";
@@ -539,7 +542,7 @@ $passW = $('#confirm_pword').val();
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
-       <h3 class = "text-success modal-title">Update Password</h3>
+       <h3 class = "text-primary modal-title">Update Password</h3>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>     
     </div>
     <div class="modal-body">

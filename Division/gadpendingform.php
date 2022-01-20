@@ -184,7 +184,7 @@ width: 1150px;
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#" style="font-size: 15px;">Help</a>
+  <a href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
 </div>
 
 
@@ -217,6 +217,9 @@ width: 1150px;
       <li class="nav-item">
         <a class="nav-link active" aria-current="true">Pending GAD AR</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="gad_action_required.php">Action Required</a>
+      </li>
        <li class="nav-item">
         <a class="nav-link" href="gadapprovedform.php">Approved GAD AR</a>
       </li>
@@ -224,7 +227,7 @@ width: 1150px;
         <a class="nav-link" href="generateform.php?id=GAD">Generate Report</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="viewattendees.php">Trained Personnel</a>
+        <a class="nav-link" href="viewattendees.php">SDD</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="download.php">Templates</a>
@@ -243,7 +246,7 @@ width: 1150px;
       <?php
         include("../connect.php");
 
-        $sql="SELECT * FROM gad_form WHERE requestor_id='$user' and form_number LIKE 'GAD%' and (form_status='PENDING' or form_status='ACTION REQUIRED') AND date_submitted >= '$fiscal_start' and date_submitted <= '$fiscal_end' ORDER BY date_submitted";
+        $sql="SELECT * FROM gad_form WHERE requestor_id='$user' and form_number LIKE 'GAD%' and (form_status='PENDING') AND date_submitted >= '$fiscal_start' and date_submitted <= '$fiscal_end' ORDER BY date_submitted";
         $result=mysqli_query($conn, $sql);
 
         echo "<table id='list' class='table table-bordered table-hover'>";
@@ -549,7 +552,7 @@ $passW = $('#confirm_pword').val();
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
-       <h3 class = "text-success modal-title">Update Password</h3>
+       <h3 class = "text-primary modal-title">Update Password</h3>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>     
     </div>
     <div class="modal-body">

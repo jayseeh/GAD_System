@@ -163,7 +163,7 @@ width: 1150px;
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#" style="font-size: 15px;">Help</a>
+  <a href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
 </div>
 
 
@@ -179,6 +179,21 @@ width: 1150px;
   <a href="regional.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
   <br><br>
 <div class="card text-center" style="width: 70rem;">
+
+    <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true">All</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="gpb_monitoring.php">GAD Plan and Budget</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="gadar_monitoring.php?id=GAD">GAD Accomplishment Report</a>
+      </li>
+    </ul>
+  </div>
+
   <div class="card-body">
 <h5>List of Division Submission</h5>
 <label for="cars">Year <?php echo $code; ?></label> 

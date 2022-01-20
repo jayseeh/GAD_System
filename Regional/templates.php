@@ -158,7 +158,7 @@ width: 1150px;
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#" style="font-size: 15px;">Help</a>
+  <a href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
 </div>
 
 
@@ -195,7 +195,7 @@ width: 1150px;
         <a class="nav-link" href="generatelist.php?id=GAD">Generate List</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link" href="viewpersonnels.php">Trained Personnel</a>
+        <a class="nav-link" href="viewpersonnels.php">SDD</a>
       </li>
       <li class="nav-item">
         <a class="nav-link active" aria-current="true">Upload Template</a>
@@ -213,7 +213,7 @@ width: 1150px;
   <div class="row">
   <div class="col">
     <div class="card border-primary mb-3" >
-  <h4 class="card-header">GAD multiple attendees template</h4 >
+  <h4 class="card-header">Templates for SDD</h4 >
   <div class="card-body">
    <div class="mb-3">
   <label for="formFile" class="form-label">Upload template here</label>

@@ -16,7 +16,7 @@ if(mysqli_query($conn, "UPDATE gad_form SET form_status='$status', approver_id='
 	}else{
 		$aaa = "reggpb.php";
 	}
-	echo "<script>alert('Successfully updated!');window.location ='".$aaa."';</script>";
+	echo "<script>window.location ='".$aaa."';</script>";
 }else{
 	echo "Error updating records!" . mysqli_error($conn);
 }

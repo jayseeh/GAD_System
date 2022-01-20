@@ -1,12 +1,21 @@
-<?php session_start(); 
-
-include "../connect.php";
+<?php 
+  session_start();
+  include "../connect.php";
+  date_default_timezone_set("Asia/Singapore");
+  $nowYear = date('Y');
+  $fetch_fiscal = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM fiscal_year WHERE status='ACTIVE'"));
+  $code = $fetch_fiscal['code'];
+  $fiscal_start = $fetch_fiscal['start_date'];
+  $fiscal_end = $fetch_fiscal['end_date'];
   $user = $_SESSION['uid'];
   $loc = $_SESSION['loc'];
   $query_division = mysqli_query($conn,"SELECT * FROM caps WHERE id='$user'");
+  date_default_timezone_set("Asia/Singapore");
+  $date = date('Y-m-d H:i:s');
 
-if(empty($_SESSION['ulvl'])){
+  if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
+
 
 require('../connect.php');
  $un = $_SESSION['uid'];
@@ -14,11 +23,7 @@ require('../connect.php');
   $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
   $sqlprofile = mysqli_query($conn, $queryprofile);
   $rowprofile = mysqli_fetch_array($sqlprofile);
-  
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +48,30 @@ require('../connect.php');
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    $(document).ready(function(){
+      var number;
+      var d = new Date();
+      var n = d.getTime();
+      //console.log(n);
+      $("#form_id").val("GAD-"+n);
+      var number = parseInt($("#count_num").val())+1;
+      console.log(number);
+
+      //ADD ROWS FUNCTION
+      $("#add_rows").click(function(){
+        $("#numberOfRows").val(number);
+        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center;'></td><td><textarea rows='4' cols='20' name='val1-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val2-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val3-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val4-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val5-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val6-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val7-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val8-"+number+"'></textarea></td><td><textarea rows='4' cols='20' name='val9-"+number+"'></textarea></td></tr>";
+        console.log(table);
+        $("#table_gad").html(table);
+
+        number = number +1;
+      });
+    });
+    </script>
+    
+
 <style type="text/css">
   
 /* The sidebar menu */
@@ -132,37 +160,19 @@ width: 1150px;
 
   <body>
 
-<?php
-    include("../connect.php");
-    if(isset($_GET['id'])){
-      $id=$_GET['id'];
 
-
-      $sql="SELECT * FROM caps WHERE id='$id'";
-      $result=mysqli_query($conn, $sql);
-
-      if(mysqli_num_rows($result)>0){
-        while($row=mysqli_fetch_assoc($result)){
-
-
-
-    } 
-  }
-}
-  
-  ?>
-
-  <div class="container-fluid">
+     <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="sidenav">
-           <div class="d-flex justify-content-center">
+          <div class="d-flex justify-content-center">
           <img src="imgdiv/01.png" style="max-width:90px;" alt="">
         </div><br>
 <center><h6 style="color: white;"><?php echo $_SESSION['full_name']; ?></h6></center>
   <center><p style="color: white; font-size: 13px;"><?php echo $_SESSION['ulvl']; ?></p></center>
   <hr style="height:2px;color:gray;background-color:gray">
-  
-   <a data-toggle="modal" href="#editprof" style="font-size: 15px;">Profile</a>
+
+
+  <a data-toggle="modal" href="#editprof" style="font-size: 15px;">Profile</a>
 
   <a data-toggle="modal" href="#changepassword" style="font-size: 15px;">Change password</a>
 
@@ -181,165 +191,115 @@ width: 1150px;
         <!-- Content -->
         <div class="main">
 
-<center><h2 style="color: black; background-color: #e6b800;">Trained GAD Personnel</h2></center>
+
+ <center><h2 style="color: black; background-color: #e6b800;">GAD Accomplishment Report <br> <p style="font-size: 20px;">ACTIVE FISCAL YEAR:&nbsp;<?php echo $_SESSION['code']; ?></p></center>
+ 
  <br> 
+ 
 
 <div class="container-fluid">
 
- <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
- <a href="gadar.php" class="btn btn-success rounded-pill">Submit GAD AR</a>
- <br><br>   
-        
-  
-  <div class="d-flex justify-content-center">
- 
-    <fieldset>
-  <div class="row">
-    <div class="container-fluid">
+  <a href="division.php" class="btn rounded-pill" style="background-color: #3366ff; color: white;">Home</a>
+   <br><br>      
 
-    <div class="row">
-  <div class="col">
- <div class="card" style="width: 70rem;">
+  <div class="d-flex justify-content-center">
+   <fieldset>
+
+  <div class="row">
+    
+
+<div class="card text-center" style="width: 72rem;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true">Add Personnel</a>
+        <a class="nav-link" href="gadar.php">Submit GAD AR</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="multipersonnel.php">Add Multiple Personnel</a>
+        <a class="nav-link" href="gadpendingform.php">Pending GAD AR</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="viewattendees.php">View Personnel</a>
+        <a class="nav-link active" aria-current="true">Action Required</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="gadapprovedform.php">Approved GAD AR</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="download.php">Download Template</a>
+        <a class="nav-link" href="generateform.php?id=GAD">Generate Report</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="viewattendees.php">SDD</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="download.php">Templates</a>
       </li>
     </ul>
   </div>
   <div class="card-body">
 
+<h2>ACTION REQUIRED FORMS</h2>
+         <section><br><br>
+              <div class="d-flex justify-content-end"> 
+                <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
+              </div>
+              <br>
 
-        <form action="addattendees.php" method="POST">
-    
-      <table class="table table-bordered"  id="table_gad">
-        <tr>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Number</th>
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Name</th> 
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Position</th>          
-            <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Gender</th>   
-          </tr>
-          <tr>
-            <td><input type="text" id="count_num"  name="number_rows" readonly value="1" style="text-align: center; size: 1px;" size="5"></td>
-            <td><input  type="text" name="personnel_name-1" size="70"></td>
+      <?php
+        include("../connect.php");
 
-            <td><select  name="position-1" style="height: 30px; width: 220px;">
-                 <option value=""></option>
-                 <option value="Principal">Principal</option>
-                 <option value="Master Teacher II">Master Teacher II</option>
-                 <option value="Master Teacher I">Master Teacher I</option>
-                 <option value="Department Head">Department Head</option>
-                 <option value="Teacher III">Teacher III</option>
-                 <option value="Teacher II">Teacher II</option>
-                 <option value="Teacher I">Teacher I</option>
-                 <option value="Administrative Assistant III">Administrative Assistant III</option>
-                 <option value="Administrative Assistant II">Administrative Assistant II</option>
-                 <option value="Administrative Assistant I">Administrative Assistant I</option>
-                </select></td>
+        $sql="SELECT * FROM gad_form WHERE requestor_id='$user' and form_number LIKE 'GAD%' and (form_status='ACTION REQUIRED') AND date_submitted >= '$fiscal_start' and date_submitted <= '$fiscal_end' ORDER BY date_submitted";
+        $result=mysqli_query($conn, $sql);
 
-             <td>
-                 <select  name="gender-1" style="height: 30px; width: 80px;">
-                 <option value=""></option>
-                 <option value="male">Male</option>
-                 <option value="female">Female</option>
-                </select>
-            </td>
-                 
-          </tr>
-      </table>
-   
-    <br>
-    <input type="hidden" name="date_sub" value="<?php echo $date; ?>">
-    <input type="hidden" name="numberOfRows" value="1" id="numberOfRows">
-    <input type="button" name="add_rows" value="Add Row" id="add_rows" class="btn rounded-pill">
-    <!--<input type="Submit" name="submit" value="Submit">--> 
-    <a data-toggle="modal" href="#upload_attendees" class="btn btn-dark rounded-pill">Submit</a>
+        echo "<table id='list' class='table table-bordered table-hover'>";
+        
+          echo "<tr>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Form Number</th>";           
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Form Status</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Date Submitted</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; text-align: center;' colspan='2'>ACTION</th>";
+          echo "</tr>";
+          echo "<tbody id='usertable'>";
 
-<!-- Upload verification -->
-<div class="modal fade" id="upload_attendees" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class = "modal-header">   
-    </div>
-    <div class="modal-body">
-    <center>  
-<h4>Are you sure you want to upload this attendees?</h4><br>
-
-<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
-<input type="Submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md">
-</center>
-</div>
-         
-       </div>
-      </div>
-    </div>
-    </form>
+        if(mysqli_num_rows($result)>0){
+          while($row=mysqli_fetch_assoc($result)){
+            echo "<tr>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['form_number']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tusername'>".$row['form_status']."</td>";
+              echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tpassword'>".$row['date_submitted']."</td>";
+              if($row['form_status']=='APPROVED'){
+      
+              ?>
+                <td style='padding: 10px;border-bottom: 1px solid black;'><a class="btn btn-primary edit_status"  href="viewapprovedform.php?id=<?php echo $row['form_number'] ?>">
+                  <i class="bi bi-pencil-square">VIEW</i>
+                  </a>
+                 <?php
+                 }else{
+                 ?> 
+                </td>
+                <td style='padding: 10px;border-bottom: 1px solid black;'><a class="btn btn-primary edit_status"  href="updateform.php?id=<?php echo $row['form_number'] ?>">
+                      <i class="bi bi-pencil-square">EDIT</i>
+                      </a>    
+                </td>
+              <?php
+              } 
+            echo "</tr>";
+          }
+        }
+        echo "</tbody>";
+        echo "</table";
+      ?>   
+    </section>
   </div>
-</div>
- </div>
-  </div>  
-   </div>
-    </div>
-     </fieldset>
-
-  </div> 
- 
-   </div>
-   </div>
-</div>
- </div>
-<br><br><br><br><br><br>
+   </div> 
+   
+     </div>
+      </fieldset>
+       </div> 
+        </div>
+         </div>
+          </div>
+           </div>
 
 
-<script>
-    $(document).ready(function(){
-      var number;
-      var d = new Date();
-      var n = d.getTime();
-      //console.log(n);
-      $("#form_id").val("GAD-"+n);
-      var number = parseInt($("#count_num").val())+1;
-      console.log(number);
-
-      //ADD ROWS FUNCTION
-      $("#add_rows").click(function(){
-        $("#numberOfRows").val(number);
-        table = $("#table_gad").html()+"<tr><td><center><input type='text' name='number_rows' readonly value='"+number+"' style='text-align: center; size: 1px;' size='5'></td><td><input  type='text' name='personnel_name-"+number+"'size='70'></td><td><select name='position-"+number+"'style='height: 30px; width: 220px;'><option value=''></option><option value='Principal'>Principal</option><option value='Master Teacher II'>Master Teacher II</option><option value='Master Teacher I'>Master Teacher I</option><option value='Department Head'>Department Head</option><option value='Teacher III'>Teacher III</option><option value='Teacher II'>Teacher II</option><option value='Teacher I'>Teacher I</option><option value='Administrative Assistant III'>Administrative Assistant III</option><option value='Administrative Assistant II'>Administrative Assistant II</option><option value='Administrative Assistant I'>Administrative Assistant I</option></select></td><td><select  name='gender-"+number+"'style='height: 30px; width: 80px;'><option value=''></option><option value='male'>Male</option><option value='female'>Female</option></select></td></tr>";
-        console.log(table);
-        $("#table_gad").html(table);
-
-        number = number +1;
-      });
-    });
-    </script>
-
-
-
-<!-- Swal -->
-<?php 
-  $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-  if (strpos($fullUrl, "attendees_uploaded") == true){
-    echo "<script>Swal.fire({
-    icon: 'success',
-    title: 'Attendees successfully uploaded!',
-    showConfirmButton: true, 
-    }).then(function (){
-    window.location.href = 'personnels.php';
-    });</script>";
-  }
-  ?>
-
-
-    
 <!-- Update profile and password --> 
 
     <!-- update user info -->
@@ -635,7 +595,8 @@ $passW = $('#confirm_pword').val();
  </div>
 </div>
 </form>
-
+   
+     
 <!-- Logout Modal -->
  <form class="" action="../logout.php" method="POST">
 <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -657,17 +618,16 @@ $passW = $('#confirm_pword').val();
 </center>
 </div>
          
-       </div>
-      </div>
     </div>
-    </form>
-  
-<br><br><br><br><br><br><br>
+  </div>
+</div>
+</form>
+
 
   <!-- Footer -->
     <footer class="py-5 bg-black">
-      <div class="container-fluid">
-        <p class=" text-center text-white large">GAD</p>
+      <div class="container">
+        <p class="m-0 text-center text-white small">GAD</p>
       </div>
       <!-- /.container -->
     </footer>
@@ -679,4 +639,5 @@ $passW = $('#confirm_pword').val();
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

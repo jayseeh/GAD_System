@@ -159,7 +159,7 @@ width: 1150px;
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#" style="font-size: 15px;">Help</a>
+  <a href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
 </div>
 
 
@@ -176,11 +176,12 @@ width: 1150px;
   <br><br>
   <div class="d-flex justify-content-center">
 
-    <form action="uploadmandate.php" method="post">
+    
     <fieldset>
 <div class="row">
   <div class="col">
  <div class="card text-center" style="width: 70rem;">
+  <form action="uploadmandate.php" method="post">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -197,8 +198,8 @@ width: 1150px;
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">DepEd Order No.:</th>
-      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">DepdEd Order Content:</th>
+      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">DepEd Memo:</th>
+      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">Content:</th>
     </tr>
   </thead>
   <tbody>
@@ -227,14 +228,9 @@ width: 1150px;
 
 
   </div>
-</div>
 
-  </div>
-  <!--row-->
-</div>
 
-  
-  </fieldset>
+
   <!-- Save Verification Modal -->
  
 <div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -256,7 +252,98 @@ width: 1150px;
        </div>
       </div>
     </div>
+
+
+   </form>
+
+
+   <form action="upload_memo.php" method="post" enctype="multipart/form-data">
+    <fieldset>
+
+  <div class="row">
+  <div class="col">
+    <div class="card  mb-3" >
+  <div class="card-body">
+
+
+    <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">Upload DepEd Memo File:</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><label for="formFile" class="form-label">Upload file here</label>
+  <input class="form-control" type="file" id="formFile" name="file[]" multiple=""><br></td>
+      
+    </tr>
+  </tbody>
+</table>
+
+ 
+  
+  <?php
+  if($nowYear==$code){
+    ?>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <!--<button type="submit" name="submit" class="btn btn-primary">Upload</button>-->
+        <a data-toggle="modal" href="#upload_memo" data-dismiss="modal" class="btn btn-dark rounded-pill">Upload</a>
+      </div>
+      <?php
+  }else{
+    ?>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <label>You can't upload file since the active fiscal year is not the same with the current year.</label>
+      </div>
+    <?php
+  }
+?>
+</div>
+  </div>
+</div>
+</div>
+  </fieldset>
+
+    <!-- Save Verification Modal -->
+ 
+<div class="modal fade" id="upload_memo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class = "modal-header">
+      <h3 class = "text-danger modal-title"></h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
+    </div>
+    <div class="modal-body">
+    <center>  
+<h4>Are you sure you want to upload this memo?</h4><br>
+
+<button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
+<input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md">
+</center>
+</div>
+         
+       </div>
+      </div>
+    </div>
   </form>
+
+
+
+</div>
+
+  </div>
+  <!--row-->
+</div>
+
+  
+  </fieldset>
+  
+ 
+
+
+  
+
   </div> 
 
 
@@ -265,6 +352,21 @@ width: 1150px;
    </div>
 </div>
  </div>
+
+
+<!-- Swal -->
+<?php 
+  $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  if (strpos($fullUrl, "memo_uploaded") == true){
+    echo "<script>Swal.fire({
+    icon: 'success',
+    title: 'DepEd Memo successfully uploaded!',
+    showConfirmButton: true, 
+    }).then(function (){
+    window.location.href = 'mandates.php';
+    });</script>";
+  }
+  ?>
 
 
 <!-- Swal -->

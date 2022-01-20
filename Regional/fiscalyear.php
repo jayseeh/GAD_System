@@ -153,7 +153,7 @@ width: 1150px;
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#" style="font-size: 15px;">Help</a>
+  <a href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
 </div>
 
 
@@ -161,7 +161,7 @@ width: 1150px;
 
         <!-- Content -->
         <div class="main">
-<center><h2 style="color: black; background-color: #e6b800;">Fiscal Year Setup <br> <p style="font-size: 20px;">ACTIVE FISCAL YEAR:&nbsp;<?php echo $_SESSION['code']; ?></p></h2></center>
+<center><h2 style="color: black; background-color: #e6b800;">Fiscal Year Setup <br> <p style="font-size: 20px;"><!--ACTIVE FISCAL YEAR:&nbsp;<?php echo $_SESSION['code']; ?>--></p></h2></center>
  <br>
 
 <div class="container-fluid">
@@ -241,7 +241,7 @@ width: 1150px;
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><h5>Code</h5></th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><h5>Status</h5></th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 80px;'><h5>Action</h5></th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 80px;'><h5>Action</h5></th>";
+            /*echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 80px;'><h5>Action</h5></th>";*/
             
           echo "</tr>";
           echo "<tbody id='usertable'>";
@@ -265,8 +265,8 @@ width: 1150px;
               <?php
               }
               ?>
-                <td><button class="btn btn-primary edit_status"  value="" data-toggle="modal" href="#updateF-<?php echo $row['code']; ?>">Update</button>
-                </td>
+                <!--<td><button class="btn btn-primary edit_status"  value="" data-toggle="modal" href="#updateF-<?php echo $row['code']; ?>">Update</button>
+                </td>-->
               <?php
               
             echo "</tr>";
@@ -710,7 +710,7 @@ $passW = $('#confirm_pword').val();
 
 
     
-<br><br><br><br>
+<br><br><br><br><br><br>
   <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">

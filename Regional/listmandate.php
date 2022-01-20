@@ -162,7 +162,7 @@ width: 1150px;
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#" style="font-size: 15px;">Help</a>
+  <a href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
 </div>
 
 
@@ -207,9 +207,11 @@ width: 1150px;
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 300px;"><h5>DepEd Order Number</h5></th>
+                                        <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 300px;"><h5>DepEd Memo</h5></th>
 
-                                        <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;"><h5>DepEd Order Content</h5></th>
+                                        <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;"><h5>Content</h5></th>
+
+                                        <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 100px;"><h5>Action</h5></th>
                                         
                                     </tr>
                                 </thead>
@@ -223,9 +225,9 @@ width: 1150px;
                                 <tr>                                   
                                     <td><?php echo $row['depedno'];?></td>
 
-                                    <td><?php echo $row['depedcontent'];?></td>
-                                    
-                                    
+                                    <td><?php echo $row['depedcontent'];?></td>                                   
+
+                                    <td><a href="../Regional/Memo/<?php echo $row['filename']; ?>" download>Download</a></td>
                                       
                                 </tr>
                                 <?php } ?>
@@ -236,6 +238,7 @@ width: 1150px;
            </tr>
 
 
+           
     
            
       

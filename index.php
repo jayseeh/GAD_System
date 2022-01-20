@@ -137,8 +137,8 @@ background-color:white;
     <div class="card border border-warning" style="width: 28rem;">
      <div class="card-body">
       <div class="container-fluid">
-        <img src="img/02.png" style="max-width:100px;" alt="">
         <img src="img/01.png" style="max-width:100px;" alt="">
+        <img src="img/02.png" style="max-width:100px;" alt="">       
               <h3>Department of Education</h3><h5>Regional Office I</h5>
       </div>
         <input class="form-control form-rounded border border-info" id="username" name="username" type="text" placeholder="Username"><br>

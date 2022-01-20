@@ -60,6 +60,10 @@ if(empty($_SESSION['ulvl'])){
   color: yellow;
 }
 
+.dropdown-item:focus, .dropdown-item:hover {
+background-color: #1C2331;
+color: yellow;}
+
 /* Style page content */
 .main {
   margin-left: 200px; /* Same as the width of the sidebar */
@@ -87,12 +91,12 @@ if(empty($_SESSION['ulvl'])){
 }
 
 
-
 /* Add an active class to the active dropdown button */
 .active {
   background-color: #1a1aff;
   color: white;
 }
+
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
@@ -157,16 +161,17 @@ h1{
 
   <a href="position.php" style="font-size: 15px;">Position Management</a>
 
-  <button class="dropdown-btn dropdown-toggle" style="font-size: 15px;">Database
-    
-  </button>
+  <button class="dropdown-btn dropdown-toggle" style="font-size: 15px;">Utilities</button>
   <div class="dropdown-container">
     <a class="dropdown-item" href="backup.php" style="font-size: 15px;">Backup</a>
     <a class="dropdown-item" href="restore.php" style="font-size: 15px;">Restore</a>
+    <a class="dropdown-item" href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
   </div>
 
+  <a href="logs.php" style="font-size: 15px;">Activity Logs</a>
+
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
-  <a href="#" style="font-size: 15px;">Help</a>
+
 </div>
 
 
@@ -213,8 +218,8 @@ h1{
             </div>
           </div>
           <div id="about" class="col-lg-6 order-lg-1">
-            <div class="p-5">
-              <h2 class="display-4">All about region I</h2>
+            <div class="p-4">
+              <h2 class="display-4">All about Region I</h2>
               <p>The Ilocos Region lies on the northwestern coast of Luzon. It is bounded by Cagayan, Kalinga, Apayao, Abra, Mt. Province, Benguet and Nueva Vizcaya on the east; Nueva Ecija, Tarlac and Zambales on the south; and the China Sea on the northwest. Its strategic location has made it the gateway to East Asia.<br>
 
               Region 1 consists of four (4) provinces and eight (8) cities, namely: the province of Ilocos Norte, Ilocos Sur, La Union and Pangasinan; and the cities of Dagupan, San Carlos, Alaminos and Urdaneta in Pangasinan; Laoag in Ilocos Norte, Vigan and Candon in Ilocos Sur; San Fernando in La Union. The City of San Fernando is the center of the region.</p>

@@ -219,7 +219,7 @@ width: 1150px;
   ?>  
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#" style="font-size: 15px;">Help</a>
+  <a href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
 </div>
 
 
@@ -273,7 +273,7 @@ width: 1150px;
         <a class="nav-link active" aria-current="true">Generate Report</a>
       </li>
       <li class="nav-item">
-        <?php echo ($form_type == 'GPB') ? '<a class="nav-link" href="generatelist.php?id=GPB">Generate List</a><li class="nav-item"><a class="nav-link" href="gpbdue.php">Set GPB Due Date</a></li>' : '<a class="nav-link " href="generatelist.php?id=GAD">Generate List</a><li class="nav-item"><a class="nav-link" href="viewpersonnels.php">Trained Personnel</a></li><li class="nav-item"><a class="nav-link" href="templates.php">Upload Template</a></li><li class="nav-item"><a class="nav-link" href="gadardue.php">Set GAD AR Due Date</a></li>';?>
+        <?php echo ($form_type == 'GPB') ? '<a class="nav-link" href="generatelist.php?id=GPB">Generate List</a><li class="nav-item"><a class="nav-link" href="gpbdue.php">Set GPB Due Date</a></li>' : '<a class="nav-link " href="generatelist.php?id=GAD">Generate List</a><li class="nav-item"><a class="nav-link" href="viewpersonnels.php">SDD</a></li><li class="nav-item"><a class="nav-link" href="templates.php">Upload Template</a></li><li class="nav-item"><a class="nav-link" href="gadardue.php">Set GAD AR Due Date</a></li>';?>
         
       </li>
       

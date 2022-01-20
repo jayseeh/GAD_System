@@ -156,17 +156,17 @@ background-color: #e6b800;
 
   <a href="position.php" style="font-size: 15px;">Position Management</a>
 
-  <button class="dropdown-btn dropdown-toggle" style="font-size: 15px;">Database
-    
-  </button>
+  <button class="dropdown-btn dropdown-toggle" style="font-size: 15px;">Utilities</button>
   <div class="dropdown-container">
     <a class="dropdown-item" href="backup.php" style="font-size: 15px;">Backup</a>
     <a class="dropdown-item" href="restore.php" style="font-size: 15px;">Restore</a>
+    <a class="dropdown-item" href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
   </div>
+
+  <a href="logs.php" style="font-size: 15px;">Activity Logs</a>
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#" style="font-size: 15px;">Help</a>
 
 </div>
 
@@ -221,8 +221,8 @@ background-color: #e6b800;
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Userlevel</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Location</th>";
             echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Status</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>Action</th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>STATUS</th>";
+            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><center>Action</center></th>";
+            
                        
           echo "</tr>";
           echo "<tbody id='usertable'>";
@@ -240,15 +240,9 @@ background-color: #e6b800;
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tlocation'>".$row['location']."</td>";
               echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tstatus'>".$row['status']."</td>";?>
 
-              <td><button class="btn btn-warning rounded-pill edit_user"  value="<?php echo $row['id']; ?>">
-                  <i class="bi bi-pencil-square">Edit</i>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                  </svg></button>
-                
-            </td>
-            <td><button class="btn btn-primary edit_status"  value="<?php echo $row['id']; ?>">
+              <td><div class="btn-toolbar">
+                <button class="btn btn-primary edit_user btn-sm"  value="<?php echo $row['id']; ?>">Edit</button>&nbsp;&nbsp;
+                <button class="btn btn-primary edit_status btn-sm"  value="<?php echo $row['id']; ?>">
                   <i class="bi bi-pencil-square">
                     <?php 
                       if ($row['status']=='ACTIVE'){
@@ -261,7 +255,8 @@ background-color: #e6b800;
                   </i>
                   </button>
                 
-            </td>
+            </div></td>
+            
               <?php
             echo "</tr>";
           }

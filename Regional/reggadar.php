@@ -160,7 +160,7 @@ width: 1150px;
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#" style="font-size: 15px;">Help</a>
+  <a href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
 </div>
 
 
@@ -197,7 +197,7 @@ width: 1150px;
         <a class="nav-link" href="generatelist.php?id=GAD">Generate List</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link" href="viewpersonnels.php">Trained Personnel</a>
+        <a class="nav-link" href="viewpersonnels.php">SDD</a>
       </li>     
       <li class="nav-item">
         <a class="nav-link" href="templates.php">Upload Template</a>

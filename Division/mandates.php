@@ -148,7 +148,7 @@ width: 1150px;
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
-  <a href="#" style="font-size: 15px;">Help</a>
+  <a href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
 </div>
 
 
@@ -188,9 +188,11 @@ width: 1150px;
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th style="padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 300px;"><h5>DepEd Order Number</h5></th>
+                                        <th style="padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 300px;"><h5>DepEd Memo</h5></th>
 
-                                        <th style="padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;"><h5>DepEd Order Content</h5></th>
+                                        <th style="padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;"><h5>Content</h5></th>
+
+                                        <th style="padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;"><h5>Action</h5></th>
                                         
                                     </tr>
                                 </thead>
@@ -206,7 +208,7 @@ width: 1150px;
 
                                     <td><?php echo $row['depedcontent']; ?></td>
                                     
-                                    
+                                    <td><a href="../Regional/Memo/<?php echo $row['filename']; ?>" download>Download</a></td>
                                       
                                 </tr>
                                 <?php } ?>
@@ -495,7 +497,7 @@ $passW = $('#confirm_pword').val();
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
-       <h3 class = "text-success modal-title">Update Password</h3>
+       <h3 class = "text-primary modal-title">Update Password</h3>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>     
     </div>
     <div class="modal-body">

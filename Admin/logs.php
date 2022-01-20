@@ -123,7 +123,7 @@ background-color: #e6b800;
       $id=$_GET['id'];
 
 
-      $sql="SELECT * FROM division WHERE id='$id'";
+      $sql="SELECT * FROM position WHERE id='$id'";
       $result=mysqli_query($conn, $sql);
 
       if(mysqli_num_rows($result)>0){
@@ -151,7 +151,7 @@ background-color: #e6b800;
 
 <a href="user.php" style="font-size: 15px;">User Management</a>
 
-  <a href="division.php"  class="active" style="font-size: 15px;">Division Management</a>
+  <a href="division.php" style="font-size: 15px;">Division Management</a>
 
   <a href="position.php" style="font-size: 15px;">Position Management</a>
 
@@ -162,7 +162,7 @@ background-color: #e6b800;
     <a class="dropdown-item" href="/GAD_System/User_manual.pdf" style="font-size: 15px;">Help</a>
   </div>
 
-  <a href="logs.php" style="font-size: 15px;">Activity Logs</a>
+  <a href="logs.php" class="active" style="font-size: 15px;">Activity Logs</a>
 
   <a data-toggle="modal" href="#logout" style="font-size: 15px;">Logout</a>
 
@@ -174,7 +174,7 @@ background-color: #e6b800;
 
         <!-- Content -->
         <div class="main">
-<center><h2 style="color: black; background-color: #e6b800;">Division Management</h2></center>
+<center><h2 style="color: black; background-color: #e6b800;">Activity Logs</h2></center>
 
 <div class="container-fluid">
 
@@ -184,46 +184,9 @@ background-color: #e6b800;
          <section><br>
          <div class="card" style="width: 70rem;">
          <div class="card-body">
-              <legend>List of Divisions</legend>
-              <div class="d-flex justify-content-end"> 
-                <input class="form-control-lg " type="text" id="search" name="search" placeholder="Search">
-              </div>
-              <div class="d-flex justify-content-start"> 
-                <a data-toggle="modal" href="#add" class="btn btn-success rounded-pill">Add Division</a>
-              </div>
-              <br>
+              
   </div>
-      <?php
-        include("../connect.php");
-
-        $sql="SELECT * FROM division";
-        $result=mysqli_query($conn, $sql);
-
-        echo "<table id='list' class='table table-bordered table-hover'>";
-        
-          echo "<tr>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 80px;'><h5>ID</h5></th>";           
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'><h5>Division</h5></th>";
-            echo "<th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black; width: 180px;'><h5><center>Action</center></h5></th>";
-            
-          echo "</tr>";
-          echo "<tbody id='usertable'>";
-
-        if(mysqli_num_rows($result)>0){
-          while($row=mysqli_fetch_assoc($result)){
-            echo "<tr id=".$row['id'] .">";
-              echo "<td style='padding: 10px; font-size: 20px;' id='tid'>".$row['id']."</td>";
-              echo "<td style='padding: 10px; font-size: 20px;' id='tdivision'>".$row['division']."</td>";
-              ?>
-
-              <td><center><button class="btn btn-primary edit_user"  value="<?php echo $row['id']; ?>">Edit</button></center></td>
-              <?php
-            echo "</tr>";
-          }
-        }
-        echo "</tbody>";
-        echo "</table";
-      ?>
+      
     </div>    
     </section>
 
@@ -289,9 +252,9 @@ for (i = 0; i < dropdown.length; i++) {
 $(document).on('click', '#submitButton', function(){
 
 event.preventDefault();
-    var validatecont =  $("#adddivision").val();
+    var validatecont =  $("#addposition").val();
         if(validatecont == ""){
-          $("#adddivision").focus();
+          $("#addposition").focus();
         }else{
           $('#save').modal('toggle');
         }
@@ -301,13 +264,13 @@ event.preventDefault();
     //Add New
     $(document).on('click', '.btncreate', function(){
       
-      $adddivision=$('#adddivision').val();
+      $addposition=$('#addposition').val();
           
         $.ajax({
           type: "POST",
-          url: "adddiv.php",
+          url: "addposition.php",
           data: {
-            division: $adddivision,
+            position: $addposition,
             add: 1,
           },
           success: function(){
@@ -316,7 +279,7 @@ event.preventDefault();
             $("#save").modal('hide');
             Swal.fire({
                   icon: 'success',
-                  title: 'New Division has been saved',
+                  title: 'New Position has been saved',
                   showConfirmButton: true, 
                 }).then(function (){
                   location.reload()
@@ -329,18 +292,18 @@ event.preventDefault();
     //Update
     $(document).on('click', '.update_user', function(){
       $uid=$("#uuid").val();
-      $division=$('#division').val(); 
+      $position=$('#position').val(); 
       
         
       //check ta nu maala na values bago ka ag ajaxstatus
       console.log($uid);
-      console.log($division);
+      console.log($position);
         $.ajax({
           type: "POST",
-          url: "updatediv.php",
+          url: "updateposition.php",
           data: {
             id: $uid,
-            division: $division,
+            position: $position,
             
             edit: 1,
           },
@@ -349,7 +312,7 @@ event.preventDefault();
             $("#update").modal('hide');
             Swal.fire({
                   icon: 'success',
-                  title: 'Division has been updated!',
+                  title: 'Position has been updated!',
                   showConfirmButton: true, 
                 }).then(function (){
                   location.reload()
@@ -364,14 +327,14 @@ event.preventDefault();
         
         var id = $(this).val();
               
-         var division = $('#'+id).children('td[id = tdivision]').text();
+         var position = $('#'+id).children('td[id = tposition]').text();
         
         console.log(id);
-        console.log(division);
+        console.log(position);
         
 
         
-        $("#division").val(division);
+        $("#position").val(position);
         $("#uuid").val(id);
 
         
@@ -390,14 +353,14 @@ event.preventDefault();
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
-       <h3 class = "text-primary modal-title">Add Division</h3>
+       <h3 class = "text-primary modal-title">Add Position</h3>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     </div>
     <div class="modal-body">
       <div class="form-horizontal">
         <div class="form-group">
             <div class="col-sm-9">
-              <input type="text" name="division" class="form-control disableButton" id="adddivision">
+              <input type="text" name="position" class="form-control disableButton" id="addposition">
             </div>
         </div>
         
@@ -422,7 +385,7 @@ event.preventDefault();
     </div>
     <div class="modal-body">
     <center>  
-<h4>Are you sure you want to save this division?</h4><br>
+<h4>Are you sure you want to save this position?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
 <input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md btncreate">
@@ -441,7 +404,7 @@ event.preventDefault();
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class = "modal-header">
-       <h3 class = "text-primary modal-title">Update Division</h3>
+       <h3 class = "text-primary modal-title">Update Position</h3>
       <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
      
     </div>
@@ -449,8 +412,8 @@ event.preventDefault();
       <div class="form-horizontal">
         <div class="form-group">
             <div class="col-sm-9">
-              <label>Division:</label>
-                  <input type="text" class="form-control" type="text" name="division" id="division">
+              <label>Position:</label>
+                  <input type="text" class="form-control" type="text" name="position" id="position">
             </div>
         </div>
         
@@ -477,7 +440,7 @@ event.preventDefault();
     </div>
     <div class="modal-body">
     <center>  
-<h4>Are you sure you want to update this Division?</h4><br>
+<h4>Are you sure you want to update this Position?</h4><br>
 
 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button> |
 <input type="submit" name="submit" value="&nbsp;&nbsp;Yes&nbsp;&nbsp;" class="btn btn-dark btn-md update_user">
