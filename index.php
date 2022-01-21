@@ -185,8 +185,8 @@ background-color:white;
             </div>
           </div>
           <div id="about" class="col-lg-6 order-lg-1">
-            <div class="p-5">
-              <h2 class="display-4">All about region I</h2>
+            <div class="p-4">
+              <h2 class="display-4">All about Region I</h2>
               <p>The Ilocos Region lies on the northwestern coast of Luzon. It is bounded by Cagayan, Kalinga, Apayao, Abra, Mt. Province, Benguet and Nueva Vizcaya on the east; Nueva Ecija, Tarlac and Zambales on the south; and the China Sea on the northwest. Its strategic location has made it the gateway to East Asia.<br>
 
               Region 1 consists of four (4) provinces and eight (8) cities, namely: the province of Ilocos Norte, Ilocos Sur, La Union and Pangasinan; and the cities of Dagupan, San Carlos, Alaminos and Urdaneta in Pangasinan; Laoag in Ilocos Norte, Vigan and Candon in Ilocos Sur; San Fernando in La Union. The City of San Fernando is the center of the region.</p>
