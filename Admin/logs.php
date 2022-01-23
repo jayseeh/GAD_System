@@ -142,7 +142,7 @@ background-color: #e6b800;
     <div class="row flex-nowrap">
         <div class="sidenav">
           <div class="d-flex justify-content-center">
-          <img src="img/01.png" style="max-width:90px;" alt="">
+          <img src="img/01.png" style="max-width:100px;" alt="">
         </div><br><br>
   <center><h6 style="color: white;"><?php echo $_SESSION['ulvl']; ?></h6></center>
   <hr style="height:2px;color:gray;background-color:gray">
@@ -188,6 +188,7 @@ background-color: #e6b800;
             <tr>
               <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>LOGS</th>
               <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>COMMITTED BY</th>
+              <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>USER LEVEL</th>
               <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>ACTIVITY</th>
               <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>LOG DATE</th>
             </tr>
@@ -197,6 +198,7 @@ background-color: #e6b800;
                 echo "<tr>";
                 echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['logs_id']."</td>";
                 echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['firstname']." ".$row['lastname']."</td>";
+                echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['userlevel']."</td>";
                 echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['logs_desc']."</td>";
                 echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['logs_date']."</td>";
                 echo "</tr>";
