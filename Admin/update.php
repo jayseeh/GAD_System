@@ -1,4 +1,6 @@
 <?php
+session_start();
+require("../Logs.php");
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 		include("../connect.php");
@@ -19,6 +21,7 @@
 
 		if(mysqli_query($conn,$sql)){
 			echo "<script>alert('User information successfully updated'); window.location = 'user.php';</script>";
+			insertLogs("Updated user information of ".$username);
 		}else{
 			echo "Error updating records!" . mysqli_error($conn);
 		}

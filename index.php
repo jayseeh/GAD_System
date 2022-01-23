@@ -3,6 +3,11 @@ require('connect.php');
 
 session_start();
 
+function insertLogs($user){
+  require('connect.php');
+  $sql = mysqli_query($conn,"INSERT INTO logs(logs_desc,user_id) VALUES ('Logged in','$user')");
+}
+
 if (isset($_POST['login'])){
   $username=$_POST['username'];
   $password=$_POST['password'];
@@ -18,7 +23,7 @@ if (isset($_POST['login'])){
     $_SESSION['user_password'] = $rowValidate['password'];
     $_SESSION['loc'] = $rowValidate['location'];
     $_SESSION['full_name'] = $rowValidate['firstname']." ".$rowValidate['lastname'];
- 
+    insertLogs($rowValidate['id']);
 
     if($rowValidate['status'] == "ACTIVE"){
 

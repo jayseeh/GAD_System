@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "../connect.php";
+include "../Logs.php";
 date_default_timezone_set("Asia/Singapore");
 $date = date('Y-m-d H:i:s');
 $form = $_POST['form_id'];
@@ -11,7 +12,8 @@ $form_type = $_POST['form_types'];
 $aaa="";
 
 if(mysqli_query($conn, "UPDATE gad_form SET form_status='$status', approver_id='$user', date_approved='$date', remarks='$remarks' WHERE form_number='$form'")){
-	if($form_type!="GPB"){
+	insertLogs($status." was set to the form number ".$form);
+	if($form_type!="GPB"){	
 		$aaa = "reggadar.php";
 	}else{
 		$aaa = "reggpb.php";

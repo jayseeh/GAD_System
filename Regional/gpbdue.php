@@ -214,6 +214,7 @@ width: 1150px;
 <input type="submit" class="btn btn-dark" name="submitDate" value="Set Date" required>
 </form>
 <?php
+  include "../Logs.php";
   if(isset($_POST['submitDate'])){
     $due_date = $_POST['due_date'];
     $str = explode("-", $due_date);
@@ -224,6 +225,7 @@ width: 1150px;
       $status = 'INACTIVE';
     }
     if(mysqli_num_rows(mysqli_query($conn,"SELECT * FROM due_dates WHERE code='$code' and form_type='GPB'"))==0){
+      insertLogs("Due date for GPB was set");
       $date_query = mysqli_query($conn, "INSERT INTO due_dates(due_date,form_type,date_submitted,status,code) VALUES ('$due_date','GPB','$date','$status','$code')");
       echo "<script>window.location = 'gpbdue.php?Add_due';</script>";
     }else{

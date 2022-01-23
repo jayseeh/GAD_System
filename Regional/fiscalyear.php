@@ -25,10 +25,10 @@ if(empty($_SESSION['ulvl'])){
 
     <title>GAD Monitoring and Mainstreaming System</title>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--AJAX-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
@@ -406,10 +406,15 @@ width: 1150px;
 
 <!-- update user info and password-->
 
-        <!-- update user info -->
   <script type = "text/javascript">
   $(document).ready(function(){
-
+    $("#start_date").change(function(){
+      sdate = $(this).val();
+      splitDate = sdate.split("-");
+      year_date=splitDate[0];
+      $("#end_date").val(year_date+"-12-31");
+      /*$("#end_date").datepicker({maxDate: new Date(year_date, 12, 31)});*/
+    });
 
     //Update
     $(document).on('click', '.update_info', function(){
@@ -723,7 +728,7 @@ $passW = $('#confirm_pword').val();
    
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

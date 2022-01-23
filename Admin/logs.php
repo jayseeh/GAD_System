@@ -184,6 +184,26 @@ background-color: #e6b800;
          <section><br>
          <div class="card" style="width: 70rem;">
          <div class="card-body">
+          <table id='list' class='table table-bordered table-hover'>
+            <tr>
+              <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>LOGS</th>
+              <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>COMMITTED BY</th>
+              <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>ACTIVITY</th>
+              <th style='padding: 10px; background-color: #3366ff; color: white; border-bottom: 2px solid black;'>LOG DATE</th>
+            </tr>
+            <?php
+              $query = mysqli_query($conn,"SELECT * FROM logs INNER JOIN caps ON logs.user_id=caps.id ORDER BY logs.logs_id DESC");
+              while($row=mysqli_fetch_assoc($query)){
+                echo "<tr>";
+                echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['logs_id']."</td>";
+                echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['firstname']." ".$row['lastname']."</td>";
+                echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['logs_desc']."</td>";
+                echo "<td style='padding: 10px;border-bottom: 1px solid black;' id='tid'>".$row['logs_date']."</td>";
+                echo "</tr>";
+              }
+              
+            ?>
+          </table>
               
   </div>
       

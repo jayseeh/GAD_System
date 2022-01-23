@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "../connect.php";
+include "../Logs.php";
 include('PHPExcel/Classes/PHPExcel/IOFactory.php');
 $date_submitted = $_POST['date_sub'];
 $totalrows=$_POST['numberOfRows'];
@@ -22,6 +23,7 @@ while ( $totalrows > 0) {
 	$col9= $_POST["val9-".$count];
 	$category= $_POST["cat-".$count];
 	if($form_type=='GAD'){
+		insertLogs("Submitted GAD Form under Request# ".$form_id);
 		$col10= $_POST["val10-".$count];
 		mysqli_query($conn, "INSERT INTO gad_table_entry_value (form_number,col1,col2,col3,col4,col5,col6,col7,col8,col9,col10,requestor_id,date_requested,row_number,category_focused) VALUES ('$form_id','$col1','$col2','$col3','$col4','$col5','$col6','$col7','$col8','$col9','$col10','$user','$date_submitted','$count','$category')");	
 
@@ -58,6 +60,7 @@ while ( $totalrows > 0) {
 		  }
 
 	}else{
+		insertLogs("Submitted GPB Form under Request# ".$form_id);
 		mysqli_query($conn, "INSERT INTO gad_table_entry_value (form_number,col1,col2,col3,col4,col5,col6,col7,col8,col9,requestor_id,date_requested,row_number,category_focused) VALUES ('$form_id','$col1','$col2','$col3','$col4','$col5','$col6','$col7','$col8','$col9','$user','$date_submitted','$count','$category')");
 	}
 	$totalrows= $totalrows-1; 
