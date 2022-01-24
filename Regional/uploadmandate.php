@@ -33,6 +33,7 @@ include("../Logs.php");
 		// execute query
 		if ($conn->query($sql) === TRUE) {
 			insertLogs("Uploaded a memo and mandate with Deped No. ".$depedno);
+			move_uploaded_file($fileTmpName,$path);
 		   	echo "<script>window.location = 'mandates.php?mandate_uploaded';</script>";
 		} else {
 		    echo "Error: " . $sql . "<br>" . $conn->error;
