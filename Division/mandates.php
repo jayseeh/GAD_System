@@ -1,10 +1,20 @@
 <?php session_start(); 
-
+require('../connect.php');
+date_default_timezone_set("Asia/Singapore");
+if(isset($_SESSION['code'])){
+  $code = $_SESSION['code'];
+}else{
+  $code = date('Y');
+}
+$nowYear = date('Y');
+$fetch_fiscal = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM fiscal_year WHERE code='$code'"));
+$fiscal_start = $fetch_fiscal['start_date'];
+$fiscal_end = $fetch_fiscal['end_date'];
 if(empty($_SESSION['ulvl'])){
   echo "<script>window.location = '../index.php';</script>";}
 
 
-require('../connect.php');
+
  $un = $_SESSION['uid'];
 
   $queryprofile = "SELECT * FROM caps WHERE id = '$un'";
@@ -182,7 +192,7 @@ width: 1150px;
                    include("../connect.php");
                    
 
-                   $sql="SELECT * FROM mandate";
+                   $sql="SELECT * FROM mandate INNER JOIN memo on mandate.depedno=memo.id WHERE mandate.date_submitted >= '$fiscal_start' and mandate.date_submitted <= '$fiscal_end'";
                    $result=mysqli_query($conn, $sql);
                        ?>                  
                             <table class="table table-bordered table-hover">

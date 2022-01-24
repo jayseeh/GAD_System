@@ -201,7 +201,7 @@ width: 1150px;
                    include("../connect.php");
                    
 
-                   $sql="SELECT * FROM mandate WHERE date_submitted >= '$fiscal_start' and date_submitted <= '$fiscal_end'";
+                   $sql="SELECT * FROM mandate INNER JOIN memo on mandate.depedno=memo.id WHERE mandate.date_submitted >= '$fiscal_start' and mandate.date_submitted <= '$fiscal_end'";
                    $result=mysqli_query($conn, $sql);
                        ?>                  
                             <table class="table table-bordered table-hover">
@@ -221,13 +221,14 @@ width: 1150px;
 
                                 if(mysqli_num_rows($result)>0){
                                 while($row=mysqli_fetch_assoc($result)){
+                                  $filecon = "Memo/".$row['filename'];
                                    ?>
                                 <tr>                                   
                                     <td><?php echo $row['depedno'];?></td>
 
                                     <td><?php echo $row['depedcontent'];?></td>                                   
 
-                                    <td><a href="../Regional/Memo/<?php echo $row['filename']; ?>" download>Download</a></td>
+                                    <td><a href="<?php echo $filecon; ?>" download>Download</a></td>
                                       
                                 </tr>
                                 <?php } ?>

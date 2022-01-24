@@ -181,7 +181,7 @@ width: 1150px;
 <div class="row">
   <div class="col">
  <div class="card text-center" style="width: 70rem;">
-  <form action="uploadmandate.php" method="post">
+  <form action="uploadmandate.php" method="post" enctype="multipart/form-data">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -206,6 +206,15 @@ width: 1150px;
     <tr>
       <td><input class="form-control form-control-lg" type="text" id="depedno" name="depedno" size="5px"></td>
       <td><textarea class="form-control" id="depedcontent" name="depedcontent" rows="3"></textarea></td>
+    </tr>
+  </tbody>
+</table>
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <td><label for="formFile" class="form-label">Upload file here</label>
+  <input class="form-control" type="file" id="formFile" name="file[]" multiple=""><br></td>
+      
     </tr>
   </tbody>
 </table>
@@ -266,39 +275,11 @@ width: 1150px;
   <div class="card-body">
 
 
-    <table class="table table-bordered">
-  <thead>
-    <tr>
-      <th style="background-color: #3366ff; color: white; border-bottom: 2px solid black;">Upload DepEd Memo File:</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><label for="formFile" class="form-label">Upload file here</label>
-  <input class="form-control" type="file" id="formFile" name="file[]" multiple=""><br></td>
-      
-    </tr>
-  </tbody>
-</table>
+    
 
  
   
-  <?php
-  if($nowYear==$code){
-    ?>
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <!--<button type="submit" name="submit" class="btn btn-primary">Upload</button>-->
-        <a data-toggle="modal" href="#upload_memo" data-dismiss="modal" class="btn btn-dark rounded-pill">Upload</a>
-      </div>
-      <?php
-  }else{
-    ?>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <label>You can't upload file since the active fiscal year is not the same with the current year.</label>
-      </div>
-    <?php
-  }
-?>
+  
 </div>
   </div>
 </div>

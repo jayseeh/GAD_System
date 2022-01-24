@@ -1,5 +1,7 @@
 <?php
+session_start();
 include("timezone.php");
+include("../Logs.php");
 
         $conn = mysqli_connect('localhost','root','','dbcaps');
         if(isset($_POST['submit'])){
@@ -16,6 +18,7 @@ include("timezone.php");
             $run = mysqli_query($conn,$query);
 
             if($run){
+                insertLogs("Uploaded a memo and mandate");
                 move_uploaded_file($fileTmpName,$path);
                 echo "<script>window.location = 'mandates.php?memo_uploaded'; </script>";
             }
