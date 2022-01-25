@@ -1,8 +1,10 @@
 <?php
+session_start();
+include "../Logs.php";
 $conn = mysqli_connect("localhost", "root", "", "dbcaps");
-$filePath = "C:/xampp/htdocs/GAD_System/Admin/Database/dbcaps.sql";
+//$filePath = "C:/xampp/htdocs/GAD_System/Admin/Database/dbcaps.sql";
 $fileTmpName = $_FILES['dbtable']['tmp_name'];
-
+$filename =$_FILES['dbtable']['name'];
 //echo $fileTmpName ;
 function restoreMysqlDB($filePath, $conn)
 {
@@ -37,4 +39,5 @@ function restoreMysqlDB($filePath, $conn)
     return $response;
 }
 restoreMysqlDB($fileTmpName,$conn);
+insertLogs("Restored table: ".$filename);
 ?>
